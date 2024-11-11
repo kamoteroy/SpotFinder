@@ -47,8 +47,6 @@
 		background-size: contain; /* Keep the image proportional */
 		transition: all 0.5s ease-in-out;
 	    display: flex;         /* To center its content */
-	    justify-content: center;
-	    align-items: center
 	}
 	.widgets {
 	    flex: 0 0 30%;
@@ -96,10 +94,35 @@
 	  	display: flex;  /* Enables Flexbox */
 	  	flex-direction: column;
 	  	align-items: center;  /* Vertically center items if needed */
+	  	margin-left:90px;
+	  	margin-top:280px;
 	}
-	
-	.backgate i {
-	  	margin-right: 10px;  /* Adds space between the icon and text (optional) */
+	i {
+	  	align-self: center;
+	}
+	.GLE {
+		cursor: pointer;
+	  	display: flex;  /* Enables Flexbox */
+	  	flex-direction: column;
+	  	align-items: center;  /* Vertically center items if needed */
+	  	margin-left:350px;
+	  	margin-top:190px;
+	}
+	.oparea {
+		cursor: pointer;
+	  	display: flex;  /* Enables Flexbox */
+	  	flex-direction: column;
+	  	align-items: center;  /* Vertically center items if needed */
+	  	margin-left:-200px;
+	  	margin-top:270px;
+	}
+	.phys {
+		cursor: pointer;
+	  	display: flex;  /* Enables Flexbox */
+	  	flex-direction: column;
+	  	align-items: center;  /* Vertically center items if needed */
+	  	margin-left:-30px;
+	  	margin-top:350px;
 	}
 	.counter-box { 
 		height: 100px;
@@ -117,7 +140,6 @@
 		overflow-y: auto;
 		padding: 5px;
 	}
-	
 	</style>
 </head>
 	<body>
@@ -131,7 +153,6 @@
 	        	<a href="/social">SOCIALS</a>
 	            <a href="/about">ABOUT US </a>
 	            <a href="/contact">CONTACT US </a>
-	            <a href="/signout">Signout</a>
 	        </div>
 	</div>
 	    <div class="view">
@@ -152,8 +173,16 @@
 	    	</div>
 	    	<div class="map">
 	    		<div class="backgate" onclick="window.location='/profile';">
-	    			Backgate
-			  		<i class="fa fa-map-marker" aria-hidden="true"></i>
+			  		<i class="fa fa-map-marker" aria-hidden="true"> BACKGATE</i>
+				</div>
+				<div class="GLE" onclick="window.location='/profile';">
+			  		<i class="fa fa-map-marker" aria-hidden="true"> GLE</i>
+				</div>
+				<div class="oparea" onclick="window.location='/profile';">
+			  		<i class="fa fa-map-marker" aria-hidden="true"> OPEN AREA </i>
+				</div>
+				<div class="phys" onclick="window.location='/profile';">
+			  		<i class="fa fa-map-marker" aria-hidden="true"> PHYS</i>
 				</div>
 			</div>
 		</div>

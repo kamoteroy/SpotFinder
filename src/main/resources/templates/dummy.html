@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Success</title>
+	<link rel="stylesheet" href="../design/navbar.css">
+	<link rel="icon" type="image/png" href="../design/icon.png">
+	<script src="https://kit.fontawesome.com/fca84d70ac.js"
+		crossorigin="anonymous">
+	</script>
+	<style>
+
+	#divaa2{
+	  position:absolute;
+	  left:300px;
+	  width:80px;
+	  height:80px;
+	  border-radius:100px;
+	  background:red;
+	  transition:.6s;
+	}
+	#divaa2:hover{
+	  height:200px;
+	}
+	#btnb1{
+	  position:absolute;
+	  top:0px;
+	  background:transparent;
+	  width:75px;
+	  color:transparent;
+	  padding-top:5px;
+	  padding-bottom:5px;
+	  font-family:Georgia, serif;
+	  font-size:15px;
+	  border:2.5px solid transparent;
+	  border-radius:100px;
+	  cursor:pointer;
+	  transition:.6s;
+	}
+	#divaa2:hover > #btnb1{
+	  top:90px;
+	  color:black;
+	  background:dimgrey;
+	  padding-bottom:5px;
+	}
+	#btnb2{
+	  position:absolute;
+	  top:0px;
+	  background:transparent;
+	  width:75px;
+	  color:transparent;
+	  padding-top:5px;
+	  padding-bottom:5px;
+	  font-family:Georgia, serif;
+	  font-size:15px;
+	  border:2.5px solid transparent;
+	  border-radius:100px;
+	  cursor:pointer;
+	  transition:.6s;
+	}
+	#divaa2:hover > #btnb2{
+	  top:140px;
+	  color:black;
+	  background:dimgrey;
+	  padding-bottom:5px;
+	}
+	</style>
+</head>
+	<body>
+        <div id="divaa2">
+          <a id="btnb1" href="/profile">Profile</a>
+          <a id="btnb2" href="/profile">Logout</a>
+        </div>
+
+	</body>
+</html>

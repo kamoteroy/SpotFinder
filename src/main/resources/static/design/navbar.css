@@ -9,7 +9,7 @@
 	margin-top:20px;
 }
 
-.navbar a {
+.navbar a{
 	color: black;
 	font-weight: 700;
 	text-decoration: none;
@@ -24,6 +24,13 @@
 	align-self: center;
 	color: white;
 }
+
+.navbar a img, .dropdown img {
+    width: 100%; /* Make the image fill the entire circle */
+    height: 100%; /* Make the image fill the entire circle */
+    object-fit: cover; /* Ensure the image covers the entire circle without distortion */
+    border-radius: 50%; /* Optional: to ensure the image itself is also rounded */
+}
 .navbar a:hover {
 	padding: 50px;
 	background-color: rgba(
@@ -37,7 +44,6 @@
 	padding: 5px 10px;
 	transition: all 0.3s ease;
 }
-
 .logo-button {
 	padding: 0.5rem 1rem;
 	    width: 100%;
@@ -62,7 +68,6 @@
 	flex: 50%;
 	height: 100%;
 	display: flex;
-	align-items: center;
 }
 
 .navbar .leftSide {
