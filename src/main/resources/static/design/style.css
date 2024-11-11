@@ -1,0 +1,211 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap");
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: "Poppins", sans-serif;
+}
+
+body {
+	display: flex;
+	min-height: 100vh;
+	background-image: url(./bg.jpg);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	flex-direction: column;
+}
+
+section {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sign {
+	height: 500px;
+	width: 500px;
+	background-color: transparent;
+	border: 2px solid rgba(255, 255, 255, 0.5);
+	border-radius: 20px;
+	backdrop-filter: blur(55px);
+	padding: 2rem 3rem;
+	transition: all 0.5s ease-in-out;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-content: center;
+}
+
+.forgot {
+	height: 400px;
+	width: 500px;
+	background-color: transparent;
+	border: 2px solid rgba(255, 255, 255, 0.5);
+	border-radius: 20px;
+	backdrop-filter: blur(55px);
+	padding: 2rem 3rem;
+	transition: all 0.5s ease-in-out;
+	display: flex;
+	flex-direction: column;
+	align-content: center;
+	justify-content: center;
+}
+
+.forgot .register,
+.forgot .inputbox,
+.forgot .warning{
+    margin: 20px; /* Add 1px space around each div */
+}
+
+.containers {
+	height: 252px;
+	width: 400px;
+	background-color: transparent;
+	border: 2px solid rgba(255, 255, 255, 0.8);
+	border-radius: 20px;
+	backdrop-filter: blur(55px);
+	transition: all 1 ease-in-out;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	overflow: hidden;
+	overflow-y: hidden;
+	overflow-y: auto;
+	padding: 5px;
+}
+
+.containers::-webkit-scrollbar {
+  display: none;
+}
+.history {
+	width: 360px;
+	background-color: transparent;
+	border: 2px solid rgba(255, 255, 255, 0.8);
+	border-radius: 20px;
+	backdrop-filter: blur(55px);
+	transition: all 1 ease-in-out;
+	align-items: center;
+	margin:5px;
+	padding: 15px;
+}
+
+h1 {
+	font-size: 3rem;
+	color: #fff;
+	text-align: center;
+}
+
+.inputbox {
+	position: relative;
+	border-bottom: 2px solid #fff;
+	transition: all 0.5s ease-in-out;
+	margin:2px 2px;
+}
+
+.inputbox input {
+	width: 100%;
+	height: 40px;
+	background: transparent;
+	border: none;
+	outline: none;
+	font-size: 1rem;
+	padding: 0 35px 0 5px;
+	color: #fff;
+}
+
+.inputbox input:-webkit-autofill {
+	-webkit-box-shadow: 0 0 0 0 white inset;
+    box-shadow: 0 0 0 0 white inset;
+    transition: background-color 5000s ease-in-out 0s;
+	color: #fff !important;
+}
+
+.inputbox input:-webkit-autofill::first-line {
+    color: #fff !important;
+}
+.inputbox ion-icon {
+	position: absolute;
+	right: 8px;
+	color: #fff;
+	font-size: 1.2rem;
+	top: 12px;
+	transition: all 0.5s ease-in-out;
+}
+
+.warning {
+    font-size: 0.8rem;
+    color: #ffd1df; /* Red color for warning */
+    background-color: rgba(255, 0, 0, 0.1); /* Light red background */
+    padding: 5px; /* Adds some padding */
+    border: 1px solid #ff0000; /* Red border */
+    border-radius: 3px; /* Slightly rounded corners */
+	text-align: center; /* Center the text */
+}
+
+.success {
+    font-size: 0.8rem; /* Adjusts the font size */
+    color: #90ee91; /* Red color for warning */
+    background-color: rgba(0, 255, 0, 0.1); /* Light green background */
+    padding: 5px; /* Adds some padding */
+    border: 1px solid green; /* Red border */
+    border-radius: 3px; /* Slightly rounded corners */
+    text-align: center; /* Center the text */
+}
+
+.inputbox label {
+	position: absolute;
+	top: 50%;
+	left: 5px;
+	transform: translateY(-50%);
+	color: #fff;
+	font-size: 1rem;
+	pointer-events: none;
+	transition: all 0.5s ease-in-out;
+}
+
+input:focus ~ label,
+input:valid ~ label {
+	top: -5px;
+	font-size: 0.9rem;
+	color: #a8a8a8;
+}
+
+button {
+	width: 100%;
+	height: 40px;
+	border-radius: 40px;
+	background-color: rgba(255, 255, 255, 1);
+	border: none;
+	outline: none;
+	cursor: pointer;
+	font-size: 1rem;
+	font-weight: 600;
+	transition: all 0.4s ease;
+}
+
+button:hover {
+	background-color: rgba(255, 255, 255, 0.5);
+}
+
+.register {
+	font-size: 0.9rem;
+	color: #fff;
+	text-align: center;
+	margin: 25px 0 10px;
+	transition: all 0.5s ease-in-out;
+}
+
+.register p a {
+	text-decoration: none;
+	color: #fff;
+	font-weight: 600;
+	transition: all 0.5s ease-in-out;
+}
+
+.register p a:hover {
+	text-decoration: underline;
+	color: #a8a8a8;
+}

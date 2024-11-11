@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title>Forgot Password</title>
+		<script
+			type="module"
+			src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+		></script>
+		<script
+			nomodule
+			src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+		></script>
+		<link rel="stylesheet" href="../design/style.css" />
+		<link rel="stylesheet" href="../design/navbar.css" />
+		<link rel="icon" type="image/png" href="../design/icon.png">
+	</head>
+	<body>
+		<div class="navbar">
+	        <div class="leftSide">
+	            <div class="hiddenas">
+	            	<a th:href="@{/}">HOME</a>
+	             </div>
+	        </div>
+	        <div class="rightSide">
+	        	<a th:href="@{/social}">SOCIALS</a>
+	            <a th:href="@{/about}">ABOUT US </a>
+	            <a th:href="@{/contact}">CONTACT US </a>
+	            <a th:href="@{/signin}">SIGN IN</a>
+	        </div>
+    	</div>	
+		<section>
+			<form class="forgot" th:action="@{/forgot}" th:object="${user}" method="post">
+				<h1>Forgot Password?</h1>
+				<div class="register">
+					<p>Remember Password?<a th:href="@{/signin}"> Sign In</a></p>
+				</div>
+				<div class="inputbox">
+					<ion-icon name="mail-outline"></ion-icon>
+					<input type="email" id="email" name="email" th:field="*{email}" required />
+					<label for="">Email</label>
+				</div>
+				<div th:if="${param.error}" class="warning">Invalid IDnum or password </div>
+				<button id="submit" type="submit">Reset Password</button>
+			</form>
+		</section>
+	</body>
+</html>

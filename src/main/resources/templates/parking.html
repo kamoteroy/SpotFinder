@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Success</title>
+	<link rel="stylesheet" href="../design/navbar.css">
+	<link rel="icon" type="image/png" href="../design/icon.png">
+	<script
+			src="https://kit.fontawesome.com/fca84d70ac.js"
+			crossorigin="anonymous"
+		></script>
+	<style>
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+		font-family: "Poppins", sans-serif;
+	}
+	body {
+		background-image: url('../design/bg.jpg');
+		height: 100vh;
+		background-repeat: no-repeat;
+		background-position: center;
+		background-size: cover;
+		display: flex;
+    	flex-direction: column; /* Stack elements vertically */
+    }
+    .view {
+    	left: 5vw;
+    	width:95vw;
+	    top: 15vh; /* Start from 15vh */
+	    height: 85vh; /* The height of the view container */
+	    display: flex;
+	    flex-direction: row; /* Arrange items vertically */
+	    box-sizing: border-box;
+	    position: relative;
+	}
+    .map {
+    	width: 100%;
+    	height: 100%; /* Allow it to take 70% of the view height */
+    	background-image: url('../design/map.png');
+    	background-repeat: no-repeat;
+		background-position: center;
+		background-size: contain; /* Keep the image proportional */
+		transition: all 0.5s ease-in-out;
+	    display: flex;         /* To center its content */
+	    justify-content: center;
+	    align-items: center
+	}
+	.widgets {
+	    flex: 0 0 30%;
+	    display: flex;         /* To center its content */
+	    justify-content: center;
+	    align-items: center;
+	    flex-direction: column; /* Arrange items vertically */
+	    gap: 40px;
+	    padding: 40px;
+	}
+	.slot-counter {
+		height: 300px;
+		width: 300px;
+		background-color: transparent;
+		border: 2px solid rgba(255, 255, 255, 0.5);
+		border-radius: 20px;
+		backdrop-filter: blur(55px);
+		padding: 2rem 3rem;
+		transition: all 0.5s ease-in-out;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		align-content: center;
+	}
+	.motor-counter {
+		height: 300px;
+		width: 300px;
+		background-color: transparent;
+		border: 2px solid rgba(255, 255, 255, 0.5);
+		border-radius: 20px;
+		backdrop-filter: blur(55px);
+		padding: 2rem 3rem;
+		transition: all 0.5s ease-in-out;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		align-content: center;
+	}
+	.backgate {
+	  display: flex;  /* Enables Flexbox */
+	  flex-direction: column;
+	  align-items: center;  /* Vertically center items if needed */
+	}
+	
+	.backgate i {
+	  margin-right: 10px;  /* Adds space between the icon and text (optional) */
+	}
+	</style>
+</head>
+	<body>
+	<div class="navbar">
+	        <div class="leftSide">
+	            <div class="hiddenas">
+	            	<a href="/">HOME</a>
+	             </div>
+	        </div>
+	        <div class="rightSide">
+	        	<a href="/social">SOCIALS</a>
+	            <a href="/about">ABOUT US </a>
+	            <a href="/contact">CONTACT US </a>
+	            <a href="/signin">SIGN UP</a>
+	        </div>
+	</div>
+	    <div class="view">
+	    	<div class="widgets">
+	    		<div class="slot-counter">
+	    			<div class="clock">
+					      <div class="100ths">0</div>
+					      <div class="10ths">0</div>
+					      <div class="1ths">0</div>
+					</div>
+	    		</div>
+	    		<div class="motor-counter"></div>
+	    	</div>
+	    	<div class="map">
+	    		<div class="backgate" onclick="window.location='/profile';">
+	    			Backgate
+			  		<i class="fa fa-map-marker" aria-hidden="true"></i>
+				</div>
+			</div>
+		</div>
+</body>
+</html>

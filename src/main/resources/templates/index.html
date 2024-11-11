@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html>
+	<head>
+		<title>SpotFinder</title>
+		<meta charset="utf-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1, user-scalable=no"
+		/>
+		<link rel="stylesheet" href="../design/assets/css/main.css" />
+		<noscript
+			><link rel="stylesheet" href="../design/assets/css/noscript.css"
+		/></noscript>
+		<script
+			src="https://kit.fontawesome.com/fca84d70ac.js"
+			crossorigin="anonymous"
+		></script>
+		<link rel="icon" type="image/png" href="../design/icon.png">
+	</head>
+	<body class="is-preload">
+		<div id="wrapper">
+			<div id="bg"></div>
+			<div id="overlay"></div>
+			<div id="main">
+				<!-- Header -->
+				<header id="header">
+					<h1>SpotFinder</h1>
+					<p>Find &nbsp;&bull;&nbsp; Navigate &nbsp;&bull;&nbsp; Park</p>
+					<nav>
+						<ul>
+							<li>
+								<a th:href="@{/signin}" class="fa-solid fa-arrow-right-to-bracket"
+									><span class="label">Login</span></a
+								>
+							</li>
+							<li>
+								<a th:href="@{/maps}" class="fa-solid fa-paper-plane"
+									><span class="label">Navigate</span></a
+								>
+							</li>
+							<li>
+								<a th:href="@{/nearme}" class="fa-solid fa-location-dot"
+									><span class="label">Parking Lots Near Me</span></a
+								>
+							</li>
+						</ul>
+					</nav>
+				</header>
+
+				<!-- Footer -->
+				<footer id="footer">
+					<span class="copyright"
+						>&copy; Modern Designs: <a href="/about">About Us</a>.</span
+					>
+				</footer>
+			</div>
+		</div>
+		<script>
+			window.onload = function () {
+				document.body.classList.remove("is-preload");
+			};
+			window.ontouchmove = function () {
+				return false;
+			};
+			window.onorientationchange = function () {
+				document.body.scrollTop = 0;
+			};
+		</script>
+	</body>
+</html>
