@@ -1,11 +1,10 @@
-/* --- Navbar Base Styles --- */
 .navbar {
 	width: 100%;
 	height: 10%;
 	background-color: transparent;
 	display: flex;
 	position: fixed;
-	border-radius: 50px; /* round the corners a bit for aesthetics */
+	border-radius: 50px;
 	font-family: "Roboto", sans-serif;
 	margin-top:20px;
 }
@@ -22,7 +21,7 @@
 	backdrop-filter: blur(55px);
 	padding: 0.5rem 1rem;
 	transition: all 0.5s ease-in-out;
-	align-self: center; /* or space-between */
+	align-self: center;
 	color: white;
 }
 .navbar a:hover {
@@ -32,12 +31,24 @@
 		255,
 		255,
 		0.5
-	); /* semi-transparent white for the "glass" effect */
-	backdrop-filter: blur(5px); /* blurring the content behind the element */
-	border-radius: 20px; /* round the corners a bit for aesthetics */
-	padding: 5px 10px; /* some padding to give space to the effect */
-	transition: all 0.3s ease; /* smooth transition for the effect */
+	);
+	backdrop-filter: blur(5px);
+	border-radius: 20px;
+	padding: 5px 10px;
+	transition: all 0.3s ease;
 }
+
+.logo-button {
+	padding: 0.5rem 1rem;
+	    width: 100%;
+	    height: 100vh; /* or whatever height you want */
+	    background-image: url('../design/logo.png');
+	    background-size: contain;
+	    background-position: center;
+	    background-repeat: no-repeat;
+	    cursor: pointer; /* Optional: changes the cursor to indicate it's clickable */
+	    height: 100%;
+	}
 
 .navbar .rightSide button:hover {
 	background-color: rgba(255, 255, 255, 0.1);
@@ -55,11 +66,7 @@
 }
 
 .navbar .leftSide {
-	padding-left: 150px;
-}
-
-.navbar .leftSide img {
-	width: 70px;
+	margin-left: -110px;
 }
 
 .navbar .rightSide {
@@ -78,7 +85,6 @@
 	font-size: 40px;
 }
 
-/* --- Navbar Toggles and Hidden Links --- */
 .navbar #open {
 	padding-left: 0;
 }
@@ -98,9 +104,6 @@
 	margin: 5px;
 }
 
-/* --- Media Queries --- */
-
-/* For screens up to 900px wide */
 @media only screen and (max-width: 900px) {
 	.navbar .leftSide {
 		padding-left: 50px;
@@ -111,7 +114,6 @@
 	}
 }
 
-/* For screens up to 600px wide */
 @media only screen and (max-width: 600px) {
 	.navbar .rightSide {
 		justify-content: flex-end;
@@ -127,7 +129,6 @@
 	}
 }
 
-/* For screens wider than 600px */
 @media only screen and (min-width: 600px) {
 	.navbar .rightSide button,
 	.hiddenLinks {
