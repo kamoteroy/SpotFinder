@@ -25,12 +25,35 @@ public class UserController {
 		return "history";
 	}
 	
-	@GetMapping("/parking")
+	@GetMapping("/map")
 	public String parking(Model model, Principal principal, HttpSession session) {
 		CustomUserDetails user = userDetailsService.loadUserByUsername(principal.getName());
 		model.addAttribute("user", user);
         session.setAttribute("user", user);
-		return "parking";
+		return "map";
+	}
+	
+	@GetMapping("/map/backgate")
+	public String backgateMap(Model model, Principal principal, HttpSession session) {
+		CustomUserDetails user = userDetailsService.loadUserByUsername(principal.getName());
+		model.addAttribute("user", user);
+        session.setAttribute("user", user);
+		return "backgate";
+	}
+	@GetMapping("/map/phys")
+	public String physMap(Model model, Principal principal, HttpSession session) {
+		CustomUserDetails user = userDetailsService.loadUserByUsername(principal.getName());
+		model.addAttribute("user", user);
+        session.setAttribute("user", user);
+		return "phys";
+	}
+	
+	@GetMapping("/map/GLE")
+	public String GLEMap(Model model, Principal principal, HttpSession session) {
+		CustomUserDetails user = userDetailsService.loadUserByUsername(principal.getName());
+		model.addAttribute("user", user);
+	    session.setAttribute("user", user);
+		return "GLE";
 	}
 	
 	@GetMapping("/profile")

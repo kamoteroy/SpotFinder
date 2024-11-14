@@ -36,7 +36,7 @@ public class SecurityConfig {
             .and()
             .formLogin()
 	        	.loginPage("/signin")
-	        	.defaultSuccessUrl("/parking", true)
+	        	.defaultSuccessUrl("/map", true)
 	        	.permitAll()
             .and()
             .logout()

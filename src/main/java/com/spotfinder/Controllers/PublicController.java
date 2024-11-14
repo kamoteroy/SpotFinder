@@ -26,7 +26,7 @@ public class PublicController {
 	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 	    if (authentication != null && authentication.isAuthenticated() 
 	        && !(authentication instanceof AnonymousAuthenticationToken)) {
-	        return "redirect:/parking"; 
+	        return "redirect:/map"; 
 	    }
 	    model.addAttribute("user", userDto);
 	    return "index";
@@ -37,7 +37,7 @@ public class PublicController {
 	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 	    if (authentication != null && authentication.isAuthenticated() 
 	        && !(authentication instanceof AnonymousAuthenticationToken)) {
-	        return "redirect:/parking"; 
+	        return "redirect:/map"; 
 	    }
 	    model.addAttribute("user", userDto);
 	    return "signin";
@@ -55,7 +55,7 @@ public class PublicController {
 	        return "signin";
 	    }
 	 
-	    return "redirect:/parking";
+	    return "redirect:/map";
 	}
 	
 	@GetMapping("/forgot")
@@ -63,7 +63,7 @@ public class PublicController {
 	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 	    if (authentication != null && authentication.isAuthenticated() 
 	        && !(authentication instanceof AnonymousAuthenticationToken)) {
-	        return "redirect:/parking"; 
+	        return "redirect:/map"; 
 	    }
 	    model.addAttribute("user", userDto);
 	    return "forgot";

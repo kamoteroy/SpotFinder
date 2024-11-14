@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<title>Success</title>
+	<title>Map</title>
 	<link rel="stylesheet" href="../design/navbar.css">
 	<link rel="icon" type="image/png" href="../design/icon.png">
 	<script
@@ -140,12 +140,25 @@
 		overflow-y: auto;
 		padding: 5px;
 	}
+	.navbar .leftSide {
+		margin-left:0px;
+		flex: 40%;
+		height: 100%;
+		display: flex;
+	}
+	
+	.navbar .rightSide {
+		flex: 60%;
+		justify-content: center;
+		height: 100%;
+		display: flex;
+	}
 	</style>
 </head>
 	<body>
 	<div class="navbar">
 	        <div class="leftSide">
-	            <div onclick="window.location.href='/parking'" class="logo-button">
+	            <div onclick="window.location.href='/map'" class="logo-button">
 				</div>
 	        </div>
 	        <div class="rightSide">
@@ -153,8 +166,12 @@
 	        	<a href="/social">SOCIALS</a>
 	            <a href="/about">ABOUT US </a>
 	            <a href="/contact">CONTACT US </a>
+	            <a href="/profile">PROFILE </a>
+	            <a href="/signout">SIGNOUT </a>
 	        </div>
+	        
 	</div>
+	
 	    <div class="view">
 	    	<div class="widgets">
 	    		<div class="slot-counter">
@@ -172,16 +189,16 @@
 	    		</div>
 	    	</div>
 	    	<div class="map">
-	    		<div class="backgate" onclick="window.location='/profile';">
+	    		<div class="backgate" onclick="window.location='/map/backgate';">
 			  		<i class="fa fa-map-marker" aria-hidden="true"> BACKGATE</i>
 				</div>
-				<div class="GLE" onclick="window.location='/profile';">
+				<div class="GLE" onclick="window.location='/map/GLE';">
 			  		<i class="fa fa-map-marker" aria-hidden="true"> GLE</i>
 				</div>
-				<div class="oparea" onclick="window.location='/profile';">
+				<div class="oparea" onclick="window.location='/map/oarea';">
 			  		<i class="fa fa-map-marker" aria-hidden="true"> OPEN AREA </i>
 				</div>
-				<div class="phys" onclick="window.location='/profile';">
+				<div class="phys" onclick="window.location='/map/phys';">
 			  		<i class="fa fa-map-marker" aria-hidden="true"> PHYS</i>
 				</div>
 			</div>

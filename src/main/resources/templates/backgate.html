@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<title>Success</title>
+	<title>Backgate</title>
 	<link rel="stylesheet" href="../design/navbar.css">
 	<link rel="icon" type="image/png" href="../design/icon.png">
 	<script
@@ -104,35 +104,83 @@
 	    background-size: contain;
 	    transition: all 0.5s ease-in-out;
 	    display: flex;
+	    justify-content: center;  /* Center content horizontally */
+	    align-items: center;      /* Center content vertically */
+	    position: relative;       /* Allow for absolute positioning of children, if needed */
+	    flex-direction :column;
+	    gap:85px;
+	}
+	.map p{
+	    font-size:30px;
 	}
 	
-	.map-button {
-	    position: relative;  /* Position the button relative to the viewport */
-	    top: 27%;        /* Distance from the top of the screen */
-	    left: 45.4%;       /* Distance from the left side of the screen */
+	.button-row1 {
+	    display: flex;                  /* Make the container a flex container */
+	    justify-content: space-around;  /* Distribute space evenly between the buttons */
+	    gap: 30px;                      /* Optional: Adds a consistent gap between the buttons */
+	    position: relative;
+	    z-index: 10;                    /* Ensure buttons are on top of other elements */
+	    left:0.7%;
+	}
+	.button-row2 {
+	    display: flex;                  /* Make the container a flex container */
+	    justify-content: space-around;  /* Distribute space evenly between the buttons */
+	    gap: 30px;                      /* Optional: Adds a consistent gap between the buttons */
+	    position: relative;
+	    z-index: 10;                    /* Ensure buttons are on top of other elements */
+	    left:0.7%;
+	}
+	
+	.map-button-green, .map-button-red {
 	    background-color: rgba(0, 0, 0, 0.5);
-	    color: white;
-	    border: none;
-	    border-radius: 5px;
+	    color: black;
 	    font-size: 16px;
 	    cursor: pointer;
-	    z-index: 10;      /* Ensure it's above other content */
-	    height:120px;
-	    width:110px;
-	    top: 27%;        /* Distance from the top of the screen */
-	    left: 45.4%;       /* Distance from the left side of the screen */
+	    z-index: 10;                    /* Ensure it's above other content */
+	    height: 120px;
+	    width: 110px;
+	    transition: background-color 0.3s ease; /* Smooth transition on hover */
+	    font-size: 0.8rem; /* Adjusts the font size */
+	    background-color: rgba(0, 255, 0, 0.5); /* Light green background */
+	    padding: 5px; /* Adds some padding */
+	    border: 2px solid green; /* Red border */
+	    border-radius: 3px; /* Slightly rounded corners */
+		text-align: center;                /* Center the text */
 	}
 	
+	.map-button-red {
+	    background-color: rgba(255, 0, 0, 0.5); /* Light red background */
+	    border: 2px solid #ff0000;              /* Red border */
+	}
 	.map-button:hover {
 	    background-color: rgba(0, 0, 0, 0.7);
 	}
-
+	
+	/* Optional: If you want to scale down the map and buttons when zooming out */
+	@media (max-width: 1200px) {
+	    .map-button {
+	        transform: scale(0.8); /* Scale down the button */
+	    }
+	}
+	.navbar .leftSide {
+		margin-left:0px;
+		flex: 40%;
+		height: 100%;
+		display: flex;
+	}
+	
+	.navbar .rightSide {
+		flex: 60%;
+		justify-content: center;
+		height: 100%;
+		display: flex;
+	}
 	</style>
 </head>
 	<body>
 	<div class="navbar">
 	        <div class="leftSide">
-	            <div onclick="window.location.href='/parking'" class="logo-button">
+	            <div onclick="window.location.href='/map'" class="logo-button">
 				</div>
 	        </div>
 	        <div class="rightSide">
@@ -163,7 +211,21 @@
 	    		</div>
 	    	</div>
 	    	<div class="map">
-	    		<button class="map-button">Click Me</button>
+	    		 <div class="button-row1">
+			        <button th:class="${buttonColor == 'taken' ? 'map-button-red' : 'map-button-green'}">B1</button>
+			        <button th:class="${buttonColor == 'taken' ? 'map-button-red' : 'map-button-green'}">B2</button>
+			        <button th:class="${buttonColor == 'taken' ? 'map-button-red' : 'map-button-green'}">B3</button>
+			        <button th:class="${buttonColor == 'taken' ? 'map-button-red' : 'map-button-green'}">B4</button>
+			        <button th:class="${buttonColor == 'taken' ? 'map-button-red' : 'map-button-green'}">B5</button>
+			    </div>
+			    <p>Backgate</p>
+			    <div class="button-row2">
+			        <button th:class="${buttonColor == 'taken' ? 'map-button-red' : 'map-button-green'}">B6</button>
+			        <button th:class="${buttonColor == 'taken' ? 'map-button-red' : 'map-button-green'}">B7</button>
+			        <button th:class="${buttonColor == 'taken' ? 'map-button-red' : 'map-button-green'}">B8</button>
+			        <button th:class="${buttonColor == 'taken' ? 'map-button-red' : 'map-button-green'}">B9</button>
+			        <button th:class="${buttonColor == 'taken' ? 'map-button-red' : 'map-button-green'}">B10</button>
+			    </div>
 			</div>
 		</div>
 </body>

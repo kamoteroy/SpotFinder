@@ -24,7 +24,6 @@
 	align-self: center;
 	color: white;
 }
-
 .navbar a img, .dropdown img {
     width: 100%; /* Make the image fill the entire circle */
     height: 100%; /* Make the image fill the entire circle */
@@ -54,8 +53,7 @@
 	    background-repeat: no-repeat;
 	    cursor: pointer; /* Optional: changes the cursor to indicate it's clickable */
 	    height: 100%;
-	}
-
+}
 .navbar .rightSide button:hover {
 	background-color: rgba(255, 255, 255, 0.1);
 	backdrop-filter: blur(5px);
