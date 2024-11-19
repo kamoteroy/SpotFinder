@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<title>Backgate</title>
+	<title>GLE</title>
 	<link rel="stylesheet" href="../design/navbar.css">
 	<link rel="icon" type="image/png" href="../design/icon.png">
 	<script
@@ -98,7 +98,6 @@
 	.map {
 	    width: 100%;
 	    height: 100%;
-	    background-image: url('../design/parklandscape.png');
 	    background-repeat: no-repeat;
 	    background-position: center;
 	    background-size: contain;
@@ -108,27 +107,34 @@
 	    align-items: center;      /* Center content vertically */
 	    position: relative;       /* Allow for absolute positioning of children, if needed */
 	    flex-direction :column;
-	    gap:85px;
+	    gap:20px;
 	}
 	.map p{
-	    font-size:30px;
+	    font-size:40px;
+	    position:absolute;
+	}
+	.map img{
+		height:600px;
+		width:850px;
+	    position:absolute;
+	}
+	.map .button-row1, .button-row2 {
+	  display: flex;                  /* Use Flexbox for the button rows */
+	  justify-content: center;  /* Distribute buttons evenly */
+	  align-items:center;
+	  z-index: 10;                    /* Ensure buttons are on top of the image */
+	  gap:40px;
+	  margin:0;
+	  position:relative;
+	  left:8px;
 	}
 	
-	.button-row1 {
-	    display: flex;                  /* Make the container a flex container */
-	    justify-content: space-around;  /* Distribute space evenly between the buttons */
-	    gap: 30px;                      /* Optional: Adds a consistent gap between the buttons */
-	    position: relative;
-	    z-index: 10;                    /* Ensure buttons are on top of other elements */
-	    left:0.7%;
+	.map .button-row1 {
+	top: -80px; /* Adjust the positioning as needed */
 	}
-	.button-row2 {
-	    display: flex;                  /* Make the container a flex container */
-	    justify-content: space-around;  /* Distribute space evenly between the buttons */
-	    gap: 30px;                      /* Optional: Adds a consistent gap between the buttons */
-	    position: relative;
-	    z-index: 10;                    /* Ensure buttons are on top of other elements */
-	    left:0.7%;
+	
+	.map .button-row2 {
+	top: 85px; /* Adjust the positioning as needed */
 	}
 	
 	.map-button-green, .map-button-red {
@@ -211,6 +217,7 @@
 	    		</div>
 	    	</div>
 	    	<div class="map">
+	    		<img src='../design/parklandscape.png' alt="Image Description">
 	    		 <div class="button-row1">
 			        <button th:class="${buttonColor == 'taken' ? 'map-button-red' : 'map-button-green'}">B1</button>
 			        <button th:class="${buttonColor == 'taken' ? 'map-button-red' : 'map-button-green'}">B2</button>
@@ -218,7 +225,7 @@
 			        <button th:class="${buttonColor == 'taken' ? 'map-button-red' : 'map-button-green'}">B4</button>
 			        <button th:class="${buttonColor == 'taken' ? 'map-button-red' : 'map-button-green'}">B5</button>
 			    </div>
-			    <p>Backgate</p>
+			    <p>BACKGATE</p>
 			    <div class="button-row2">
 			        <button th:class="${buttonColor == 'taken' ? 'map-button-red' : 'map-button-green'}">B6</button>
 			        <button th:class="${buttonColor == 'taken' ? 'map-button-red' : 'map-button-green'}">B7</button>

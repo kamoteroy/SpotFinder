@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<title>PHYS</title>
+	<title>GLE</title>
 	<link rel="stylesheet" href="../design/navbar.css">
 	<link rel="icon" type="image/png" href="../design/icon.png">
 	<script
@@ -98,7 +98,6 @@
 	.map {
 	    width: 100%;
 	    height: 100%;
-	    background-image: url('../design/parkingportrait.png');
 	    background-repeat: no-repeat;
 	    background-position: center;
 	    background-size: contain;
@@ -107,48 +106,49 @@
 	    justify-content: center;  /* Center content horizontally */
 	    align-items: center;      /* Center content vertically */
 	    position: relative;       /* Allow for absolute positioning of children, if needed */
-	    flex-direction: row;   /* Stack everything vertically */
-	    gap: 40px;
+	    flex-direction :row;
+	    gap:150px;
 	}
-	
-	.map p {
-	    font-size: 30px;
+	.map p{
+	    font-size:40px;
+	    position:absolute;
 	}
-	
-	.button-row1,
-	.button-row2 {
-	    display: flex;                    /* Make the container a flex container */
-	    flex-direction: column;           /* Stack buttons vertically */
-	    align-items: center;              /* Center buttons horizontally */
-	    gap: 15px;                        /* Add some space between buttons */
-	    position: relative;
-	    z-index: 10;                      /* Ensure buttons are on top of other elements */
-	    margin-top:-10px;
+	.map img{
+		height:600px;
+		width:450px;
+	    position:absolute;
 	}
-	
-	.map-button-green,
-	.map-button-red {
+	.map .button-row1, .button-row2 {
+	  display: flex;                  /* Use Flexbox for the button rows */
+	  justify-content: center;  /* Distribute buttons evenly */
+	  align-items:center;
+	  z-index: 10;                    /* Ensure buttons are on top of the image */
+	  flex-direction :column;
+	  gap:25px;
+	  margin:0;
+	  position:relative;
+	  top:-5px;
+	}
+	.map-button-green, .map-button-red {
 	    background-color: rgba(0, 0, 0, 0.5);
 	    color: black;
 	    font-size: 16px;
 	    cursor: pointer;
-	    z-index: 10;                      /* Ensure it's above other content */
-	    height: 95px;
-	    width: 105px;
+	    z-index: 10;                    /* Ensure it's above other content */
+	    height: 80px;
+	    width: 90px;
 	    transition: background-color 0.3s ease; /* Smooth transition on hover */
-	    font-size: 0.8rem;                 /* Adjusts the font size */
+	    font-size: 0.8rem; /* Adjusts the font size */
 	    background-color: rgba(0, 255, 0, 0.5); /* Light green background */
-	    padding: 5px;                      /* Adds some padding */
-	    border: 2px solid green;           /* Green border */
-	    border-radius: 3px;                /* Slightly rounded corners */
-	    text-align: center;                /* Center the text */
+	    padding: 5px; /* Adds some padding */
+	    border: 2px solid green; /* Red border */
+	    border-radius: 3px; /* Slightly rounded corners */
+		text-align: center;                /* Center the text */
 	}
-	
 	.map-button-red {
 	    background-color: rgba(255, 0, 0, 0.5); /* Light red background */
 	    border: 2px solid #ff0000;              /* Red border */
 	}
-	
 	.map-button:hover {
 	    background-color: rgba(0, 0, 0, 0.7);
 	}
@@ -177,7 +177,7 @@
 	<body>
 	<div class="navbar">
 	        <div class="leftSide">
-	            <div onclick="window.location.href='/parking'" class="logo-button">
+	            <div onclick="window.location.href='/map'" class="logo-button">
 				</div>
 	        </div>
 	        <div class="rightSide">
@@ -185,8 +185,17 @@
 	        	<a href="/social">SOCIALS</a>
 	            <a href="/about">ABOUT US </a>
 	            <a href="/contact">CONTACT US </a>
-	            <a href="/profile">PROFILE </a>
-	            <a href="/signout">SIGNOUT </a>
+	            <div class="dropdown">
+			    <!-- Hidden checkbox to trigger dropdown visibility -->
+			    <input type="checkbox" id="dropdown-toggle" class="dropdown-toggle">
+			    <label for="dropdown-toggle" class="dropdown-button"></label>
+			
+			    <!-- Dropdown menu -->
+			    <div class="dropdown-content">
+			      <a href="/profile">PROFILE</a>
+			      <a href="/signout">SIGNOUT</a>
+			    </div>
+			  </div>
 	        </div>
 	        
 	</div>
@@ -207,7 +216,9 @@
 	    			</div>
 	    		</div>
 	    	</div>
+	    	
 	    	<div class="map">
+	    		<img src='../design/parkingportrait.png' alt="Image Description">
 	    		 <div class="button-row1">
 			        <button th:class="${buttonColor == 'taken' ? 'map-button-red' : 'map-button-green'}">P1</button>
 			        <button th:class="${buttonColor == 'taken' ? 'map-button-red' : 'map-button-green'}">P2</button>

@@ -29,33 +29,74 @@
     	font-size:20px;
     }
     .view {
-    	left: 5vw;
-    	width:95vw;
+    	width:100vw;
 	    top: 15vh; /* Start from 15vh */
 	    height: 85vh; /* The height of the view container */
 	    display: flex;
 	    flex-direction: row; /* Arrange items vertically */
-	    box-sizing: border-box;
 	    position: relative;
+	    justify-content: center;
+	  	align-items: center; /* Centers content inside the map */
+	  	
 	}
     .map {
-    	width: 100%;
-    	height: 100%; /* Allow it to take 70% of the view height */
-    	background-image: url('../design/map.png');
-    	background-repeat: no-repeat;
-		background-position: center;
-		background-size: contain; /* Keep the image proportional */
-		transition: all 0.5s ease-in-out;
-	    display: flex;         /* To center its content */
+	  width: 1000px;
+	  height: 600px; /* Keep this fixed size or adjust as needed */
+	  background-repeat: no-repeat;
+	  background-position: center;
+	  background-size: contain; /* Ensures the image remains proportional */
+	  position: relative; /* To allow absolute positioning of the marker elements */
+	  transition: all 0.5s ease-in-out;
+	  display: flex;
+	  justify-content: center;
+	  align-items: center; /* Centers content inside the map */
+	}
+	
+	.map img {
+	  width: 100%;
+	  height: 100%;
+	  object-fit: contain; /* Ensure the image is contained properly without distortion */
+	}
+	
+	.map div {
+	  position: absolute; /* Allow positioning within the map */
+	  cursor: pointer;
+	  display: flex;
+	  flex-direction: column;
+	  align-items: center;
+	}
+	
+	.map i {
+	  margin-bottom: 5px; /* Add spacing between icon and text */
+	}
+	
+	.map .backgate {
+	  top: 45%; /* Adjust the position as needed */
+	  left: 10%; /* Adjust the position as needed */
+	}
+	
+	.map .GLE {
+	  top: 28%; /* Adjust the position as needed */
+	  left: 50%; /* Adjust the position as needed */
+	}
+	
+	.map .oparea {
+	  top: 45%; /* Adjust the position as needed */
+	  left: 40%; /* Adjust the position as needed */
+	}
+	
+	.map .phys {
+	  top: 60%; /* Adjust the position as needed */
+	  left: 45%; /* Adjust the position as needed */
 	}
 	.widgets {
 	    flex: 0 0 30%;
 	    display: flex;         /* To center its content */
 	    justify-content: center;
 	    align-items: center;
+	    gap: 20px;
 	    flex-direction: column; /* Arrange items vertically */
-	    gap: 40px;
-	    padding: 40px;
+	    margin-left:70px;
 	}
 	.slot-counter {
 		height: 300px;
@@ -88,41 +129,6 @@
 		justify-content: space-around;
 		align-content: center;
 		align-items: center;      /* Centers content vertically */
-	}
-	.backgate {
-		cursor: pointer;
-	  	display: flex;  /* Enables Flexbox */
-	  	flex-direction: column;
-	  	align-items: center;  /* Vertically center items if needed */
-	  	margin-left:90px;
-	  	margin-top:280px;
-	}
-	i {
-	  	align-self: center;
-	}
-	.GLE {
-		cursor: pointer;
-	  	display: flex;  /* Enables Flexbox */
-	  	flex-direction: column;
-	  	align-items: center;  /* Vertically center items if needed */
-	  	margin-left:350px;
-	  	margin-top:190px;
-	}
-	.oparea {
-		cursor: pointer;
-	  	display: flex;  /* Enables Flexbox */
-	  	flex-direction: column;
-	  	align-items: center;  /* Vertically center items if needed */
-	  	margin-left:-200px;
-	  	margin-top:270px;
-	}
-	.phys {
-		cursor: pointer;
-	  	display: flex;  /* Enables Flexbox */
-	  	flex-direction: column;
-	  	align-items: center;  /* Vertically center items if needed */
-	  	margin-left:-30px;
-	  	margin-top:350px;
 	}
 	.counter-box { 
 		height: 100px;
@@ -189,6 +195,7 @@
 	    		</div>
 	    	</div>
 	    	<div class="map">
+	    		<img src='../design/map.png' alt="Image Description">
 	    		<div class="backgate" onclick="window.location='/map/backgate';">
 			  		<i class="fa fa-map-marker" aria-hidden="true"> BACKGATE</i>
 				</div>
