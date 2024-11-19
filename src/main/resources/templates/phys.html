@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<title>GLE</title>
+	<title>PHYS</title>
 	<link rel="stylesheet" href="../design/navbar.css">
 	<link rel="icon" type="image/png" href="../design/icon.png">
 	<script
@@ -185,21 +185,16 @@
 	        	<a href="/social">SOCIALS</a>
 	            <a href="/about">ABOUT US </a>
 	            <a href="/contact">CONTACT US </a>
-	            <div class="dropdown">
-			    <!-- Hidden checkbox to trigger dropdown visibility -->
-			    <input type="checkbox" id="dropdown-toggle" class="dropdown-toggle">
-			    <label for="dropdown-toggle" class="dropdown-button"></label>
-			
-			    <!-- Dropdown menu -->
-			    <div class="dropdown-content">
-			      <a href="/profile">PROFILE</a>
-			      <a href="/signout">SIGNOUT</a>
-			    </div>
-			  </div>
 	        </div>
-	        
 	</div>
-	
+	<div class="dropdown">
+		<input id="dropdown-toggle" class="dropdown-toggle">
+		<label for="dropdown-toggle" class="dropdown-button"></label>
+		<div class="dropdown-content">
+		<a href="/profile" class="profile-button">PROFILE</a>
+		<a href="/signout" class="signout-button">SIGNOUT</a>
+		</div>
+	</div>
 	    <div class="view">
 	    	<div class="widgets">
 	    		<div class="slot-counter">

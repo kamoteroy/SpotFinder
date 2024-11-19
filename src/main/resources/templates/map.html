@@ -172,12 +172,17 @@
 	        	<a href="/social">SOCIALS</a>
 	            <a href="/about">ABOUT US </a>
 	            <a href="/contact">CONTACT US </a>
-	            <a href="/profile">PROFILE </a>
-	            <a href="/signout">SIGNOUT </a>
+	            
 	        </div>
-	        
 	</div>
-	
+	<div class="dropdown">
+		<input id="dropdown-toggle" class="dropdown-toggle">
+		<label for="dropdown-toggle" class="dropdown-button"></label>
+		<div class="dropdown-content">
+		<a href="/profile" class="profile-button">PROFILE</a>
+		<a href="/signout" class="signout-button">SIGNOUT</a>
+		</div>
+	</div>
 	    <div class="view">
 	    	<div class="widgets">
 	    		<div class="slot-counter">
@@ -202,7 +207,7 @@
 				<div class="GLE" onclick="window.location='/map/GLE';">
 			  		<i class="fa fa-map-marker" aria-hidden="true"> GLE</i>
 				</div>
-				<div class="oparea" onclick="window.location='/map/oarea';">
+				<div class="oparea" onclick="window.location='/map/open-area';">
 			  		<i class="fa fa-map-marker" aria-hidden="true"> OPEN AREA </i>
 				</div>
 				<div class="phys" onclick="window.location='/map/phys';">

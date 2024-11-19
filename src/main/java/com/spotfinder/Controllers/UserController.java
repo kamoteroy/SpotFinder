@@ -40,6 +40,13 @@ public class UserController {
         session.setAttribute("user", user);
 		return "backgate";
 	}
+	@GetMapping("/map/open-area")
+	public String open_areaMap(Model model, Principal principal, HttpSession session) {
+		CustomUserDetails user = userDetailsService.loadUserByUsername(principal.getName());
+		model.addAttribute("user", user);
+        session.setAttribute("user", user);
+		return "oarea";
+	}
 	@GetMapping("/map/phys")
 	public String physMap(Model model, Principal principal, HttpSession session) {
 		CustomUserDetails user = userDetailsService.loadUserByUsername(principal.getName());
