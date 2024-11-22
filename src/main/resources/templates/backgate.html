@@ -190,7 +190,7 @@
 				</div>
 	        </div>
 	        <div class="rightSide">
-	        	<a href="/">HOME</a>
+	        	<a href="/">MAP</a>
 	        	<a href="/social">SOCIALS</a>
 	            <a href="/about">ABOUT US </a>
 	            <a href="/contact">CONTACT US </a>
@@ -223,12 +223,22 @@
 	    	<div class="map">
 	    		<img src='../design/parklandscape.png' alt="Image Description">
 	    		 <div class="button-row1">
-			        <button th:class="${buttonColor == 'taken' ? 'map-button-red' : 'map-button-green'}">B1</button>
-			        <button th:class="${buttonColor == 'taken' ? 'map-button-red' : 'map-button-green'}">B2</button>
-			        <button th:class="${buttonColor == 'taken' ? 'map-button-red' : 'map-button-green'}">B3</button>
-			        <button th:class="${buttonColor == 'taken' ? 'map-button-red' : 'map-button-green'}">B4</button>
-			        <button th:class="${buttonColor == 'taken' ? 'map-button-red' : 'map-button-green'}">B5</button>
-			    </div>
+				    <button id="B1" 
+				            th:class="${parkingSlotService.isOccupied('B1') ? 'map-button-red' : 'map-button-green'}"
+				            onclick="toggleOccupied('B1')">B1</button>
+				    <button id="B2" 
+				            th:class="${parkingSlotService.isOccupied('B2') ? 'map-button-red' : 'map-button-green'}"
+				            onclick="toggleOccupied('B2')">B2</button>
+				    <button id="B3" 
+				            th:class="${parkingSlotService.isOccupied('B3') ? 'map-button-red' : 'map-button-green'}"
+				            onclick="toggleOccupied('B3')">B3</button>
+				    <button id="B4" 
+				            th:class="${parkingSlotService.isOccupied('B4') ? 'map-button-red' : 'map-button-green'}"
+				            onclick="toggleOccupied('B4')">B4</button>
+				    <button id="B5" 
+				            th:class="${parkingSlotService.isOccupied('B5') ? 'map-button-red' : 'map-button-green'}"
+				            onclick="toggleOccupied('B5')">B5</button>
+				</div>
 			    <p>BACKGATE</p>
 			    <div class="button-row2">
 			        <button th:class="${buttonColor == 'taken' ? 'map-button-red' : 'map-button-green'}">B6</button>
@@ -239,5 +249,21 @@
 			    </div>
 			</div>
 		</div>
+		<script>
+		    // Function to toggle the occupied state
+		    function toggleOccupied(slotName) {
+		        fetch(`/updateSlotStatus/${slotName}`)
+		            .then(response => {
+		                if (response.ok) {
+		                    // Change the color of the button dynamically after the update
+		                    const button = document.getElementById(slotName);
+		                    button.classList.toggle('map-button-red');
+		                    button.classList.toggle('map-button-green');
+		                } else {
+		                    alert('Error updating slot status');
+		                }
+		            });
+		    }
+		</script>
 </body>
 </html>
