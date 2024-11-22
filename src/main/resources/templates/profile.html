@@ -1,191 +1,238 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>User Profile</title>
-    <style>
-	body{
-	    margin-top:20px;
-	    background:#f5f5f5;
-	}
-	/**
-	 * Panels
-	 */
-	/*** General styles ***/
-	.panel {
-	  box-shadow: none;
-	}
-	.panel-heading {
-	  border-bottom: 0;
-	}
-	.panel-title {
-	  font-size: 17px;
-	}
-	.panel-title > small {
-	  font-size: .75em;
-	  color: #999999;
-	}
-	.panel-body *:first-child {
-	  margin-top: 0;
-	}
-	.panel-footer {
-	  border-top: 0;
-	}
-	
-	.panel-default > .panel-heading {
-	    color: #333333;
-	    background-color: transparent;
-	    border-color: rgba(0, 0, 0, 0.07);
-	}
-	
-	form label {
-	    color: #999999;
-	    font-weight: 400;
-	}
-	
-	.form-horizontal .form-group {
-	  margin-left: -15px;
-	  margin-right: -15px;
-	}
-	@media (min-width: 768px) {
-	  .form-horizontal .control-label {
-	    text-align: right;
-	    margin-bottom: 0;
-	    padding-top: 7px;
-	  }
-	}
-	
-	.profile__contact-info-icon {
-	    float: left;
-	    font-size: 18px;
-	    color: #999999;
-	}
-	.profile__contact-info-body {
-	    overflow: hidden;
-	    padding-left: 20px;
-	    color: #999999;
-	}
-	.profile-avatar {
-	  width: 200px;
-	  position: relative;
-	  margin: 0px auto;
-	  margin-top: 196px;
-	  border: 4px solid #f3f3f3;
-	}
-    </style>
-</head>
-<body>
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-<div class="container bootstrap snippets bootdeys">
-	<div class="row">
-	  <div class="col-xs-12 col-sm-9">
-	    <form class="form-horizontal">
-	        <div class="panel panel-default">
-	          <div class="panel-body text-center">
-	           <img src="https://bootdey.com/img/Content/avatar/avatar6.png" class="img-circle profile-avatar" alt="User avatar">
-	          </div>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title>Profile</title>
+		<script
+			type="module"
+			src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+		></script>
+		<script
+			nomodule
+			src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+		></script>
+		<script
+			src="https://kit.fontawesome.com/fca84d70ac.js"
+			crossorigin="anonymous"
+		></script>
+		<link rel="stylesheet" href="../design/style.css" />
+		<link rel="stylesheet" href="../design/navbar.css" />
+		<link rel="icon" type="image/png" href="../design/icon.png">
+		<script>
+			document.addEventListener('DOMContentLoaded', function () {
+				const saveButton = document.getElementById('submit');
+				const form = document.querySelector('.profile-container');
+				const inputs = form.querySelectorAll('input');
+				
+				// Initially disable the save button
+				saveButton.disabled = true;
+
+				// Function to check if there's any change in the inputs
+				function checkForChanges() {
+					let formChanged = false;
+					
+					// Check if any input has been modified
+					inputs.forEach(input => {
+						if (input.value !== input.defaultValue) {
+							formChanged = true;
+						}
+					});
+
+					// Enable or disable the save button based on form changes
+					saveButton.disabled = !formChanged;
+				}
+
+				// Add event listeners to each input field
+				inputs.forEach(input => {
+					input.addEventListener('input', checkForChanges);
+				});
+			});
+		</script>
+	</head>
+	<style>
+		.navbar .leftSide {
+			margin-left:0px;
+			flex: 40%;
+			height: 100%;
+			display: flex;
+		}
+
+		.navbar .rightSide {
+			flex: 60%;
+			justify-content: center;
+			height: 100%;
+			display: flex;
+		}
+		section {
+		    flex: 1;
+		    display: flex;
+		    justify-content: center;
+		    align-items: center;
+		}
+		.profile-container {
+			height: 550px;
+			width: 1000px;
+			background-color: transparent;
+			border: 2px solid rgba(255, 255, 255, 0.5);
+			border-radius: 20px;
+			backdrop-filter: blur(55px);
+			padding: 2rem 3rem;
+			transition: all 0.5s ease-in-out;
+			display: flex;
+			flex-direction: column;
+			align-content: center;
+		}
+		h1 {
+		    height: 20%; /* Take up 20% of the container's height */
+		    display: flex;
+		    justify-content: center;
+		    align-items: center;
+		}
+		.profile-details {
+		    display: flex;
+		    flex-direction: row; /* Stack the input boxes vertically */
+		    height: 50%; /* Take up the remaining 80% of the container's height */
+		    justify-content: space-around; /* Space the input boxes evenly */
+		}
+		.profile-left, .profile-right{
+			width:400px;
+		}
+		.profile-left, .profile-right label{
+			color:white;
+			font-size:20px;
+		}
+		.profile-left input{
+			cursor: default; /* Normal arrow cursor */
+		}
+		button {
+			width: 30%;
+			height: 40px;
+			border-radius: 40px;
+			background-color: rgba(255, 255, 255, 1);
+			border: none;
+			outline: none;
+			cursor: pointer;
+			font-size: 1rem;
+			font-weight: 600;
+			transition: all 0.4s ease;
+			align-self:end;
+		}
+		
+		button:disabled {
+			background-color: rgba(255, 255, 255, 0.3);
+			cursor: not-allowed;
+		}
+		
+		button:hover {
+			background-color: rgba(255, 255, 255, 0.5);
+		}
+		.alert {
+		    font-size: 0.8rem; /* Adjusts the font size */
+		    color: #90ee91; /* Red color for warning */
+		    background-color: rgba(0, 255, 0, 0.1); /* Light green background */
+		    margin: 15px; /* Adds some padding */
+		    padding: 10px; /* Adds some padding */
+		    border: 1px solid green; /* Red border */
+		    border-radius: 3px; /* Slightly rounded corners */
+		    text-align: center; /* Center the text */
+		    align-self:center;
+		    width:500px;
+		}
+		
+	</style>
+	<body>
+		<div class="navbar">
+	        <div class="leftSide">
+	            <div onclick="window.location.href='/map'" class="logo-button">
+				</div>
 	        </div>
-	      <div class="panel panel-default">
-	        <div class="panel-heading">
-	        <h4 class="panel-title">User info</h4>
+	        <div class="rightSide">
+	        	<a href="/">HOME</a>
+	        	<a href="/social">SOCIALS</a>
+	            <a href="/about">ABOUT US </a>
+	            <a href="/contact">CONTACT US </a>
 	        </div>
-	        <div class="panel-body">
-	          <div class="form-group">
-	            <label class="col-sm-2 control-label">Location</label>
-	            <div class="col-sm-10">
-	              <select class="form-control">
-	                <option selected="">Select country</option>
-	                <option>Belgium</option>
-	                <option>Canada</option>
-	                <option>Denmark</option>
-	                <option>Estonia</option>
-	                <option>France</option>
-	              </select>
-	            </div>
-	          </div>
-	          <div class="form-group">
-	            <label class="col-sm-2 control-label">Company name</label>
-	            <div class="col-sm-10">
-	              <input type="text" class="form-control">
-	            </div>
-	          </div>
-	          <div class="form-group">
-	            <label class="col-sm-2 control-label">Position</label>
-	            <div class="col-sm-10">
-	              <input type="text" class="form-control">
-	            </div>
-	          </div>
-	        </div>
-	      </div>
-	
-	      <div class="panel panel-default">
-	        <div class="panel-heading">
-	        <h4 class="panel-title">Contact info</h4>
-	        </div>
-	        <div class="panel-body">
-	          <div class="form-group">
-	            <label class="col-sm-2 control-label">Work number</label>
-	            <div class="col-sm-10">
-	              <input type="tel" class="form-control">
-	            </div>
-	          </div>
-	          <div class="form-group">
-	            <label class="col-sm-2 control-label">Mobile number</label>
-	            <div class="col-sm-10">
-	              <input type="tel" class="form-control">
-	            </div>
-	          </div>
-	          <div class="form-group">
-	            <label class="col-sm-2 control-label">E-mail address</label>
-	            <div class="col-sm-10">
-	              <input type="email" class="form-control">
-	            </div>
-	          </div>
-	          <div class="form-group">
-	            <label class="col-sm-2 control-label">Work address</label>
-	            <div class="col-sm-10">
-	              <textarea rows="3" class="form-control"></textarea>
-	            </div>
-	          </div>
-	        </div>
-	      </div>
-	
-	      <div class="panel panel-default">
-	        <div class="panel-heading">
-	        <h4 class="panel-title">Security</h4>
-	        </div>
-	        <div class="panel-body">
-	          <div class="form-group">
-	            <label class="col-sm-2 control-label">Current password</label>
-	            <div class="col-sm-10">
-	              <input type="password" class="form-control">
-	            </div>
-	          </div>
-	          <div class="form-group">
-	            <label class="col-sm-2 control-label">New password</label>
-	            <div class="col-sm-10">
-	              <input type="password" class="form-control">
-	            </div>
-	          </div>
-	          <div class="form-group">
-	            <div class="col-sm-10 col-sm-offset-2">
-	              <div class="checkbox">
-	                <input type="checkbox" id="checkbox_1">
-	                <label for="checkbox_1">Make this account public</label>
-	              </div>
-	            </div>
-	          </div>
-	          <div class="form-group">
-	            <div class="col-sm-10 col-sm-offset-2">
-	              <button type="submit" class="btn btn-primary">Submit</button>
-	              <button type="reset" class="btn btn-default">Cancel</button>
-	            </div>
-	          </div>
-	        </div>
-	      </div>
-	    </form>
-	  </div>
-	</div>
-</div>
-</body>
+		</div>
+		<div class="dropdown">
+			<input id="dropdown-toggle" class="dropdown-toggle">
+			<label for="dropdown-toggle" class="dropdown-button"></label>
+			<div class="dropdown-content">
+			<a href="/profile" class="profile-button">PROFILE</a>
+			<a href="/signout" class="signout-button">SIGNOUT</a>
+			</div>
+		</div> 
+		<section>
+			<form class="profile-container" th:action="@{/updateProfile}" th:object="${user}" method="post">
+				<h1>Profile</h1>
+			    <div class="profile-details">
+			    	<div class="profile-left">
+			    		<label>ID no.</label>
+				    	<div class="inputbox">
+				            <ion-icon name="person-outline"></ion-icon>
+				            <input
+				                name="username"
+				                id="username"
+				                type="text"
+				                th:field="*{username}"
+				                readonly
+				                required
+				            />
+				        </div>
+				        <label>Name</label>
+				        <div class="inputbox">
+				            <ion-icon name="lock-closed-outline"></ion-icon>
+				            <input
+				                th:field="*{name}"
+				                readonly
+				                required
+				            />
+				        </div>
+				        <label>Email</label>
+				        <div class="inputbox">
+				            <ion-icon name="mail-outline"></ion-icon>
+				            <input
+				                th:field="*{email}"
+				                readonly
+				                required
+				            />
+				        </div>
+			    	</div>
+			        <div class="profile-right">
+			        	<label>Address</label>
+			        	<div class="inputbox">
+				            <ion-icon name="location-outline"></ion-icon>
+				            <input
+				                name="username"
+				                id="username"
+				                type="text"
+				                th:field="*{address}"
+				                required
+				            />
+				        </div>
+				        <label>Contact Number</label>
+				        <div class="inputbox">
+				            <ion-icon name="call-outline"></ion-icon>
+				            <input
+				                th:field="*{contact}"
+				                required
+				            />
+				        </div>
+				        <label>Emergency Contact Number</label>
+				        <div class="inputbox">
+				            <ion-icon name="call-outline"></ion-icon>
+				            <input
+				                th:field="*{econtact}"
+				                required
+				            />
+				        </div>
+			    	</div>
+			    </div>
+			    <button id="submit" type="submit" disabled>Save</button>
+			    <div th:if="${message != null}" class="alert">
+			        <span th:text="${message}"></span>
+			    </div>
+			</form>
+		</section>
+	</body>
 </html>

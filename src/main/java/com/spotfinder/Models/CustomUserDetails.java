@@ -10,6 +10,11 @@ public class CustomUserDetails implements UserDetails {
 	private String username;
 	private String email;
 	private String password;
+	private String name;
+	private String address;
+	private String contact;
+	private String econtact;
+	private String img;
 	private Collection<? extends GrantedAuthority> authorities;
 
 	
@@ -21,6 +26,20 @@ public class CustomUserDetails implements UserDetails {
 		this.authorities = authorities;
 	}
 
+	public CustomUserDetails(String username, String email, String password, String name, String address,
+			String contact, String econtact, String img, Collection<? extends GrantedAuthority> authorities) {
+		super();
+		this.username = username;
+		this.email = email;
+		this.password = password;
+		this.name = name;
+		this.address = address;
+		this.contact = contact;
+		this.econtact = econtact;
+		this.img = img;
+		this.authorities = authorities;
+	}
+
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub
@@ -29,8 +48,26 @@ public class CustomUserDetails implements UserDetails {
 
 	@Override
 	public String getPassword() { return password; }
+
+	public String getName() { return name; }
+
+	public String getAddress() { return address; }
+
+	public String getContact() { return contact; }
+
+	public String getEcontact() { return econtact; }
+
+	public String getImg() { return img; }
 	
 	public String getEmail() { return email; }
+
+	public void setAddress(String address) { this.address = address; }
+
+	public void setContact(String contact) { this.contact = contact; }
+
+	public void setEcontact(String econtact) { this.econtact = econtact; }
+
+	public void setImg(String img) { this.img = img; }
 
 	@Override
 	public String getUsername() { return username; }
@@ -40,7 +77,7 @@ public class CustomUserDetails implements UserDetails {
 	
 	@Override
 	public boolean isAccountNonLocked() { return true; }
-	
+
 	@Override
 	public boolean isCredentialsNonExpired() { return true; }
 }

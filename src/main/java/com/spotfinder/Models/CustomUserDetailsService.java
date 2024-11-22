@@ -21,7 +21,8 @@ public class CustomUserDetailsService implements UserDetailsService{
 	public CustomUserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		User user = repo.findByUsername(username);
 		if(user == null) { throw new UsernameNotFoundException("Student not Found"); }
-		return new CustomUserDetails(user.getUsername(), user.getEmail(), user.getPassword(), authorities()) ;
+		return new CustomUserDetails(user.getUsername(), user.getEmail(), user.getPassword(), 
+				user.getName(), user.getAddress(), user.getContact(), user.getEcontact(), user.getImg(), authorities());
 	}
 	
 	public Collection<? extends GrantedAuthority> authorities(){
