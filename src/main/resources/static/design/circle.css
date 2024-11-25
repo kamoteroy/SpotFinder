@@ -31,7 +31,7 @@
 		}
 		
 		.donut-segment-2 {
-		    stroke: aqua;
+		    stroke: red;
 		    animation: donut1 3s;
 		}
 		
@@ -95,7 +95,7 @@
 		    fill: #FF6200;
 		}
 		.donut-text-1 {
-		    fill: aqua;
+		    fill: red;
 		}
 		.donut-text-2 {
 		    fill: #d9e021;

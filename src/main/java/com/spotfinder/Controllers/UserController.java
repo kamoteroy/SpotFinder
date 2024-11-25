@@ -1,6 +1,8 @@
 package com.spotfinder.Controllers;
 
 import java.security.Principal;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +14,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spotfinder.Models.CustomUserDetails;
 import com.spotfinder.Models.CustomUserDetailsService;
+import com.spotfinder.Models.ParkingSlot;
+import com.spotfinder.Models.ParkingSlotRepository;
 import com.spotfinder.Models.User;
 import com.spotfinder.Models.UserDto;
 import com.spotfinder.Models.UserService;
@@ -24,6 +28,8 @@ public class UserController {
 	@Autowired
 	private CustomUserDetailsService userDetailsService;
 	private final UserService userService;
+	@Autowired
+    private ParkingSlotRepository parkingSlotRepository;
 
     @Autowired
     public UserController(UserService userService) {
@@ -39,6 +45,72 @@ public class UserController {
 	@GetMapping("/map")
 	public String parking(Model model, Principal principal, HttpSession session) {
 		CustomUserDetails user = userDetailsService.loadUserByUsername(principal.getName());
+		List<ParkingSlot> parkingSlots = parkingSlotRepository.findAll();
+
+        // Filter and sort parking slots that start with 'P' (case-insensitive)
+        List<ParkingSlot> PSortedSlots = parkingSlots.stream()
+            .filter(slot -> slot.getSlotName().toLowerCase().startsWith("p"))
+            .sorted((slot1, slot2) -> slot1.getSlotName().compareTo(slot2.getSlotName())) // Sort by slotName alphabetically
+            .collect(Collectors.toList());
+        // Count how many parking slots are occupied (occupy = true)
+        long PoccupiedCount = PSortedSlots.stream()
+            .filter(ParkingSlot::isOccupy) // Count occupied slots (occupy == true)
+            .count();
+
+        // Add both the sorted and filtered parking slots and the occupied count to the model
+        model.addAttribute("PSlots", PSortedSlots);
+        model.addAttribute("PoccupiedCount", PoccupiedCount);
+
+        // Filter and sort parking slots that start with 'P' (case-insensitive)
+        List<ParkingSlot> GSortedSlots = parkingSlots.stream()
+            .filter(slot -> slot.getSlotName().toLowerCase().startsWith("g"))
+            .sorted((slot1, slot2) -> slot1.getSlotName().compareTo(slot2.getSlotName())) // Sort by slotName alphabetically
+            .collect(Collectors.toList());
+        // Count how many parking slots are occupied (occupy = true)
+        long GoccupiedCount = GSortedSlots.stream()
+            .filter(ParkingSlot::isOccupy) // Count occupied slots (occupy == true)
+            .count();
+
+        // Add both the sorted and filtered parking slots and the occupied count to the model
+        model.addAttribute("GSlots", GSortedSlots);
+        model.addAttribute("GoccupiedCount", GoccupiedCount);
+        
+        // Filter and sort parking slots that start with 'P' (case-insensitive)
+        List<ParkingSlot> OSortedSlots = parkingSlots.stream()
+            .filter(slot -> slot.getSlotName().toLowerCase().startsWith("o"))
+            .sorted((slot1, slot2) -> slot1.getSlotName().compareTo(slot2.getSlotName())) // Sort by slotName alphabetically
+            .collect(Collectors.toList());
+        // Count how many parking slots are occupied (occupy = true)
+        long OoccupiedCount = OSortedSlots.stream()
+            .filter(ParkingSlot::isOccupy) // Count occupied slots (occupy == true)
+            .count();
+
+        // Add both the sorted and filtered parking slots and the occupied count to the model
+        model.addAttribute("OSlots", OSortedSlots);
+        model.addAttribute("OoccupiedCount", OoccupiedCount);
+        
+     // Filter and sort parking slots that start with 'P' (case-insensitive)
+        List<ParkingSlot> BSortedSlots = parkingSlots.stream()
+            .filter(slot -> slot.getSlotName().toLowerCase().startsWith("b"))
+            .sorted((slot1, slot2) -> slot1.getSlotName().compareTo(slot2.getSlotName())) // Sort by slotName alphabetically
+            .collect(Collectors.toList());
+        // Count how many parking slots are occupied (occupy = true)
+        long BoccupiedCount = BSortedSlots.stream()
+            .filter(ParkingSlot::isOccupy) // Count occupied slots (occupy == true)
+            .count();
+
+        // Add both the sorted and filtered parking slots and the occupied count to the model
+        model.addAttribute("BSlots", BSortedSlots);
+        model.addAttribute("BoccupiedCount", BoccupiedCount);
+
+        // Filter the list where 'occupy' is true and count how many slots are occupied
+        long occupiedCount = parkingSlots.stream()
+            .filter(ParkingSlot::isOccupy)  // Filters parking slots where 'occupy' is true
+            .count();  // Counts the number of elements after filtering
+        
+        model.addAttribute("occupiedCount", occupiedCount);
+		
+		model.addAttribute("parkingSlots", parkingSlots);
 		model.addAttribute("user", user);
         session.setAttribute("user", user);
 		return "map";
