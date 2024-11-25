@@ -42,6 +42,9 @@ public class UserServiceImpl implements UserService{
             if (user.getEcontact() != null) {
                 existingUser.setEcontact(user.getEcontact());
             }
+            if (user.getPlate() != null) {
+                existingUser.setPlate(user.getPlate());
+            }
 
             // Save the updated user
             userRepository.save(existingUser);

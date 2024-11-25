@@ -22,7 +22,7 @@ public class CustomUserDetailsService implements UserDetailsService{
 		User user = repo.findByUsername(username);
 		if(user == null) { throw new UsernameNotFoundException("Student not Found"); }
 		return new CustomUserDetails(user.getUsername(), user.getEmail(), user.getPassword(), 
-				user.getName(), user.getAddress(), user.getContact(), user.getEcontact(), user.getImg(), authorities());
+				user.getName(), user.getAddress(), user.getContact(), user.getEcontact(), user.getPlate(), user.getImg(), authorities());
 	}
 	
 	public Collection<? extends GrantedAuthority> authorities(){

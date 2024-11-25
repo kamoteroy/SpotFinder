@@ -24,8 +24,23 @@ public class ParkingSlotController {
     }
 
     @GetMapping("/map/backgate")
-    public String getParkingSlots(Model model) {
+    public String getBackgateSlots(Model model) {
         model.addAttribute("parkingSlotService", parkingSlotService);
         return "backgate"; // return the HTML view
+    }
+    @GetMapping("/map/GLE")
+    public String getGLESlots(Model model) {
+        model.addAttribute("parkingSlotService", parkingSlotService);
+        return "GLE"; // return the HTML view
+    }
+    @GetMapping("/map/open-area")
+    public String getOAreaSlots(Model model) {
+        model.addAttribute("parkingSlotService", parkingSlotService);
+        return "oarea"; // return the HTML view
+    }
+    @GetMapping("/map/phys")
+    public String getPhysSlots(Model model) {
+        model.addAttribute("parkingSlotService", parkingSlotService);
+        return "phys"; // return the HTML view
     }
 }

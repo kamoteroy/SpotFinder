@@ -50,8 +50,14 @@ public class UserController {
 		model.addAttribute("user", user);
         session.setAttribute("user", user);
 		return "backgate";
-	}*/
-	
+	}
+	@GetMapping("/map/GLE")
+	public String GLEMap(Model model, Principal principal, HttpSession session) {
+		CustomUserDetails user = userDetailsService.loadUserByUsername(principal.getName());
+		model.addAttribute("user", user);
+	    session.setAttribute("user", user);
+		return "GLE";
+	}
 	@GetMapping("/map/open-area")
 	public String open_areaMap(Model model, Principal principal, HttpSession session) {
 		CustomUserDetails user = userDetailsService.loadUserByUsername(principal.getName());
@@ -65,15 +71,10 @@ public class UserController {
 		model.addAttribute("user", user);
         session.setAttribute("user", user);
 		return "phys";
-	}
+	}*/
 	
-	@GetMapping("/map/GLE")
-	public String GLEMap(Model model, Principal principal, HttpSession session) {
-		CustomUserDetails user = userDetailsService.loadUserByUsername(principal.getName());
-		model.addAttribute("user", user);
-	    session.setAttribute("user", user);
-		return "GLE";
-	}
+	
+	
 	
 	@GetMapping("/profile")
 	public String profile(HttpSession session, Model model) {
@@ -102,19 +103,20 @@ public class UserController {
 	        }
 
 	        // Update the user object with the new data
-	        // Here, we assume you have a service method to update the user in the database
+	        // Assuming the userService.updateUser() handles password hashing if needed
 	        userService.updateUser(user);
 
-	        // Update the session with the new user data
+	        // Update the session with the new user data (address, contact, etc.)
 	        currentUser.setAddress(user.getAddress());
 	        currentUser.setContact(user.getContact());
 	        currentUser.setEcontact(user.getEcontact());
+	        currentUser.setPlate(user.getPlate());  // Set the new plate number
 
 	        // Save the updated user back to the session
 	        session.setAttribute("user", currentUser);
 
-	        // Add a success message and redirect back to profile page
-	        redirectAttributes.addFlashAttribute("message", "Your profile has been successfully updated.");
+	        // Add a success message and redirect back to the profile page
+	        redirectAttributes.addFlashAttribute("success", "Your profile has been successfully updated.");
 	    } catch (Exception e) {
 	        // In case of an error, add an error message
 	        redirectAttributes.addFlashAttribute("error", "Error updating your profile. Please try again.");
@@ -123,6 +125,7 @@ public class UserController {
 	    // Redirect to profile page
 	    return "redirect:/profile";
 	}
+
 
 	
 	@GetMapping("/signout")

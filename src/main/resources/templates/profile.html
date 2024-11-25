@@ -97,16 +97,42 @@
 		}
 		.profile-left, .profile-right{
 			width:400px;
+			justify-items:center;
 		}
 		.profile-left, .profile-right label{
 			color:white;
 			font-size:20px;
 		}
-		.profile-left input{
+		.profile-right input, .profile-left input{
 			cursor: default; /* Normal arrow cursor */
 		}
-		button {
-			width: 30%;
+		.inputsright, .inputsleft{
+			width:100%;
+		}
+		.profile-left a {
+			top:65%;
+			left:15%;
+			width: 200px;
+			height: 40px;
+			border-radius: 40px;
+			background-color: rgba(255, 255, 255, 1);
+			border: none;
+			padding:10px;
+			margin:20px;
+			outline: none;
+			cursor: pointer;
+			font-size: 1rem;
+			font-weight: 600;
+			transition: all 0.4s ease;
+			color:black;
+			text-align:center;
+			text-decoration: none;
+			position:absolute;
+		}
+		
+		.profile-right button {
+			margin-top:5%;
+			width: 100px;
 			height: 40px;
 			border-radius: 40px;
 			background-color: rgba(255, 255, 255, 1);
@@ -116,18 +142,29 @@
 			font-size: 1rem;
 			font-weight: 600;
 			transition: all 0.4s ease;
-			align-self:end;
 		}
 		
-		button:disabled {
+		.profile-right button:disabled {
 			background-color: rgba(255, 255, 255, 0.3);
 			cursor: not-allowed;
 		}
 		
-		button:hover {
+		.profile-right button:hover {
 			background-color: rgba(255, 255, 255, 0.5);
 		}
-		.alert {
+		.profile-details .warning {
+		    font-size: 0.8rem;
+		    color: #ffd1df; /* Red color for warning */
+		    background-color: rgba(255, 0, 0, 0.1); /* Light red background */
+		    margin: 15px; /* Adds some padding */
+		    padding: 10px; /* Adds some padding */
+		    border: 1px solid #ff0000; /* Red border */
+		    border-radius: 3px; /* Slightly rounded corners */
+			text-align: center; /* Center the text */
+		    align-self:center;
+		    width:100%;
+		}
+		.profile-details .success {
 		    font-size: 0.8rem; /* Adjusts the font size */
 		    color: #90ee91; /* Red color for warning */
 		    background-color: rgba(0, 255, 0, 0.1); /* Light green background */
@@ -137,9 +174,8 @@
 		    border-radius: 3px; /* Slightly rounded corners */
 		    text-align: center; /* Center the text */
 		    align-self:center;
-		    width:500px;
+		    width:100%;
 		}
-		
 	</style>
 	<body>
 		<div class="navbar">
@@ -163,76 +199,129 @@
 			</div>
 		</div> 
 		<section>
-			<form class="profile-container" th:action="@{/updateProfile}" th:object="${user}" method="post">
+			<form id="profileForm" class="profile-container" th:action="@{/updateProfile}" th:object="${user}" method="post">
 				<h1>Profile</h1>
 			    <div class="profile-details">
 			    	<div class="profile-left">
-			    		<label>ID no.</label>
-				    	<div class="inputbox">
-				            <ion-icon name="person-outline"></ion-icon>
-				            <input
-				                name="username"
-				                id="username"
-				                type="text"
-				                th:field="*{username}"
-				                readonly
-				                required
-				            />
+				    	<div class="inputsleft">
+				    		<label>ID no.</label>
+					    	<div class="inputbox">
+					            <ion-icon name="person-outline"></ion-icon>
+					            <input
+					                name="username"
+					                id="username"
+					                type="text"
+					                th:field="*{username}"
+					                readonly
+					                required
+					            />
+					        </div>
+					        <label>Name</label>
+					        <div class="inputbox">
+					            <ion-icon name="lock-closed-outline"></ion-icon>
+					            <input
+					                th:field="*{name}"
+					                readonly
+					                required
+					            />
+					        </div>
+					        <label>Email</label>
+					        <div class="inputbox">
+					            <ion-icon name="mail-outline"></ion-icon>
+					            <input
+					                th:field="*{email}"
+					                readonly
+					                required
+					            />
+					        </div>
 				        </div>
-				        <label>Name</label>
-				        <div class="inputbox">
-				            <ion-icon name="lock-closed-outline"></ion-icon>
-				            <input
-				                th:field="*{name}"
-				                readonly
-				                required
-				            />
-				        </div>
-				        <label>Email</label>
-				        <div class="inputbox">
-				            <ion-icon name="mail-outline"></ion-icon>
-				            <input
-				                th:field="*{email}"
-				                readonly
-				                required
-				            />
-				        </div>
+				        <a href="/changepass">Change your Password</a>
 			    	</div>
 			        <div class="profile-right">
-			        	<label>Address</label>
-			        	<div class="inputbox">
-				            <ion-icon name="location-outline"></ion-icon>
-				            <input
-				                name="username"
-				                id="username"
-				                type="text"
-				                th:field="*{address}"
-				                required
-				            />
+			        	<div class="inputsright">
+				        	<label>Address</label>
+				        	<div class="inputbox">
+					            <ion-icon name="location-outline"></ion-icon>
+					            <input
+					                name="username"
+					                id="username"
+					                type="text"
+					                th:field="*{address}"
+					                required
+					            />
+					        </div>
+					        <label>Contact Number</label>
+					        <div class="inputbox">
+					            <ion-icon name="call-outline"></ion-icon>
+					            <input
+					                th:field="*{contact}"
+					                required
+					            />
+					        </div>
+					        <label>Emergency Contact Number</label>
+					        <div class="inputbox">
+					            <ion-icon name="call-outline"></ion-icon>
+					            <input
+					                th:field="*{econtact}"
+					                required
+					            />
+					        </div>
+					        <label>Plate Number</label>
+					        <div class="inputbox">
+					            <ion-icon name="car-outline"></ion-icon>
+					            <input
+					                th:field="*{plate}"
+					                required
+					            />
+					            <!-- pattern="\d{3}-\d{4}-\d{3}" -->
+					        </div>
 				        </div>
-				        <label>Contact Number</label>
-				        <div class="inputbox">
-				            <ion-icon name="call-outline"></ion-icon>
-				            <input
-				                th:field="*{contact}"
-				                required
-				            />
-				        </div>
-				        <label>Emergency Contact Number</label>
-				        <div class="inputbox">
-				            <ion-icon name="call-outline"></ion-icon>
-				            <input
-				                th:field="*{econtact}"
-				                required
-				            />
-				        </div>
+				        <button id="submit" type="submit" disabled>Save</button>
+					    <div th:if="${success != null}" class="success">
+					        <span th:text="${success}"></span>
+					    </div>
+					    <div th:if="${error != null}" class="alert">
+			                <span th:text="${error}"></span>
+			            </div>
+			            <div id="passwordError" class="warning" style="display:none;">
+			                <span>Passwords do not match.</span>
+			            </div>
 			    	</div>
-			    </div>
-			    <button id="submit" type="submit" disabled>Save</button>
-			    <div th:if="${message != null}" class="alert">
-			        <span th:text="${message}"></span>
 			    </div>
 			</form>
 		</section>
+		<script>
+	    // Function to enable/disable the submit button based on form validation
+	    document.getElementById('profileForm').addEventListener('submit', function(event) {
+	        // Check if password and confirm password match before submission
+	        const password = document.getElementById('password').value;
+	        const confirmPassword = document.getElementById('cpassword').value;
+	
+	        // If passwords don't match, show error and prevent form submission
+	        if (password !== confirmPassword) {
+	            event.preventDefault(); // Prevent form submission
+	            document.getElementById('passwordError').style.display = 'block'; // Show error message
+	            return false; // Return false to stop submission
+	        } else {
+	            document.getElementById('passwordError').style.display = 'none'; // Hide error message
+	        }
+	    });
+	
+	    // Optionally, show a message when the user types into the fields to remove the error if passwords match
+	    document.getElementById('password').addEventListener('input', checkPasswords);
+	    document.getElementById('cpassword').addEventListener('input', checkPasswords);
+	
+	    function checkPasswords() {
+	        const password = document.getElementById('password').value;
+	        const confirmPassword = document.getElementById('cpassword').value;
+	        const errorMessage = document.getElementById('passwordError');
+	
+	        if (password === confirmPassword) {
+	            errorMessage.style.display = 'none';
+	        } else {
+	            errorMessage.style.display = 'block';
+	        }
+	    }
+	</script>
 	</body>
 </html>

@@ -14,6 +14,7 @@ public class CustomUserDetails implements UserDetails {
 	private String address;
 	private String contact;
 	private String econtact;
+	private String plate;
 	private String img;
 	private Collection<? extends GrantedAuthority> authorities;
 
@@ -27,7 +28,7 @@ public class CustomUserDetails implements UserDetails {
 	}
 
 	public CustomUserDetails(String username, String email, String password, String name, String address,
-			String contact, String econtact, String img, Collection<? extends GrantedAuthority> authorities) {
+			String contact, String econtact, String plate, String img, Collection<? extends GrantedAuthority> authorities) {
 		super();
 		this.username = username;
 		this.email = email;
@@ -36,6 +37,7 @@ public class CustomUserDetails implements UserDetails {
 		this.address = address;
 		this.contact = contact;
 		this.econtact = econtact;
+		this.plate = plate;
 		this.img = img;
 		this.authorities = authorities;
 	}
@@ -60,6 +62,8 @@ public class CustomUserDetails implements UserDetails {
 	public String getImg() { return img; }
 	
 	public String getEmail() { return email; }
+	
+	public String getPlate() { return plate; }
 
 	public void setAddress(String address) { this.address = address; }
 
@@ -68,6 +72,8 @@ public class CustomUserDetails implements UserDetails {
 	public void setEcontact(String econtact) { this.econtact = econtact; }
 
 	public void setImg(String img) { this.img = img; }
+	
+	public void setPlate(String plate) { this.plate = plate; }
 
 	@Override
 	public String getUsername() { return username; }

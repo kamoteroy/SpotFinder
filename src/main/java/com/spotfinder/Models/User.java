@@ -19,6 +19,7 @@ public class User {
     String address;
     String contact;
     String econtact;
+    String plate;
     String img;
     
     public User() {}
@@ -29,9 +30,9 @@ public class User {
 		this.email = email;
 		this.password = password;
 	}
-	
+
 	public User(String username, String email, String password, String name, String address, String contact,
-			String econtact, String img) {
+			String econtact, String plate, String img) {
 		super();
 		this.username = username;
 		this.email = email;
@@ -40,6 +41,7 @@ public class User {
 		this.address = address;
 		this.contact = contact;
 		this.econtact = econtact;
+		this.plate = plate;
 		this.img = img;
 	}
 
@@ -59,4 +61,6 @@ public class User {
 	public void setEcontact(String econtact) { this.econtact = econtact; }
 	public String getImg() { return img; }
 	public void setImg(String img) { this.img = img; }
+	public String getPlate() { return plate; }
+	public void setPlate(String plate) { this.plate = plate; }
 }
