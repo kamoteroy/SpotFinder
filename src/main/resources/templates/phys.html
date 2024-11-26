@@ -94,6 +94,8 @@
 		overflow-y: hidden;
 		overflow-y: auto;
 		padding: 5px;
+		font-size:55px;
+		font-weight: bold;
 	}
 	.map {
 	    width: 100%;
@@ -196,75 +198,83 @@
 		</div>
 	</div>
 	    <div class="view">
-	    	<div class="widgets">
-	    		<div class="slot-counter">
-	    			<h1>Parking Space Available :</h1>
-	    			<div class="counter-box">
-	    			</div>
-	    		</div>
-	    		<div class="motor-counter">
-	    			<h1>Motorcycle Count :</h1>
-	    			<div class="counter-box">
-	    				<div class="100ths">0</div>
-					    <div class="10ths">0</div>
-					    <div class="1ths">0</div>
-	    			</div>
-	    		</div>
-	    	</div>
-	    	<div class="map">
-	    		<img src='../design/parkingportraitt.png' alt="Image Description">
-	    		 <div class="button-row1">
-				    <button id="P1" 
-				            th:class="${parkingSlotService.isOccupied('P1') ? 'map-button-red' : 'map-button-green'}"
-				            onclick="toggleOccupied('P1')">P1</button>
-				    <button id="P2" 
-				            th:class="${parkingSlotService.isOccupied('P2') ? 'map-button-red' : 'map-button-green'}"
-				            onclick="toggleOccupied('P2')">P2</button>
-				    <button id="P3" 
-				            th:class="${parkingSlotService.isOccupied('P3') ? 'map-button-red' : 'map-button-green'}"
-				            onclick="toggleOccupied('P3')">P3</button>
-				    <button id="P4" 
-				            th:class="${parkingSlotService.isOccupied('P4') ? 'map-button-red' : 'map-button-green'}"
-				            onclick="toggleOccupied('P4')">P4</button>
-				    <button id="P5" 
-				            th:class="${parkingSlotService.isOccupied('P5') ? 'map-button-red' : 'map-button-green'}"
-				            onclick="toggleOccupied('P5')">P5</button>
-				</div>
-			    <p>PHYS</p>
-			    <div class="button-row2">
-				    <button id="P6" 
-				            th:class="${parkingSlotService.isOccupied('P6') ? 'map-button-red' : 'map-button-green'}"
-				            onclick="toggleOccupied('P6')">P6</button>
-				    <button id="P7" 
-				            th:class="${parkingSlotService.isOccupied('P7') ? 'map-button-red' : 'map-button-green'}"
-				            onclick="toggleOccupied('P7')">P7</button>
-				    <button id="P8" 
-				            th:class="${parkingSlotService.isOccupied('P8') ? 'map-button-red' : 'map-button-green'}"
-				            onclick="toggleOccupied('P8')">P8</button>
-				    <button id="P9" 
-				            th:class="${parkingSlotService.isOccupied('P9') ? 'map-button-red' : 'map-button-green'}"
-				            onclick="toggleOccupied('P9')">P9</button>
-				    <button id="P10" 
-				            th:class="${parkingSlotService.isOccupied('P10') ? 'map-button-red' : 'map-button-green'}"
-				            onclick="toggleOccupied('P10')">P10</button>
-				</div>
-			</div>
-		</div>
-		<script>
-		    // Function to toggle the occupied state
-		    function toggleOccupied(slotName) {
-		        fetch(`/updateSlotStatus/${slotName}`)
-		            .then(response => {
-		                if (response.ok) {
-		                    // Change the color of the button dynamically after the update
-		                    const button = document.getElementById(slotName);
-		                    button.classList.toggle('map-button-red');
-		                    button.classList.toggle('map-button-green');
-		                } else {
-		                    alert('Error updating slot status');
-		                }
-		            });
-		    }
-		</script>
+    <div class="widgets">
+        <div class="slot-counter">
+            <h1>Parking Space Available :</h1>
+            <div class="counter-box">
+                <p id="availableCount"><span th:text="${parkingSlots.size() - occupiedCount}"></span></p>
+            </div>
+        </div>
+        <div class="motor-counter">
+            <h1>Motorcycle Count :</h1>
+            <div class="counter-box">
+                <p><span th:text="${parkingSlots.size() - occupiedCount}"></span></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="map">
+        <img src='../design/parkingportrait.png' alt="Image Description">
+        <div class="button-row1">
+            <button id="P1" 
+                    th:class="${parkingSlotService.isOccupied('P1') ? 'map-button-red' : 'map-button-green'}"
+                    onclick="toggleOccupied('P1')">P1</button>
+            <button id="P2" 
+                    th:class="${parkingSlotService.isOccupied('P2') ? 'map-button-red' : 'map-button-green'}"
+                    onclick="toggleOccupied('P2')">P2</button>
+            <button id="P3" 
+                    th:class="${parkingSlotService.isOccupied('P3') ? 'map-button-red' : 'map-button-green'}"
+                    onclick="toggleOccupied('P3')">P3</button>
+            <button id="P4" 
+                    th:class="${parkingSlotService.isOccupied('P4') ? 'map-button-red' : 'map-button-green'}"
+                    onclick="toggleOccupied('P4')">P4</button>
+            <button id="P5" 
+                    th:class="${parkingSlotService.isOccupied('P5') ? 'map-button-red' : 'map-button-green'}"
+                    onclick="toggleOccupied('P5')">P5</button>
+        </div>
+
+        <p>PHYS</p>
+
+        <div class="button-row2">
+            <button id="P6" 
+                    th:class="${parkingSlotService.isOccupied('P6') ? 'map-button-red' : 'map-button-green'}"
+                    onclick="toggleOccupied('P6')">P6</button>
+            <button id="P7" 
+                    th:class="${parkingSlotService.isOccupied('P7') ? 'map-button-red' : 'map-button-green'}"
+                    onclick="toggleOccupied('P7')">P7</button>
+            <button id="P8" 
+                    th:class="${parkingSlotService.isOccupied('P8') ? 'map-button-red' : 'map-button-green'}"
+                    onclick="toggleOccupied('P8')">P8</button>
+            <button id="P9" 
+                    th:class="${parkingSlotService.isOccupied('P9') ? 'map-button-red' : 'map-button-green'}"
+                    onclick="toggleOccupied('P9')">P9</button>
+            <button id="P10" 
+                    th:class="${parkingSlotService.isOccupied('P10') ? 'map-button-red' : 'map-button-green'}"
+                    onclick="toggleOccupied('P10')">P10</button>
+        </div>
+    </div>
+</div>
+<script>
+    // Function to toggle the parking slot status and update available count
+    function toggleOccupied(slotName) {
+        fetch(`/updateSlotStatus/${slotName}`)
+            .then(response => response.json())
+            .then(data => {
+                // Update the available parking space count
+                document.getElementById('availableCount').innerText = data;
+                
+                // Toggle the button color based on the updated status
+                let button = document.getElementById(slotName);
+                if (button.classList.contains('map-button-red')) {
+                    button.classList.remove('map-button-red');
+                    button.classList.add('map-button-green');
+                } else {
+                    button.classList.remove('map-button-green');
+                    button.classList.add('map-button-red');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+</script>
 </body>
 </html>
