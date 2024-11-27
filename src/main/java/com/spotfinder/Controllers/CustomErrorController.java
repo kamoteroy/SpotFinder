@@ -21,13 +21,13 @@ public class CustomErrorController implements ErrorController {
             // Handle specific error codes
             if (statusCode == HttpStatus.NOT_FOUND.value()) {
                 // 404 - Page not found error
-                return "error-404"; // Create a specific view for 404
+                return "error"; // Create a specific view for 404
             } else if (statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
                 // 500 - Internal server error
                 return "error-500"; // Create a specific view for 500
             } else if (statusCode == HttpStatus.FORBIDDEN.value()) {
                 // 403 - Forbidden
-                return "error-403"; // Create a specific view for 403
+                return "error"; // Create a specific view for 403
             }
         }
         

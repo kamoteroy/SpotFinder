@@ -75,6 +75,8 @@ public class CustomUserDetails implements UserDetails {
 	
 	public void setPlate(String plate) { this.plate = plate; }
 
+	public void setPassword(String password) { this.password = password; }
+
 	@Override
 	public String getUsername() { return username; }
 

@@ -45,6 +45,9 @@ public class UserServiceImpl implements UserService{
             if (user.getPlate() != null) {
                 existingUser.setPlate(user.getPlate());
             }
+            if (user.getPassword() != null) {
+                existingUser.setPassword(passwordEncoder.encode(user.getPassword()));
+            }
 
             // Save the updated user
             userRepository.save(existingUser);
@@ -62,5 +65,20 @@ public class UserServiceImpl implements UserService{
 	    User user = userRepository.findByUsername(username);
 	    return user != null && passwordEncoder.matches(password, user.getPassword());
 	}
-
+	
+ // Update the user's password
+    public boolean updatePassword(String username, String newPassword) {
+        User user = userRepository.findByUsername(username);
+        if (user != null) {
+            user.setPassword(newPassword);  // Encrypt the new password only once
+            userRepository.save(user);  // Save the updated user object
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean validateCurrentPassword(String username, String currentPassword) {
+        User user = userRepository.findByUsername(username); // Retrieve the user from DB
+        return passwordEncoder.matches(currentPassword, user.getPassword());  // Compare the entered password
+    }
 }

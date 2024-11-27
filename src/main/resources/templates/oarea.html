@@ -203,6 +203,7 @@
 		<label for="dropdown-toggle" class="dropdown-button"></label>
 		<div class="dropdown-content">
 		<a href="/profile" class="profile-button">PROFILE</a>
+		<a href="/history" class="profile-button">HISTORY</a>
 		<a href="/signout" class="signout-button">SIGNOUT</a>
 		</div>
 	</div>
@@ -217,9 +218,7 @@
 	    		<div class="motor-counter">
 	    			<h1>Motorcycle Count :</h1>
 	    			<div class="counter-box">
-	    				<div class="100ths">0</div>
-					    <div class="10ths">0</div>
-					    <div class="1ths">0</div>
+	    				<p id="availableCount"><span th:text="${parkingSlots.size() - occupiedCount}"></span></p>
 	    			</div>
 	    		</div>
 	    	</div>

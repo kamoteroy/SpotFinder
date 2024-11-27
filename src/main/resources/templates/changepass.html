@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title>Enter Password</title>
+		<script
+			type="module"
+			src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+		></script>
+		<script
+			nomodule
+			src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+		></script>
+		<link rel="stylesheet" href="../design/style.css" />
+		<link rel="stylesheet" href="../design/navbar.css" />
+		<link rel="icon" type="image/png" href="../design/icon.png">
+		<style>
+			.sign {
+				height: 500px;
+				width: 500px;
+				background-color: transparent;
+				border: 2px solid rgba(255, 255, 255, 0.5);
+				border-radius: 20px;
+				backdrop-filter: blur(55px);
+				padding: 2rem 3rem;
+				transition: all 0.5s ease-in-out;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-content: center;
+				gap:40px;
+			}
+			.navbar .leftSide {
+				margin-left:0px;
+				flex: 40%;
+				height: 100%;
+				display: flex;
+			}
+			
+			.navbar .rightSide {
+				flex: 60%;
+				justify-content: center;
+				height: 100%;
+				display: flex;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="navbar">
+	        <div class="leftSide">
+	            <div onclick="window.location.href='/map'" class="logo-button">
+				</div>
+	        </div>
+	        <div class="rightSide">
+	        	<a href="/">MAP</a>
+	        	<a href="/social">SOCIALS</a>
+	            <a href="/about">ABOUT US </a>
+	            <a href="/contact">CONTACT US </a>
+	        </div>
+	</div>
+	<div class="dropdown">
+		<input id="dropdown-toggle" class="dropdown-toggle">
+		<label for="dropdown-toggle" class="dropdown-button"></label>
+		<div class="dropdown-content">
+		<a href="/profile" class="profile-button">PROFILE</a>
+		<a href="/history" class="profile-button">HISTORY</a>
+		<a href="/signout" class="signout-button">SIGNOUT</a>
+		</div>
+	</div> 
+		<section>
+			<form class="sign" th:action="@{/changepassword}" th:object="${user}" method="post">
+				<h1>Change Password</h1>
+				<div class="inputbox">
+					<ion-icon name="lock-closed-outline"></ion-icon>
+					<input
+						name="password"
+						type="password"
+						id="password"
+						th:field="*{password}"
+						required
+					/>
+					<label for="">Enter Password</label>
+				</div>
+				<div class="warning" th:if="${error}" th:text="${error}"></div>
+				<button id="submit" type="submit">Change</button>
+			</form>
+		</section>
+	</body>
+</html>

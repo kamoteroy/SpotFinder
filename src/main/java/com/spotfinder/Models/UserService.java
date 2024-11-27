@@ -8,4 +8,6 @@ public interface UserService {
 	boolean existsByUsername(String username);
 	boolean existsByEmail(String email);
 	boolean isPasswordValid(String username, String password);
+	boolean validateCurrentPassword(String username, String currentPassword);
+	boolean updatePassword(String username, String newPassword);
 }
