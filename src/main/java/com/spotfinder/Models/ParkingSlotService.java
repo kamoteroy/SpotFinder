@@ -1,5 +1,7 @@
 package com.spotfinder.Models;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +16,7 @@ public class ParkingSlotService {
                 .map(ParkingSlot::isOccupy)
                 .orElse(false);
     }
-
+   
     public void updateSlotStatus(String slotName) {
         ParkingSlot slot = parkingSlotRepository.findBySlotName(slotName)
                 .orElse(new ParkingSlot(slotName, false)); // if not found, create new one

@@ -9,14 +9,23 @@ public class ParkingSlot {
     @Id
     private String slotName;
     private boolean occupy;
+    private String user;
 
     public ParkingSlot() {}
+    
     public ParkingSlot(String slotName, boolean occupy) {
         this.slotName = slotName;
         this.occupy = occupy;
     }
 
-    public String getSlotName() {
+    public ParkingSlot(String slotName, boolean occupy, String user) {
+		super();
+		this.slotName = slotName;
+		this.occupy = occupy;
+		this.user = user;
+	}
+
+	public String getSlotName() {
         return slotName;
     }
 
@@ -31,4 +40,13 @@ public class ParkingSlot {
     public void setOccupy(boolean occupy) {
         this.occupy = occupy;
     }
+
+	public String getUser() {
+		return user;
+	}
+
+	public void setUser(String user) {
+		this.user = user;
+	}
+    
 }
