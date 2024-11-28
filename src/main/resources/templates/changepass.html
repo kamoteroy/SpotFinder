@@ -54,14 +54,14 @@
 	        </div>
 	        <div class="rightSide">
 	        	<a href="/">MAP</a>
-	        	<a href="/social">SOCIALS</a>
+	        	<a href="/socials">SOCIALS</a>
 	            <a href="/about">ABOUT US </a>
 	            <a href="/contact">CONTACT US </a>
 	        </div>
 	</div>
 	<div class="dropdown">
 		<input id="dropdown-toggle" class="dropdown-toggle">
-		<label for="dropdown-toggle" class="dropdown-button"></label>
+		<label for="dropdown-toggle" class="dropdown-button" th:style="'background-image: url(' + ${user.getImg()} + ');'"></label>
 		<div class="dropdown-content">
 		<a href="/profile" class="profile-button">PROFILE</a>
 		<a href="/history" class="profile-button">HISTORY</a>

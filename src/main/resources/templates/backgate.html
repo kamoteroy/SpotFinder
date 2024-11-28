@@ -256,14 +256,15 @@
 	        </div>
 	        <div class="rightSide">
 	        	<a href="/">MAP</a>
-	        	<a href="/social">SOCIALS</a>
+	        	<a href="/socials">SOCIALS</a>
 	            <a href="/about">ABOUT US </a>
 	            <a href="/contact">CONTACT US </a>
 	        </div>
 	</div>
 	<div class="dropdown">
 		<input id="dropdown-toggle" class="dropdown-toggle">
-		<label for="dropdown-toggle" class="dropdown-button"></label>
+		<label for="dropdown-toggle" class="dropdown-button" th:style="'background-image: url(' + ${user.getImg()} + ');'"></label>
+		</label>
 		<div class="dropdown-content">
 		<a href="/profile" class="profile-button">PROFILE</a>
 		<a href="/history" class="profile-button">HISTORY</a>
@@ -404,36 +405,60 @@
 		    document.getElementById("error-modal").style.display = "none";
 		}
 
-		// Modified toggleOccupied function to handle unauthorized access and user already parked
 		function toggleOccupied(slotName, username) {
+		    // Get the current date and time
+		    // Get the current date and time in the local timezone
+			const currentDate = new Date();
+			
+			// Get the hours, minutes, and seconds in local time (24-hour format)
+			let hours = currentDate.getHours();  // Get hours (0-23)
+			let minutes = currentDate.getMinutes();  // Get minutes (0-59)
+			let seconds = currentDate.getSeconds();  // Get seconds (0-59)
+			
+			// Pad minutes and seconds with leading zeros if necessary
+			hours = hours < 10 ? '0' + hours : hours;
+			minutes = minutes < 10 ? '0' + minutes : minutes;
+			seconds = seconds < 10 ? '0' + seconds : seconds;
+			
+			// Format the time in HH:mm:ss format
+			const timeIn = `${hours}:${minutes}:${seconds}`;
+			
+			// Get the local date in YYYY-MM-DD format
+			const date = currentDate.toLocaleDateString('en-CA');  // en-CA is YYYY-MM-DD format
+			
+			console.log("TimeIn: ", timeIn);  // Example: "10:30:00"
+			console.log("Date: ", date);     // Example: "2024-11-28"
+
+
 		    fetch(`/updateSlotStatus/${slotName}`, {
 		        method: "POST",
 		        headers: {
 		            "Content-Type": "application/json"
 		        },
-		        body: JSON.stringify({ username: username, slot: slotName })  // Sending username and slot
+		        body: JSON.stringify({
+		            username: username,
+		            slot: slotName,
+		            timeIn: timeIn,  // Include timeIn
+		            date: date       // Include date
+		        })  // Sending username, slot, timeIn, and date
 		    })
 		    .then(response => {
 		        if (response.status === 403) {
-		            // Unauthorized access, show custom error modal
 		            showErrorModal("User is not authorized to open this slot.");
-		            return; // Exit the function
+		            return;
 		        }
-		        
+
 		        if (response.status === 409) {
-		            // User already parked, show error modal
 		            showErrorModal("User is already parked in a slot.");
-		            return; // Exit the function
+		            return;
 		        }
 
 		        return response.json();
 		    })
 		    .then(data => {
-		        // If the response is successful, update the available parking count
 		        if (data) {
 		            document.getElementById('availableCount').innerText = data;
 
-		            // Toggle the button color based on the updated status
 		            let button = document.getElementById(slotName);
 		            if (button.classList.contains('map-button-red')) {
 		                button.classList.remove('map-button-red');
@@ -446,7 +471,6 @@
 		    })
 		    .catch(error => console.error('Error:', error));
 		}
-
-	</script>
+</script>
 </body>
 </html>

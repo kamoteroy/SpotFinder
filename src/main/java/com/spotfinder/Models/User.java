@@ -21,6 +21,7 @@ public class User {
     String econtact;
     String plate;
     String img;
+    String role;
     
     public User() {}
     
@@ -32,7 +33,7 @@ public class User {
 	}
 
 	public User(String username, String email, String password, String name, String address, String contact,
-			String econtact, String plate, String img) {
+			String econtact, String plate, String img, String role) {
 		super();
 		this.username = username;
 		this.email = email;
@@ -43,8 +44,11 @@ public class User {
 		this.econtact = econtact;
 		this.plate = plate;
 		this.img = img;
+		this.role = role;
 	}
 
+	public String getRole() { return role; }
+	public void setRole(String role) { this.role = role; }
 	public String getUsername() { return username; }
 	public void setUsername(String username) { this.username = username; }
 	public String getEmail() { return email; }

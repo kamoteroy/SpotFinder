@@ -10,8 +10,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.spotfinder.Models.CustomUserDetails;
 import com.spotfinder.Models.UserDto;
 import com.spotfinder.Models.UserService;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class PublicController {
@@ -30,6 +33,13 @@ public class PublicController {
 	    }
 	    model.addAttribute("user", userDto);
 	    return "index";
+	}
+	
+	@GetMapping("/socials")
+	public String socials(Model model, HttpSession session) {
+		CustomUserDetails user = (CustomUserDetails) session.getAttribute("user");
+		model.addAttribute("user", user);
+	    return "socials";
 	}
 	
 	@GetMapping("/signin")

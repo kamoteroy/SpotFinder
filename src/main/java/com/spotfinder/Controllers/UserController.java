@@ -40,8 +40,9 @@ public class UserController {
     }
 	
 	@GetMapping("/history")
-	public String history(Model model, UserDto userDto) {
-		model.addAttribute("user", userDto);
+	public String history(Model model, UserDto userDto, HttpSession session) {
+		model.addAttribute("user", session.getAttribute("user"));
+		model.addAttribute("details", userDto);
 		return "history";
 	}
 	
@@ -116,6 +117,7 @@ public class UserController {
 		model.addAttribute("parkingSlots", parkingSlots);
 		model.addAttribute("user", user);
         session.setAttribute("user", user);
+        model.addAttribute("userImageUrl", user.getImg());
 		return "map";
 	}
 	
@@ -150,15 +152,14 @@ public class UserController {
 	
 	@GetMapping("/profile")
 	public String profile(HttpSession session, Model model) {
-	    CustomUserDetails user = (CustomUserDetails) session.getAttribute("user");
-
+		CustomUserDetails user = (CustomUserDetails) session.getAttribute("user");
 	    if (user == null) {
 	        model.addAttribute("error", "User not found in session. Please log in.");
 	        return "signin";
 	    }
 
 	    // Add the user to the model to be used in the profile page
-	    model.addAttribute("user", user);
+	    model.addAttribute("user", session.getAttribute("user"));
 	    return "profile";
 	}
 
