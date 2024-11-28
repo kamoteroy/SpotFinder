@@ -160,8 +160,11 @@
 	    background-color: rgba(255, 0, 0, 0.5); /* Light red background */
 	    border: 2px solid #ff0000;              /* Red border */
 	}
-	.map-button:hover {
-	    background-color: rgba(0, 0, 0, 0.7);
+	.map-button-red:hover {
+	    background-color: #45a049;
+	}
+	.map-button-green:hover {
+	    background-color: #c17470;
 	}
 	
 	/* Optional: If you want to scale down the map and buttons when zooming out */
@@ -183,6 +186,66 @@
 		height: 100%;
 		display: flex;
 	}
+	/* Modal styles */
+	.modal {
+	    display: none; /* Hidden by default */
+	    position: fixed; /* Fixed position */
+	    z-index: 100; /* Sit on top */
+	    left: 0;
+	    top: 0;
+	    width: 100%; /* Full width */
+	    height: 100%; /* Full height */
+	    background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
+	}
+	
+	.modal-content {
+	    background-color: white;
+	    margin: 15% auto;
+	    padding: 20px;
+	    border-radius: 8px;
+	    width: 300px;
+	    text-align: center;
+	}
+	
+	.close-button {
+	    color: #aaa;
+	    font-size: 28px;
+	    font-weight: bold;
+	    position: absolute;
+	    top: 5px;
+	    right: 10px;
+	}
+	
+	.close-button:hover,
+	.close-button:focus {
+	    color: black;
+	    text-decoration: none;
+	    cursor: pointer;
+	}
+	
+	.modal-actions {
+	    display: flex;
+	    justify-content: space-between;
+	    margin-top: 20px;
+	}
+	
+	button {
+	    padding: 10px 20px;
+	    border: none;
+	    background-color: #4CAF50;
+	    color: white;
+	    cursor: pointer;
+	    border-radius: 5px;
+	}
+	
+	input[type="text"] {
+	    padding: 8px;
+	    margin: 10px 0;
+	    border: 1px solid #ccc;
+	    border-radius: 4px;
+	    width: 100%;
+	}
+		
 	</style>
 </head>
 	<body>
@@ -218,70 +281,172 @@
 	    		<div class="motor-counter">
 	    			<h1>Motorcycle Count :</h1>
 	    			<div class="counter-box">
-	    				<p id="availableCount"><span th:text="${parkingSlots.size() - occupiedCount}"></span></p>
 	    			</div>
 	    		</div>
 	    	</div>
 	    	<div class="map">
 	    		<img src='../design/parklandscape.png' alt="Image Description">
 	    		 <div class="button-row1">
-				    <button id="OA1" 
-				            th:class="${parkingSlotService.isOccupied('OA1') ? 'map-button-red' : 'map-button-green'}"
-				            onclick="toggleOccupied('OA1')">OA1</button>
-				    <button id="OA2" 
-				            th:class="${parkingSlotService.isOccupied('OA2') ? 'map-button-red' : 'map-button-green'}"
-				            onclick="toggleOccupied('OA2')">OA2</button>
-				    <button id="OA3" 
-				            th:class="${parkingSlotService.isOccupied('OA3') ? 'map-button-red' : 'map-button-green'}"
-				            onclick="toggleOccupied('OA3')">OA3</button>
-				    <button id="OA4" 
-				            th:class="${parkingSlotService.isOccupied('OA4') ? 'map-button-red' : 'map-button-green'}"
-				            onclick="toggleOccupied('OA4')">OA4</button>
-				    <button id="OA5" 
-				            th:class="${parkingSlotService.isOccupied('OA5') ? 'map-button-red' : 'map-button-green'}"
-				            onclick="toggleOccupied('OA5')">OA5</button>
+				    <button id="OA1" class="map-button" 
+				        th:class="${parkingSlotService.isOccupied('OA1') ? 'map-button-red' : 'map-button-green'}"
+				        onclick="openModal('OA1')">OA1</button>
+				    <button id="OA2" class="map-button" 
+				        th:class="${parkingSlotService.isOccupied('OA2') ? 'map-button-red' : 'map-button-green'}"
+				        onclick="openModal('OA2')">OA2</button>
+				    <button id="OA3" class="map-button" 
+				        th:class="${parkingSlotService.isOccupied('OA3') ? 'map-button-red' : 'map-button-green'}"
+				        onclick="openModal('OA3')">OA3</button>
+				    <button id="OA4" class="map-button" 
+				        th:class="${parkingSlotService.isOccupied('OA4') ? 'map-button-red' : 'map-button-green'}"
+				        onclick="openModal('OA4')">OA4</button>
+				    <button id="OA5" class="map-button" 
+				        th:class="${parkingSlotService.isOccupied('OA5') ? 'map-button-red' : 'map-button-green'}"
+				        onclick="openModal('OA5')">OA5</button>
 				</div>
+
 			    <p>OPEN AREA</p>
 			    <div class="button-row2">
-				    <button id="OA6" 
-				            th:class="${parkingSlotService.isOccupied('OA6') ? 'map-button-red' : 'map-button-green'}"
-				            onclick="toggleOccupied('OA6')">OA6</button>
-				    <button id="OA7" 
-				            th:class="${parkingSlotService.isOccupied('OA7') ? 'map-button-red' : 'map-button-green'}"
-				            onclick="toggleOccupied('OA7')">OA7</button>
-				    <button id="OA8" 
-				            th:class="${parkingSlotService.isOccupied('OA8') ? 'map-button-red' : 'map-button-green'}"
-				            onclick="toggleOccupied('OA8')">OA8</button>
-				    <button id="OA9" 
-				            th:class="${parkingSlotService.isOccupied('OA9') ? 'map-button-red' : 'map-button-green'}"
-				            onclick="toggleOccupied('OA9')">OA9</button>
-				    <button id="OA10" 
-				            th:class="${parkingSlotService.isOccupied('OA10') ? 'map-button-red' : 'map-button-green'}"
-				            onclick="toggleOccupied('OA10')">OA10</button>
+				    <button id="OA6" class="map-button" 
+				        th:class="${parkingSlotService.isOccupied('OA6') ? 'map-button-red' : 'map-button-green'}"
+				        onclick="openModal('OA6')">OA6</button>
+				    <button id="OA7" class="map-button" 
+				        th:class="${parkingSlotService.isOccupied('OA7') ? 'map-button-red' : 'map-button-green'}"
+				        onclick="openModal('OA7')">OA7</button>
+				    <button id="OA8" class="map-button" 
+				        th:class="${parkingSlotService.isOccupied('OA8') ? 'map-button-red' : 'map-button-green'}"
+				        onclick="openModal('OA8')">OA8</button>
+				    <button id="OA9" class="map-button" 
+				        th:class="${parkingSlotService.isOccupied('OA9') ? 'map-button-red' : 'map-button-green'}"
+				        onclick="openModal('OA9')">OA9</button>
+				    <button id="OA10" class="map-button" 
+				        th:class="${parkingSlotService.isOccupied('OA10') ? 'map-button-red' : 'map-button-green'}"
+				        onclick="openModal('OA10')">OA10</button>
 				</div>
 			</div>
 		</div>
+		<div id="modal" class="modal">
+		    <div class="modal-content">
+		        <span class="close-button">&times;</span>
+		        <h2 id="modal-title">Parking Slot Details</h2>
+		        <p id="modal-message"></p>
+		        <input type="text" id="username-input" placeholder="ID number" />
+		        <div class="modal-actions">
+		            <button id="confirm-btn">Confirm</button>
+		            <button id="cancel-btn">Cancel</button>
+		        </div>
+		    </div>
+		</div>
+		<div id="error-modal" class="modal">
+		    <div class="modal-content">
+		        <span class="close-button" onclick="closeErrorModal()">&times;</span>
+		        <h2>Error</h2>
+		        <p id="error-message">You are not authorized to occupy this slot.</p>
+		        <button onclick="closeErrorModal()">Close</button>
+		    </div>
+		</div>
 		<script>
-		    // Function to toggle the parking slot status and update available count
-		    function toggleOccupied(slotName) {
-		        fetch(`/updateSlotStatus/${slotName}`)
-		            .then(response => response.json())
-		            .then(data => {
-		                // Update the available parking space count
-		                document.getElementById('availableCount').innerText = data;
-		                
-		                // Toggle the button color based on the updated status
-		                let button = document.getElementById(slotName);
-		                if (button.classList.contains('map-button-red')) {
-		                    button.classList.remove('map-button-red');
-		                    button.classList.add('map-button-green');
-		                } else {
-		                    button.classList.remove('map-button-green');
-		                    button.classList.add('map-button-red');
-		                }
-		            })
-		            .catch(error => console.error('Error:', error));
-		    }
-		</script>
+		// Get references to the modal elements
+		const modal = document.getElementById('modal');
+		const closeButton = document.querySelector('.close-button');
+		const confirmButton = document.getElementById('confirm-btn');
+		const cancelButton = document.getElementById('cancel-btn');
+		const usernameInput = document.getElementById('username-input');
+		const modalMessage = document.getElementById('modal-message');
+
+		// Function to open the modal
+		function openModal(slotName) {
+		    console.log("Opening modal for slot:", slotName); // Debugging log
+		    modal.style.display = "block"; // Show the modal
+		    document.getElementById("modal-title").innerText = `TAP ID`;
+		    modalMessage.innerText = ``;
+
+		    // Handle confirm button click
+		    confirmButton.onclick = function() {
+		        const username = usernameInput.value.trim();
+		        if (username) {
+		            // Send the username and slot to the server via fetch
+		            toggleOccupied(slotName, username);
+		            modal.style.display = "none"; // Close the modal after submission
+		        } else {
+		            alert("Please enter a username.");
+		        }
+		    };
+
+		    // Handle cancel button click
+		    cancelButton.onclick = function() {
+		        modal.style.display = "none"; // Close modal if cancel is clicked
+		    };
+
+		    // Handle close button click (X)
+		    closeButton.onclick = function() {
+		        modal.style.display = "none"; // Close modal if X is clicked
+		    };
+
+		    // Close modal if user clicks outside the modal content
+		    window.onclick = function(event) {
+		        if (event.target === modal) {
+		            modal.style.display = "none"; // Close modal if clicked outside
+		        }
+		    };
+		}
+
+		// Function to handle unauthorized access error
+		function showErrorModal(message) {
+		    // Set the error message
+		    document.getElementById("error-message").innerText = message;
+
+		    // Show the error modal
+		    document.getElementById("error-modal").style.display = "block";
+		}
+
+		// Function to close the error modal
+		function closeErrorModal() {
+		    document.getElementById("error-modal").style.display = "none";
+		}
+
+		// Modified toggleOccupied function to handle unauthorized access and user already parked
+		function toggleOccupied(slotName, username) {
+		    fetch(`/updateSlotStatus/${slotName}`, {
+		        method: "POST",
+		        headers: {
+		            "Content-Type": "application/json"
+		        },
+		        body: JSON.stringify({ username: username, slot: slotName })  // Sending username and slot
+		    })
+		    .then(response => {
+		        if (response.status === 403) {
+		            // Unauthorized access, show custom error modal
+		            showErrorModal("User is not authorized to open this slot.");
+		            return; // Exit the function
+		        }
+		        
+		        if (response.status === 409) {
+		            // User already parked, show error modal
+		            showErrorModal("User is already parked in a slot.");
+		            return; // Exit the function
+		        }
+
+		        return response.json();
+		    })
+		    .then(data => {
+		        // If the response is successful, update the available parking count
+		        if (data) {
+		            document.getElementById('availableCount').innerText = data;
+
+		            // Toggle the button color based on the updated status
+		            let button = document.getElementById(slotName);
+		            if (button.classList.contains('map-button-red')) {
+		                button.classList.remove('map-button-red');
+		                button.classList.add('map-button-green');
+		            } else {
+		                button.classList.remove('map-button-green');
+		                button.classList.add('map-button-red');
+		            }
+		        }
+		    })
+		    .catch(error => console.error('Error:', error));
+		}
+
+	</script>
 </body>
 </html>

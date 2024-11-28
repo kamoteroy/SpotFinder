@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ParkingSlotRepository extends JpaRepository<ParkingSlot, String> {
     Optional<ParkingSlot> findBySlotName(String slotName);
+    Optional<ParkingSlot> findByUser(String user);
 }

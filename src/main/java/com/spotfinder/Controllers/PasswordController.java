@@ -44,6 +44,13 @@ public class PasswordController {
 	
 	@GetMapping("/newpass")
 	public String newpass(HttpSession session, Model model) {
+	    // Check if the password has been verified in the session
+	    Boolean passwordVerified = (Boolean) session.getAttribute("passwordVerified");
+	    if (passwordVerified == null || !passwordVerified) {
+	        // If password has not been verified, redirect to the change password page
+	        return "redirect:/changepass";  // User must go through the change password process first
+	    }
+
 	    CustomUserDetails user = (CustomUserDetails) session.getAttribute("user");
 
 	    if (user == null) {
@@ -73,14 +80,17 @@ public class PasswordController {
 	        User dbUser = userService.findByUsername(username);
 
 	        // Check if the provided old password matches the current password in the database
-	        if (!passwordEncoder.matches(user.getPassword(), dbUser.getPassword())) {  // Using passwordEncoder to compare hashed passwords
+	        if (!passwordEncoder.matches(user.getPassword(), dbUser.getPassword())) {
 	            // If password is incorrect, add error message and stay on the changepass page
 	            redirectAttributes.addFlashAttribute("error", "Wrong Password!");
 	            return "redirect:/changepass";  // Redirect back to the change password page with error message
 	        }
 
-	        // If password matches, redirect to the reset password page
-	        return "newpass";  // Redirect to reset password page
+	        // If password matches, set a session attribute allowing access to the new password page
+	        session.setAttribute("passwordVerified", true);
+
+	        // Redirect to the reset password page
+	        return "redirect:/newpass";  // Redirect to reset password page
 	    } catch (Exception e) {
 	        // In case of an error, add an error message
 	        redirectAttributes.addFlashAttribute("error", "Error processing your request. Please try again.");
@@ -89,6 +99,7 @@ public class PasswordController {
 	    // Redirect back to change password page in case of error
 	    return "redirect:/changepass";
 	}
+
 
 	@PostMapping("/newpassword")
 	public String newPassword(@ModelAttribute("user") User user, HttpSession session, RedirectAttributes redirectAttributes, Model model) {
@@ -105,41 +116,39 @@ public class PasswordController {
 
 	        // Fetch the user details from the database using the username
 	        User dbUser = userService.findByUsername(username);
-	        
-	        // Debug prints to check the passwords
-	        System.out.println(dbUser.getPassword());
-	        System.out.println(user.getPassword());
 
-	        // Check if the provided password matches the current password in the database
-	        if (passwordEncoder.matches(user.getPassword(), dbUser.getPassword())) {  // Using passwordEncoder to compare hashed passwords
-	            // If password is same, add error message and stay on the new password page
-	            redirectAttributes.addFlashAttribute("error", "Password is the same as old password");
-	            return "redirect:/newpass";  // Redirect back to the change password page
+	        // Debug prints to check the passwords (you might want to remove these after testing)
+	        System.out.println("Current password (db): " + dbUser.getPassword());
+	        System.out.println("New password (user input): " + user.getPassword());
+
+	        // Check if the new password matches the old password (you don't want them to be the same)
+	        if (passwordEncoder.matches(user.getPassword(), dbUser.getPassword())) {
+	            // If the new password is the same as the old password, add an error message
+	            redirectAttributes.addFlashAttribute("error", "New password cannot be the same as the old password.");
+	            return "redirect:/newpass";  // Redirect back to the new password page with an error message
 	        }
 
-	        // If password doesn't match, encode the new password and update the user
-	        String encodedNewPassword = passwordEncoder.encode(user.getPassword());  // Encode the new password
+	        // If the new password is different from the old password, encode it
+	        String encodedNewPassword = passwordEncoder.encode(user.getPassword());
 
-	        // Set the encoded new password in the user object
-	        user.setPassword(encodedNewPassword);
+	        // Proceed with updating the user's password in the database
+	        userService.updatePassword(username, encodedNewPassword);  // Ensure that the password is updated with the encoded version
 
-	        // Proceed with updating the user (the password is now encoded)
-	        userService.updatePassword(username, user.getPassword());  // Pass the encoded password correctly
+	        // Update the session with the new user object (this includes the updated password)
+	        currentUser.setPassword(encodedNewPassword);  // Set the new encoded password in the session object
+	        session.setAttribute("user", currentUser);  // Update session with the new password
 
-	        // Update the session with the new user data (including the updated password)
-	        currentUser.setPassword(encodedNewPassword);  // Set the new encoded password in the session
-	        session.setAttribute("user", currentUser);
-
-	        // Add a success message and redirect back to the profile page
+	        // Add a success message and redirect to the profile page
 	        redirectAttributes.addFlashAttribute("success", "Your password has been successfully updated.");
 	        return "redirect:/profile";  // Redirect to profile page or wherever you want
 
 	    } catch (Exception e) {
-	        // In case of an error, add an error message
+	        // Handle any exceptions and show an error message
 	        redirectAttributes.addFlashAttribute("error", "Error updating your password. Please try again.");
-	        return "redirect:/newpass";  // Redirect back to the password change page in case of error
+	        return "redirect:/newpass";  // Redirect back to the new password page in case of an error
 	    }
 	}
+
 
 
 
