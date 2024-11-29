@@ -2,10 +2,12 @@ package com.spotfinder.Models;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 
 @Entity
+@Table(name = "contact_us")
 public class ContactUs {
 
     @Id
@@ -16,6 +18,16 @@ public class ContactUs {
     private String phone;
     private String message;
     
+    public ContactUs() {}
+    
+	public ContactUs(Long id, String name, String email, String phone, String message) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.email = email;
+		this.phone = phone;
+		this.message = message;
+	}
 	public Long getId() { return id; }
 	public void setId(Long id) { this.id = id; }
 	public String getName() { return name; }

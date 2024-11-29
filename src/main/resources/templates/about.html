@@ -3,7 +3,7 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<title>ABOUT US</title>
+		<title>About Us</title>
 		<script
 			type="module"
 			src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
@@ -135,22 +135,23 @@
 	<body>
 		<div class="navbar">
 		        <div class="leftSide">
-		            <div onclick="window.location.href='/map'" class="logo-button">
+		            <div onclick="window.location.href='/'" class="logo-button">
 					</div>
 		        </div>
 		        <div class="rightSide">
-		        	<a href="/">MAP</a>
-		        	<a th:if="${user.getRole() == 'user'}" href="/socials">SOCIALS</a>
-		            <a th:if="${user.getRole() == 'user'}" href="/about">ABOUT US </a>
-		            <a th:if="${user.getRole() == 'user'}" href="/contact">CONTACT US</a>
-					<a th:if="${user.getRole() == 'admin'}" href="/history">HISTORY</a>
-					<a th:if="${user.getRole() == 'admin'}"href="/profile" class="profile-button">PROFILE</a>
-					<a th:if="${user.getRole() == 'admin'}"href="/signout" class="signout-button">SIGNOUT</a>
+		        	<a th:if="${user != null}" href="/">MAP</a>
+		        	<a th:if="${user == null || user.getRole() == 'user'}" href="/socials">SOCIALS</a>
+		            <a th:if="${user == null || user.getRole() == 'user'}" href="/about">ABOUT US </a>
+		            <a th:if="${user == null || user.getRole() == 'user'}" href="/contact">CONTACT US</a>
+					<a th:if="${user != null && user.getRole() == 'admin'}" href="/history">HISTORY</a>
+					<a th:if="${user != null && user.getRole() == 'admin'}" href="/profile" class="profile-button">PROFILE</a>
+					<a th:if="${user != null && user.getRole() == 'admin'}"href="/signout" class="signout-button">SIGNOUT</a>
+					<a th:if="${user == null}" href="/signin">SIGNIN</a>
 		        </div>
 		</div>
-		<div class="dropdown" th:if="${user.getRole() == 'user'}">
+		<div class="dropdown" th:if="${user != null && user.getRole() == 'user'}">
 			<input id="dropdown-toggle" class="dropdown-toggle">
-			<label for="dropdown-toggle" class="dropdown-button" th:style="'background-image: url(' + ${user.getImg()} + ');'"></label>
+			<label for="dropdown-toggle" class="dropdown-button" th:style="'background-image: url(' + ${user.getImg() } + ');'"></label>
 			<div class="dropdown-content">
 			<a href="/profile" class="social-button">PROFILE</a>
 			<a href="/history" class="social-button">HISTORY</a>

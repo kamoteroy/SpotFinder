@@ -189,8 +189,9 @@
 	            <a th:if="${user.getRole() == 'user'}" href="/about">ABOUT US </a>
 	            <a th:if="${user.getRole() == 'user'}" href="/contact">CONTACT US</a>
 				<a th:if="${user.getRole() == 'admin'}" href="/history">HISTORY</a>
-				<a th:if="${user.getRole() == 'admin'}"href="/profile" class="profile-button">PROFILE</a>
-				<a th:if="${user.getRole() == 'admin'}"href="/signout" class="signout-button">SIGNOUT</a>
+				<a th:if="${user.getRole() == 'admin'}" href="/message">MESSAGES</a>
+				<a th:if="${user.getRole() == 'admin'}"href="/profile">PROFILE</a>
+				<a th:if="${user.getRole() == 'admin'}"href="/signout">SIGNOUT</a>
 	        </div>
 	</div>
 	<div th:if="${user.getRole() == 'user'}" class="dropdown">

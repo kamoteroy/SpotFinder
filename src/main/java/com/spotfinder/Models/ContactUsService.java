@@ -6,10 +6,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class ContactUsService {
 
-    @Autowired
-    private ContactRepository contactUsRepository;
+    private final ContactRepository contactUsRepository;
 
-    public void save(ContactUs contactUs) {
-        contactUsRepository.save(contactUs);
+    @Autowired
+    public ContactUsService(ContactRepository contactUsRepository) {
+        this.contactUsRepository = contactUsRepository;
+    }
+
+    public void save(ContactUs contact) {
+        // Save the contact details to the database
+        contactUsRepository.save(contact);
     }
 }

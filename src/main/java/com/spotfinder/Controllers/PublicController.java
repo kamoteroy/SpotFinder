@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.spotfinder.Models.ContactRepository;
 import com.spotfinder.Models.ContactUs;
 import com.spotfinder.Models.ContactUsService;
 import com.spotfinder.Models.CustomUserDetails;
@@ -25,6 +26,9 @@ public class PublicController {
 	private UserService userService;
 
 	public PublicController(UserService userService) { this.userService = userService; }
+	
+	@Autowired
+    private ContactRepository contactUsRepository;
 	
 	@Autowired
     private ContactUsService contactUsService;
@@ -62,11 +66,15 @@ public class PublicController {
         model.addAttribute("contact", new ContactUs());
         return "contactus";
     }
-
-    @PostMapping("/contactus")
-    public String submitContactForm(ContactUs contact) {
-        contactUsService.save(contact);
-        return "redirect:/thank-you";
+    
+    @PostMapping("/contact")
+    public String submitContactForm(@ModelAttribute ContactUs contact, Model model) {
+    	System.out.println("bobobobo");
+        // Save the contact details to the database
+        contactUsRepository.save(contact);
+        model.addAttribute("message", "Thank you for your message!");
+        model.addAttribute("contact", new ContactUs());
+        return "contactus"; // You could return a confirmation page or redirect
     }
 	
 	@GetMapping("/signin")

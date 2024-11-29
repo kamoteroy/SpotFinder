@@ -3,7 +3,7 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<title>Sign Up</title>
+		<title>Signup</title>
 		<script
 			type="module"
 			src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
@@ -19,19 +19,19 @@
 	<body>
 		<div class="navbar">
 	        <div class="leftSide">
-	            <div onclick="window.location.href='/map'" class="logo-button">
+	            <div onclick="window.location.href='/'" class="logo-button">
 				</div>
 	        </div>
 	        <div class="rightSide">
 	        	<a th:href="@{/socials}">SOCIALS</a>
 	            <a th:href="@{/about}">ABOUT US </a>
 	            <a th:href="@{/contact}">CONTACT US </a>
-	            <a th:href="@{/signin}">SIGN IN</a>
+	            <a th:href="@{/signin}">SIGNIN</a>
 	        </div>
     	</div>		
     	<section>
 			<form class="sign" th:action="@{/signup}" th:object="${user}" method="post">
-				<h1>Sign Up</h1>
+				<h1>Signup</h1>
 				<div class="inputbox">
 					<ion-icon name="person-outline"></ion-icon>
 					<input
@@ -65,16 +65,16 @@
 					<input type="password" id="cpassword" name="cpassword" required />
 					<label for="">Confirm Password</label>
 				</div>
-				<div class="warning" th:if="${usernameError}" th:text="${usernameError}"></div>
+				<div class="warning" th:if="${usernameError}" th:text="${usernameError}"></div> 
 				<div class="warning" th:if="${passwordError}" th:text="${passwordError}"></div>
 				<div class="warning" th:if="${emailError}" th:text="${emailError}"></div>
 				<label
 					class="success"
 					th:if="${param.success}"
 				>Success</label>
-				<button id="submit" type="submit">Sign Up</button>
+				<button id="submit" type="submit">Register</button>
 				<div class="register">
-					<p>Already have an account? <a th:href="@{/signin}">Sign In</a></p>
+					<p>Already have an account? <a th:href="@{/signin}">Signin</a></p>
 				</div>
 			</form>
 		</section>

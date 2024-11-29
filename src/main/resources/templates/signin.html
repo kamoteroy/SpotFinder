@@ -3,7 +3,7 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<title>Sign In</title>
+		<title>Signin</title>
 		<script
 			type="module"
 			src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
@@ -19,20 +19,20 @@
 	<body>
 		<div class="navbar">
 	        <div class="leftSide">
-	            <div onclick="window.location.href='/map'" class="logo-button">
+	            <div onclick="window.location.href='/'" class="logo-button">
 				</div>
 	        </div>
 	        <div class="rightSide">
 	        	<a th:href="@{/socials}">SOCIALS</a>
 	            <a th:href="@{/about}">ABOUT US </a>
 	            <a th:href="@{/contact}">CONTACT US </a>
-	            <a th:href="@{/signin}">SIGN UP</a>
+	            <a th:href="@{/signup}">SIGNUP</a>
 	        </div>
     	</div>  
 		<section>
 		
 			<form class="sign" th:action="@{/signin}" th:object="${user}" method="post">
-				<h1>Sign In</h1>
+				<h1>Signin</h1>
 				<div class="inputbox">
 					<ion-icon name="person-outline"></ion-icon>
 					<input
@@ -56,14 +56,14 @@
 					/>
 					<label for="">Password</label>
 				</div>
-				<div th:if="${param.error}" class="warning">Invalid IDnum or password </div>
+				<div th:if="${param.error}" class="warning">Invalid IDnum or password</div>
 				<div class="warning" th:if="${loginError}" th:text="${loginError}"></div>
 				<div class="register">
 					<p><a th:href="@{/forgot}">Forget Password ?</a></p>
 				</div>
-				<button id="submit" type="submit">Log in</button>
+				<button id="submit" type="submit">Login</button>
 				<div class="register">
-					<p>Don't have a account? <a th:href="@{/signup}"> Sign Up</a></p>
+					<p>Don't have a account? <a th:href="@{/signup}"> Signup</a></p>
 				</div>
 			</form>
 		</section>
