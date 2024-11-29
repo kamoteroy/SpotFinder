@@ -1,0 +1,182 @@
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title>ABOUT US</title>
+		<script
+			type="module"
+			src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+		></script>
+		<script
+			nomodule
+			src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+		></script>
+		<link
+			rel="icon"
+			href="https://img.freepik.com/premium-vector/car-parking-icon-parking-space-parking-lot-car-park-vector-icon-isolated-white-background_736051-1484.jpg"
+			type="image/icon type"
+		/>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+		<link rel="stylesheet" href="../design/style.css" />
+		<link rel="stylesheet" href="../design/navbar.css" />
+		<link rel="icon" type="image/png" href="../design/icon.png">
+		<script src="/js/signup.js" defer></script>
+		<style>
+			.navbar .leftSide {
+			margin-left:0px;
+			flex: 40%;
+			height: 100%;
+			display: flex;
+		}
+
+		.navbar .rightSide {
+			flex: 60%;
+			justify-content: center;
+			height: 100%;
+			display: flex;
+		}
+		section {
+		    flex: 1;
+		    display: flex;
+		    justify-content: center;
+		    align-items: center;
+		}
+		.about-container {
+			height: 550px;
+			width: 1000px;
+			background-color: transparent;
+			border: 2px solid rgba(255, 255, 255, 0.5);
+			border-radius: 20px;
+			backdrop-filter: blur(55px);
+			padding: 2rem 3rem;
+			transition: all 0.5s ease-in-out;
+			display: flex;
+			flex-direction: column;
+			align-content: center;
+		}
+		.about-container h1 {
+		    height: 20%; /* Take up 20% of the container's height */
+		    display: flex;
+		    justify-content: center;
+		    align-items: center;
+		}
+		.flex-container {
+		    display: flex;
+		    flex-direction: column; /* Stack children vertically */
+		    height: 100vh; /* Full viewport height */
+		}
+		
+		.top {
+		    flex: 0 0 20%; /* Takes 30% of the container */
+		    padding: 0px;
+		    display: flex; /* Enable flexbox on the top div */
+		    justify-content: center; /* Center horizontally */
+		    align-items: center; /* Center vertically */
+		    text-align: center; /* Ensure text is centered */
+		}
+		
+		.top h1 {
+		    color: white;
+		    font-style: italic;
+		    font-style: bold;
+		    font-size: 60px;
+		    margin: 0; /* Remove default margin to prevent spacing issues */
+}
+		
+		.middle {
+		    background-color: rgba(255, 255, 255, 0.3);
+		    flex: 0 0 60%; /* Takes 50% of the container */
+		    padding: 20px;
+		    display: flex; /* Enable flexbox on the top div */
+		    justify-content: center; /* Center horizontally */
+		    text-align: center;
+		    border-radius: 20px; /* Curved edges (adjust as needed) */
+   			margin: 10px; /* Optional: Adds space around the div */
+		}
+		.middle p{
+		    font-size: 25px;
+		}
+		
+		.bottom {
+		    flex: 0 0 20%; /* Takes 20% of the container */
+		    padding: 20px;
+		    text-align: center;
+		    display: flex;
+		    flex-direction: row; /* Stack items vertically */
+		    justify-content: space-between; /* Space out the items with equal spacing */
+		}
+		.bottom .abouts{
+		    display: flex;
+		    flex-direction: row; /* Stack items vertically */
+		    gap:10px;
+		}
+		.bottom .abouts h1{
+		    font-size: 18px; /* Adjust the size of the icons */
+		    margin-top: 25px; /* Space between the items */
+		}
+		.bottom i {
+		    margin-top: 10px; /* Space between the items */
+		    display: inline-flex; /* To enable alignment and centering inside */
+		    align-items: center;
+		    justify-content: center;
+		    background-color: orange; /* Circle background color */
+		    border-radius: 50%; /* Make the background circular */
+		    width: 40px; /* Set the width of the circle */
+		    height: 40px; /* Set the height of the circle */
+		    font-size: 18px; /* Size of the icon */
+		    padding: 5px; /* Add padding to make sure icons fit inside */
+		    color:white;
+		}
+		
+		</style>
+	</head>
+	<body>
+		<div class="navbar">
+		        <div class="leftSide">
+		            <div onclick="window.location.href='/map'" class="logo-button">
+					</div>
+		        </div>
+		        <div class="rightSide">
+		        	<a href="/">MAP</a>
+		        	<a th:if="${user.getRole() == 'user'}" href="/socials">SOCIALS</a>
+		            <a th:if="${user.getRole() == 'user'}" href="/about">ABOUT US </a>
+		            <a th:if="${user.getRole() == 'user'}" href="/contact">CONTACT US</a>
+					<a th:if="${user.getRole() == 'admin'}" href="/history">HISTORY</a>
+					<a th:if="${user.getRole() == 'admin'}"href="/profile" class="profile-button">PROFILE</a>
+					<a th:if="${user.getRole() == 'admin'}"href="/signout" class="signout-button">SIGNOUT</a>
+		        </div>
+		</div>
+		<div class="dropdown" th:if="${user.getRole() == 'user'}">
+			<input id="dropdown-toggle" class="dropdown-toggle">
+			<label for="dropdown-toggle" class="dropdown-button" th:style="'background-image: url(' + ${user.getImg()} + ');'"></label>
+			<div class="dropdown-content">
+			<a href="/profile" class="social-button">PROFILE</a>
+			<a href="/history" class="social-button">HISTORY</a>
+			<a href="/signout" class="signout-button">SIGNOUT</a>
+			</div>
+		</div>
+		<section>
+			<div class="about-container">
+			    <div class="flex-container">
+				    <div class="top"><h1>ABOUT US</h1></div>
+				    <div class="middle">
+				    	<p>Spot Finder helps students and staff easily locate available parking spaces within the university campus, saving time and reducing stress. With real-time updates and user-friendly navigation, it ensures a seamless parking experience. Say goodbye to endless searching and focus more on what matters most—your studies and work!</p>
+					</div>
+				    <div class="bottom">
+				    	<div class="abouts">
+				    		<i class="fa fa-volume-control-phone" aria-hidden="true"></i><h1>09123456789</h1>
+				    	</div>
+					    <div class="abouts">
+					    	<i class="fa-regular fa-envelope"></i><h1>spotfinder@gmail.com</h1>
+					    </div>
+					    <div class="abouts">
+					    	<i class="fa-solid fa-location-dot"></i><h1>N. Bacalso, Cebu City 6000</h1>
+					    </div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</body>
+</html>

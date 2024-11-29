@@ -256,17 +256,21 @@
 	        </div>
 	        <div class="rightSide">
 	        	<a href="/">MAP</a>
-	        	<a href="/socials">SOCIALS</a>
-	            <a href="/about">ABOUT US </a>
-	            <a href="/contact">CONTACT US </a>
+	        	<a th:if="${user.getRole() == 'user'}" href="/socials">SOCIALS</a>
+	            <a th:if="${user.getRole() == 'user'}" href="/about">ABOUT US </a>
+	            <a th:if="${user.getRole() == 'user'}" href="/contact">CONTACT US</a>
+				<a th:if="${user.getRole() == 'admin'}" href="/history">HISTORY</a>
+				<a th:if="${user.getRole() == 'admin'}"href="/profile" class="profile-button">PROFILE</a>
+				<a th:if="${user.getRole() == 'admin'}"href="/signout" class="signout-button">SIGNOUT</a>
 	        </div>
 	</div>
-	<div class="dropdown">
+	<div th:if="${user.getRole() == 'user'}" class="dropdown">
 		<input id="dropdown-toggle" class="dropdown-toggle">
 		<label for="dropdown-toggle" class="dropdown-button" th:style="'background-image: url(' + ${user.getImg()} + ');'"></label>
+		</label>
 		<div class="dropdown-content">
 		<a href="/profile" class="profile-button">PROFILE</a>
-		<a href="/history" class="profile-button">HISTORY</a>
+		<a th:if="${user.getRole() == 'user'}" href="/history" class="profile-button">HISTORY</a>
 		<a href="/signout" class="signout-button">SIGNOUT</a>
 		</div>
 	</div>

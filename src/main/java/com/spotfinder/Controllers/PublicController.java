@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.spotfinder.Models.ContactUs;
+import com.spotfinder.Models.ContactUsService;
 import com.spotfinder.Models.CustomUserDetails;
 import com.spotfinder.Models.UserDto;
 import com.spotfinder.Models.UserService;
@@ -23,6 +25,10 @@ public class PublicController {
 	private UserService userService;
 
 	public PublicController(UserService userService) { this.userService = userService; }
+	
+	@Autowired
+    private ContactUsService contactUsService;
+
 
 	@GetMapping("/")
 	public String index(Model model, UserDto userDto) {
@@ -41,6 +47,27 @@ public class PublicController {
 		model.addAttribute("user", user);
 	    return "socials";
 	}
+	
+	@GetMapping("/about")
+	public String about(Model model, HttpSession session) {
+		CustomUserDetails user = (CustomUserDetails) session.getAttribute("user");
+		model.addAttribute("user", user);
+	    return "about";
+	}
+	
+    @GetMapping("/contact")
+    public String showContactForm(Model model, HttpSession session) {
+    	CustomUserDetails user = (CustomUserDetails) session.getAttribute("user");
+		model.addAttribute("user", user);
+        model.addAttribute("contact", new ContactUs());
+        return "contactus";
+    }
+
+    @PostMapping("/contactus")
+    public String submitContactForm(ContactUs contact) {
+        contactUsService.save(contact);
+        return "redirect:/thank-you";
+    }
 	
 	@GetMapping("/signin")
 	public String signin(Model model, UserDto userDto) {
