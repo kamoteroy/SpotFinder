@@ -411,46 +411,48 @@
 			    fetch(`/getSlotDetails/${slotName}`)
 			        .then(response => response.json())
 			        .then(data => {
-			            if (data.success) {
-			            	if(data.slot.reported){
-			                	reportButton.style.display = "block";
-			                	document.getElementById("report-modal-title").innerText = `Reported!`;
-			                	reportMessage.innerText = "You've already reported this slot!";
-			                	reportButton.style.display = "none"; // Hide the report button
-							}
-			            	else if (data.slot.user === currentUser.username) {
-			                	document.getElementById("report-modal-title").innerText = `Report Slot Issues`;
-			                	reportMessage.innerText = `Report slot ${slotName}?`;
-			                    reportButton.style.display = "block";
-			
-			                    // Handle report button click to set 'reported' to 1
-			                    reportButton.onclick = function() {
-			                        console.log("Reporting slot", slotName);
-			
-			                        // Make a request to the backend to set the reported status to true
-			                        fetch(`/setReportedStatus/${slotName}`, {
-			                            method: 'POST',
-			                            headers: {
-			                                'Content-Type': 'application/json'
-			                            },
-			                            body: JSON.stringify({ reported: true })
-			                        })
-			                        .then(response => response.text()) // Change to text(), not json()
-			                        .then(data => {
-			                            if (data) {
-			                                document.getElementById("report-modal-title").innerText = `Report Successful`;
-			                                reportMessage.innerText = ``;
-			                                reportButton.style.display = "none"; // Hide the report button
-			                            } else {
-			                                alert("Failed to report slot.");
-			                            }
-			
-			                        })
-			                        .catch(error => {
-			                            console.error('Error:', error);
-			                            alert('An error occurred while reporting the slot.');
-			                        });
-			                    };
+			        	if (data.success) {
+			            	if (data.slot.user === currentUser.username) {
+			            		if(data.slot.reported){
+				                	reportButton.style.display = "block";
+				                	document.getElementById("report-modal-title").innerText = `Reported!`;
+				                	reportMessage.innerText = "You've already reported this slot!";
+				                	reportButton.style.display = "none"; // Hide the report button
+								}
+			            		else {
+				                	document.getElementById("report-modal-title").innerText = `Report Slot Issues`;
+				                    reportMessage.innerText = `Report slot ${slotName}?`;
+				                    reportButton.style.display = "block";
+				
+				                    // Handle report button click to set 'reported' to 1
+				                    reportButton.onclick = function() {
+				                        console.log("Reporting slot", slotName);
+				
+				                        // Make a request to the backend to set the reported status to true
+				                        fetch(`/setReportedStatus/${slotName}`, {
+				                            method: 'POST',
+				                            headers: {
+				                                'Content-Type': 'application/json'
+				                            },
+				                            body: JSON.stringify({ reported: true })
+				                        })
+				                        .then(response => response.text()) // Change to text(), not json()
+				                        .then(data => {
+				                            if (data) {
+				                                document.getElementById("report-modal-title").innerText = `Report Successful`;
+				                                reportMessage.innerText = ``;
+				                                reportButton.style.display = "none"; // Hide the report button
+				                            } else {
+				                                alert("Failed to report slot.");
+				                            }
+				
+				                        })
+				                        .catch(error => {
+				                            console.error('Error:', error);
+				                            alert('An error occurred while reporting the slot.');
+				                        });
+				                    };
+			            		}
 			                } 
 			               	else {
 			                   // If the current user is not the one occupying the slot, display an error
