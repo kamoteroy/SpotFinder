@@ -142,6 +142,100 @@ public class ParkingSlotController {
 
         return String.format("%d hours %d minutes", hours, minutes);
     }
+   
+    // Endpoint to get slot details by slot name
+    @GetMapping("/getSlotDetails/{slotName}")
+    public ResponseEntity<SlotResponse> getSlotDetails(@PathVariable String slotName) {
+        // Fetch the slot using the service
+        ParkingSlot slot = parkingSlotService.findBySlotName(slotName).orElse(null);
+
+        // Check if the slot exists and return appropriate response
+        if (slot != null) {
+            return ResponseEntity.ok(new SlotResponse(true, slot));
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new SlotResponse(false, "Slot not found"));
+        }
+    }
+
+    // Response object to send back to the frontend
+    public static class SlotResponse {
+        private boolean success;
+        private ParkingSlot slot;
+        private String message;
+
+        // Constructor when success
+        public SlotResponse(boolean success, ParkingSlot slot) {
+            this.success = success;
+            this.slot = slot;
+            this.message = null;  // No message needed if success
+        }
+
+        // Constructor when failure (slot not found, etc.)
+        public SlotResponse(boolean success, String message) {
+            this.success = success;
+            this.slot = null;  // No slot data in case of failure
+            this.message = message;
+        }
+
+        public boolean isSuccess() {
+            return success;
+        }
+
+        public ParkingSlot getSlot() {
+            return slot;
+        }
+
+        public String getMessage() {
+            return message;
+        }
+    }
+    
+    @PostMapping("/setReportedStatus/{slotName}")
+    public ResponseEntity<?> setReportedStatus(@PathVariable String slotName, @RequestBody SlotStatusRequest request) {
+        // Validate input (optional)
+        if (slotName == null || slotName.isEmpty()) {
+            return ResponseEntity.badRequest().body(new ErrorResponse("Slot name is required."));
+        }
+        
+        System.out.println(slotName);
+        System.out.println(request.isReported());
+        
+        boolean success = parkingSlotService.setReportedStatus(slotName, request.isReported());
+        System.out.println(success);
+
+        if (success) {
+            return ResponseEntity.ok(new SuccessResponse("Slot " + slotName + " has been reported."));
+        } else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorResponse("Failed to report slot."));
+        }
+    }
+
+    // Create a response class for success
+    public static class SuccessResponse {
+        private String message;
+
+        public SuccessResponse(String message) {
+            this.message = message;
+        }
+
+        public String getMessage() {
+            return message;
+        }
+    }
+
+    // Create a response class for errors
+    public static class ErrorResponse {
+        private String message;
+
+        public ErrorResponse(String message) {
+            this.message = message;
+        }
+
+        public String getMessage() {
+            return message;
+        }
+    }
+
 
     @GetMapping("/map/backgate")
     public String getBackgateSlots(Model model, HttpSession session) {

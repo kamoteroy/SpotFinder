@@ -5,6 +5,9 @@ public class SlotStatusRequest {
     private String slot;
     private String timeIn;  // Add this field for time
     private String date;    // Add this field for date
+    private boolean reported;
+    
+    public SlotStatusRequest() {}
 
     // Getters and setters
     public String getUsername() {
@@ -37,5 +40,14 @@ public class SlotStatusRequest {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    // Getter and Setter
+    public boolean isReported() {
+        return reported;
+    }
+
+    public void setReported(boolean reported) {
+        this.reported = reported;
     }
 }

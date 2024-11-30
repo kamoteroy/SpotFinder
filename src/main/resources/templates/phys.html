@@ -210,10 +210,9 @@
 	    text-decoration: none;
 	    cursor: pointer;
 	}
-	
 	.modal-actions {
 	    display: flex;
-	    justify-content: space-between;
+	    justify-content: space-around;
 	    margin-top: 20px;
 	}
 	
@@ -233,7 +232,16 @@
 	    border-radius: 4px;
 	    width: 100%;
 	}
-		
+	/* Ensure that the close button is visible */
+	.report-button {
+	    background-color: #f44336; /* red */
+	    color: white;
+	    padding: 10px 15px;
+	    border-radius: 5px;
+	    text-align: center;
+	    cursor: pointer;
+	    align-self:center;
+	}
 	</style>
 </head>
 	<body>
@@ -248,6 +256,7 @@
 	            <a th:if="${user.getRole() == 'user'}" href="/about">ABOUT US </a>
 	            <a th:if="${user.getRole() == 'user'}" href="/contact">CONTACT US</a>
 				<a th:if="${user.getRole() == 'admin'}" href="/history">HISTORY</a>
+				<a th:if="${user.getRole() == 'admin'}" href="/reports">REPORTS</a>
 				<a th:if="${user.getRole() == 'admin'}" href="/message">MESSAGES</a>
 				<a th:if="${user.getRole() == 'admin'}"href="/profile">PROFILE</a>
 				<a th:if="${user.getRole() == 'admin'}"href="/signout">SIGNOUT</a>
@@ -264,63 +273,63 @@
 		</div>
 	</div>
 	<div class="view">
-    <div class="widgets">
-        <div class="slot-counter">
-            <h1>Parking Space Available :</h1>
-            <div class="counter-box">
-                <p id="availableCount"><span th:text="${parkingSlots.size() - occupiedCount}"></span></p>
-            </div>
-        </div>
-        <div class="motor-counter">
-            <h1>Motorcycle Count :</h1>
-            <div class="counter-box">
-                <p><span th:text="${parkingSlots.size() - occupiedCount}"></span></p>
-            </div>
-        </div>
-    </div>
-
-    <div class="map">
-        <img src='../design/parkingportrait.png' alt="Image Description">
-        <div class="button-row1">
-            <button id="P1" class="map-button" 
-				        th:class="${parkingSlotService.isOccupied('P1') ? 'map-button-red' : 'map-button-green'}"
-				        onclick="openModal('P1')">P1</button>
-				    <button id="P2" class="map-button" 
-				        th:class="${parkingSlotService.isOccupied('P2') ? 'map-button-red' : 'map-button-green'}"
-				        onclick="openModal('P2')">P2</button>
-				    <button id="P3" class="map-button" 
-				        th:class="${parkingSlotService.isOccupied('P3') ? 'map-button-red' : 'map-button-green'}"
-				        onclick="openModal('P3')">P3</button>
-				    <button id="P4" class="map-button" 
-				        th:class="${parkingSlotService.isOccupied('P4') ? 'map-button-red' : 'map-button-green'}"
-				        onclick="openModal('P4')">P4</button>
-				    <button id="P5" class="map-button" 
-				        th:class="${parkingSlotService.isOccupied('P5') ? 'map-button-red' : 'map-button-green'}"
-				        onclick="openModal('P5')">P5</button>
-        </div>
-
-        <p>PHYS</p>
-
-        <div class="button-row2">
-            <button id="P6" 
-                    th:class="${parkingSlotService.isOccupied('P6') ? 'map-button-red' : 'map-button-green'}"
-                    onclick="openModal('P6')">P6</button>
-            <button id="P7" 
-                    th:class="${parkingSlotService.isOccupied('P7') ? 'map-button-red' : 'map-button-green'}"
-                    onclick="openModal('P7')">P7</button>
-            <button id="P8" 
-                    th:class="${parkingSlotService.isOccupied('P8') ? 'map-button-red' : 'map-button-green'}"
-                    onclick="openModal('P8')">P8</button>
-            <button id="P9" 
-                    th:class="${parkingSlotService.isOccupied('P9') ? 'map-button-red' : 'map-button-green'}"
-                    onclick="openModal('P9')">P9</button>
-            <button id="P10" 
-                    th:class="${parkingSlotService.isOccupied('P10') ? 'map-button-red' : 'map-button-green'}"
-                    onclick="openModal('P10')">P10</button>
-        </div>
-    </div>
-</div>
-<div id="modal" class="modal">
+	    <div class="widgets">
+	        <div class="slot-counter">
+	            <h1>Parking Space Available :</h1>
+	            <div class="counter-box">
+	                <p id="availableCount"><span th:text="${parkingSlots.size() - occupiedCount}"></span></p>
+	            </div>
+	        </div>
+	        <div class="motor-counter">
+	            <h1>Motorcycle Count :</h1>
+	            <div class="counter-box">
+	                <p><span th:text="${parkingSlots.size() - occupiedCount}"></span></p>
+	            </div>
+	        </div>
+	    </div>
+	
+	    <div class="map">
+	        <img src='../design/parkingportrait.png' alt="Image Description">
+	        <div class="button-row1">
+	            <button id="P1" class="map-button" 
+					        th:class="${parkingSlotService.isOccupied('P1') ? 'map-button-red' : 'map-button-green'}"
+					        onclick="openModal('P1')">P1</button>
+					    <button id="P2" class="map-button" 
+					        th:class="${parkingSlotService.isOccupied('P2') ? 'map-button-red' : 'map-button-green'}"
+					        onclick="openModal('P2')">P2</button>
+					    <button id="P3" class="map-button" 
+					        th:class="${parkingSlotService.isOccupied('P3') ? 'map-button-red' : 'map-button-green'}"
+					        onclick="openModal('P3')">P3</button>
+					    <button id="P4" class="map-button" 
+					        th:class="${parkingSlotService.isOccupied('P4') ? 'map-button-red' : 'map-button-green'}"
+					        onclick="openModal('P4')">P4</button>
+					    <button id="P5" class="map-button" 
+					        th:class="${parkingSlotService.isOccupied('P5') ? 'map-button-red' : 'map-button-green'}"
+					        onclick="openModal('P5')">P5</button>
+	        </div>
+	
+	        <p>PHYS</p>
+	
+	        <div class="button-row2">
+	            <button id="P6" 
+	                    th:class="${parkingSlotService.isOccupied('P6') ? 'map-button-red' : 'map-button-green'}"
+	                    onclick="openModal('P6')">P6</button>
+	            <button id="P7" 
+	                    th:class="${parkingSlotService.isOccupied('P7') ? 'map-button-red' : 'map-button-green'}"
+	                    onclick="openModal('P7')">P7</button>
+	            <button id="P8" 
+	                    th:class="${parkingSlotService.isOccupied('P8') ? 'map-button-red' : 'map-button-green'}"
+	                    onclick="openModal('P8')">P8</button>
+	            <button id="P9" 
+	                    th:class="${parkingSlotService.isOccupied('P9') ? 'map-button-red' : 'map-button-green'}"
+	                    onclick="openModal('P9')">P9</button>
+	            <button id="P10" 
+	                    th:class="${parkingSlotService.isOccupied('P10') ? 'map-button-red' : 'map-button-green'}"
+	                    onclick="openModal('P10')">P10</button>
+	        </div>
+	    </div>
+	</div>
+	<div id="modal" class="modal">
 		    <div class="modal-content">
 		        <span class="close-button">&times;</span>
 		        <h2 id="modal-title">Parking Slot Details</h2>
@@ -329,6 +338,23 @@
 		        <div class="modal-actions">
 		            <button id="confirm-btn">Confirm</button>
 		            <button id="cancel-btn">Cancel</button>
+		        </div>
+		    </div>
+		</div>
+		<div id="report-modal" class="modal">
+		    <div class="modal-content">
+		        <!-- Close button in the upper-right corner -->
+		        <span class="close-button" onclick="closeReportModal()">&times;</span>
+		        
+		        <!-- Modal Title -->
+		        <h2 id="report-modal-title">Report Slot Issue</h2>
+		        
+		        <!-- Modal Message -->
+		        <p id="report-modal-message">Please report any issue with the slot.</p>
+		        
+		        <!-- Modal Action Buttons -->
+		        <div class="modal-actions">
+		            <button id="report-btn" class="report-button">Report</button>
 		        </div>
 		    </div>
 		</div>
@@ -341,131 +367,212 @@
 		    </div>
 		</div>
 		<script>
-		// Get references to the modal elements
-		const modal = document.getElementById('modal');
-		const closeButton = document.querySelector('.close-button');
-		const confirmButton = document.getElementById('confirm-btn');
-		const cancelButton = document.getElementById('cancel-btn');
-		const usernameInput = document.getElementById('username-input');
-		const modalMessage = document.getElementById('modal-message');
-
-		// Function to open the modal
-		function openModal(slotName) {
-		    console.log("Opening modal for slot:", slotName); // Debugging log
-		    modal.style.display = "block"; // Show the modal
-		    document.getElementById("modal-title").innerText = `TAP ID`;
-		    modalMessage.innerText = ``;
-
-		    // Handle confirm button click
-		    confirmButton.onclick = function() {
-		        const username = usernameInput.value.trim();
-		        if (username) {
-		            // Send the username and slot to the server via fetch
-		            toggleOccupied(slotName, username);
-		            modal.style.display = "none"; // Close the modal after submission
-		        } else {
-		            alert("Please enter a username.");
-		        }
-		    };
-
-		    // Handle cancel button click
-		    cancelButton.onclick = function() {
-		        modal.style.display = "none"; // Close modal if cancel is clicked
-		    };
-
-		    // Handle close button click (X)
-		    closeButton.onclick = function() {
-		        modal.style.display = "none"; // Close modal if X is clicked
-		    };
-
-		    // Close modal if user clicks outside the modal content
-		    window.onclick = function(event) {
-		        if (event.target === modal) {
-		            modal.style.display = "none"; // Close modal if clicked outside
-		        }
-		    };
-		}
-
-		// Function to handle unauthorized access error
-		function showErrorModal(message) {
-		    // Set the error message
-		    document.getElementById("error-message").innerText = message;
-
-		    // Show the error modal
-		    document.getElementById("error-modal").style.display = "block";
-		}
-
-		// Function to close the error modal
-		function closeErrorModal() {
-		    document.getElementById("error-modal").style.display = "none";
-		}
-
-		function toggleOccupied(slotName, username) {
-		    // Get the current date and time
-		    // Get the current date and time in the local timezone
-			const currentDate = new Date();
+			// Get references to the modal elements
+			const modal = document.getElementById('modal');
+			const closeButton = document.querySelector('.close-button');
+			const confirmButton = document.getElementById('confirm-btn');
+			const cancelButton = document.getElementById('cancel-btn');
+			const usernameInput = document.getElementById('username-input');
+			const modalMessage = document.getElementById('modal-message');
+			const reportModal = document.getElementById('report-modal');
+			const reportMessage = document.getElementById('report-modal-message');
+			const reportButton = document.getElementById('report-btn');
 			
-			// Get the hours, minutes, and seconds in local time (24-hour format)
-			let hours = currentDate.getHours();  // Get hours (0-23)
-			let minutes = currentDate.getMinutes();  // Get minutes (0-59)
-			let seconds = currentDate.getSeconds();  // Get seconds (0-59)
+			// Assume `currentUser` is set with actual values from the server-side template
+			var currentUser = {
+			    role: '[[${user.role}]]',  // Replace with actual role from server
+			    username: '[[${user.username}]]'  // Replace with actual username from server
+			};
 			
-			// Pad minutes and seconds with leading zeros if necessary
-			hours = hours < 10 ? '0' + hours : hours;
-			minutes = minutes < 10 ? '0' + minutes : minutes;
-			seconds = seconds < 10 ? '0' + seconds : seconds;
+			// Function to open the modal
+			function openModal(slotName) {
+			    if (currentUser.role === 'user') {
+			        openReportModal(slotName); // Open the report modal if the user is a "user"
+			    } else {
+			        openBookingModal(slotName); // Open the booking modal for other roles
+			    }
+			}
 			
-			// Format the time in HH:mm:ss format
-			const timeIn = `${hours}:${minutes}:${seconds}`;
+			function openReportModal(slotName) {
+			    console.log("Opening report modal for slot:", slotName);
+			    reportModal.style.display = "block"; // Show the modal
+			    reportButton.style.display = "none"; // Hide the report button
+			    // Check if the current user is authorized to report the issue
+			    fetch(`/getSlotDetails/${slotName}`)
+			        .then(response => response.json())
+			        .then(data => {
+			            if (data.success) {
+			            	if(data.slot.reported){
+			                	reportButton.style.display = "block";
+			                	document.getElementById("report-modal-title").innerText = `Reported!`;
+			                	reportMessage.innerText = "You've already reported this slot!";
+			                	reportButton.style.display = "none"; // Hide the report button
+							}
+			            	else if (data.slot.user === currentUser.username) {
+			                	document.getElementById("report-modal-title").innerText = `Report Slot Issues`;
+			                    reportMessage.innerText = `Report slot ${slotName}?`;
+			                    reportButton.style.display = "block";
 			
-			// Get the local date in YYYY-MM-DD format
-			const date = currentDate.toLocaleDateString('en-CA');  // en-CA is YYYY-MM-DD format
+			                    // Handle report button click to set 'reported' to 1
+			                    reportButton.onclick = function() {
+			                        console.log("Reporting slot", slotName);
 			
-			console.log("TimeIn: ", timeIn);  // Example: "10:30:00"
-			console.log("Date: ", date);     // Example: "2024-11-28"
-
-
-		    fetch(`/updateSlotStatus/${slotName}`, {
-		        method: "POST",
-		        headers: {
-		            "Content-Type": "application/json"
-		        },
-		        body: JSON.stringify({
-		            username: username,
-		            slot: slotName,
-		            timeIn: timeIn,  // Include timeIn
-		            date: date       // Include date
-		        })  // Sending username, slot, timeIn, and date
-		    })
-		    .then(response => {
-		        if (response.status === 403) {
-		            showErrorModal("User is not authorized to open this slot.");
-		            return;
-		        }
-
-		        if (response.status === 409) {
-		            showErrorModal("User is already parked in a slot.");
-		            return;
-		        }
-
-		        return response.json();
-		    })
-		    .then(data => {
-		        if (data) {
-		            document.getElementById('availableCount').innerText = data;
-
-		            let button = document.getElementById(slotName);
-		            if (button.classList.contains('map-button-red')) {
-		                button.classList.remove('map-button-red');
-		                button.classList.add('map-button-green');
-		            } else {
-		                button.classList.remove('map-button-green');
-		                button.classList.add('map-button-red');
-		            }
-		        }
-		    })
-		    .catch(error => console.error('Error:', error));
-		}
-</script>
+			                        // Make a request to the backend to set the reported status to true
+			                        fetch(`/setReportedStatus/${slotName}`, {
+			                            method: 'POST',
+			                            headers: {
+			                                'Content-Type': 'application/json'
+			                            },
+			                            body: JSON.stringify({ reported: true })
+			                        })
+			                        .then(response => response.text()) // Change to text(), not json()
+			                        .then(data => {
+			                            if (data) {
+			                                document.getElementById("report-modal-title").innerText = `Report Successful`;
+			                                reportMessage.innerText = ``;
+			                                reportButton.style.display = "none"; // Hide the report button
+			                            } else {
+			                                alert("Failed to report slot.");
+			                            }
+			
+			                        })
+			                        .catch(error => {
+			                            console.error('Error:', error);
+			                            alert('An error occurred while reporting the slot.');
+			                        });
+			                    };
+			                } 
+			               	else {
+			                   // If the current user is not the one occupying the slot, display an error
+			                   document.getElementById("report-modal-title").innerText = `Not Authorized!`;
+			                   reportMessage.innerText = "You are not authorized to report this slot.";
+			                   reportButton.style.display = "none"; // Hide the report button
+			                }
+			            } else {
+			                alert("Failed to fetch slot details.");
+			            }
+			        })
+			        .catch(error => console.error('Error:', error));
+			
+			    // Handle cancel button click
+			    cancelButton.onclick = function() {
+			        reportModal.style.display = "none"; // Close modal if cancel is clicked
+			    };
+			
+			    // Handle close button click (X)
+			    closeButton.onclick = function() {
+			        reportModal.style.display = "none"; // Close modal if X is clicked
+			    };
+			
+			    // Close modal if user clicks outside the modal content
+			    window.onclick = function(event) {
+			        if (event.target === reportModal) {
+			            reportModal.style.display = "none"; // Close modal if clicked outside
+			        }
+			    };
+			}
+			
+			// Function to open the booking modal for non-users
+			function openBookingModal(slotName) {
+			    console.log("Opening booking modal for slot:", slotName);
+			    modal.style.display = "block"; // Show the modal
+			    document.getElementById("modal-title").innerText = `TAP ID`;
+			    modalMessage.innerText = ``;
+			
+			    // Handle confirm button click
+			    confirmButton.onclick = function() {
+			        const username = usernameInput.value.trim();
+			        if (username) {
+			            // Send the username and slot to the server via fetch
+			            toggleOccupied(slotName, username);
+			            modal.style.display = "none"; // Close the modal after submission
+			        } else {
+			            alert("Please enter a username.");
+			        }
+			    };
+			
+			    // Handle cancel button click
+			    cancelButton.onclick = function() {
+			        modal.style.display = "none"; // Close modal if cancel is clicked
+			    };
+			
+			    // Handle close button click (X)
+			    closeButton.onclick = function() {
+			        modal.style.display = "none"; // Close modal if X is clicked
+			    };
+			
+			    // Close modal if user clicks outside the modal content
+			    window.onclick = function(event) {
+			        if (event.target === modal) {
+			            modal.style.display = "none"; // Close modal if clicked outside
+			        }
+			    };
+			}
+			
+			// Function to toggle the parking slot as occupied
+			function toggleOccupied(slotName, username) {
+			    // Get the current date and time
+			    const currentDate = new Date();
+			    const timeIn = currentDate.toLocaleTimeString();
+			    const date = currentDate.toLocaleDateString('en-CA');
+			
+			    // Send the booking data to the server
+			    fetch(`/updateSlotStatus/${slotName}`, {
+			        method: "POST",
+			        headers: {
+			            "Content-Type": "application/json"
+			        },
+			        body: JSON.stringify({
+			            username: username,
+			            slot: slotName,
+			            timeIn: timeIn, // Include timeIn
+			            date: date // Include date
+			        })
+			    })
+			    .then(response => {
+			        if (response.status === 403) {
+			            showErrorModal("User is not authorized to open this slot.");
+			            return;
+			        }
+			
+			        if (response.status === 409) {
+			            showErrorModal("User is already parked in a slot.");
+			            return;
+			        }
+			
+			        return response.json();
+			    })
+			    .then(data => {
+			        if (data) {
+			            document.getElementById('availableCount').innerText = data;
+			
+			            let button = document.getElementById(slotName);
+			            if (button.classList.contains('map-button-red')) {
+			                button.classList.remove('map-button-red');
+			                button.classList.add('map-button-green');
+			            } else {
+			                button.classList.remove('map-button-green');
+			                button.classList.add('map-button-red');
+			            }
+			        }
+			    })
+			    .catch(error => console.error('Error:', error));
+			}
+			
+			// Function to handle unauthorized access error
+			function showErrorModal(message) {
+			    document.getElementById("error-message").innerText = message;
+			    document.getElementById("error-modal").style.display = "block";
+			}
+			
+			// Function to close the error modal
+			function closeErrorModal() {
+			    document.getElementById("error-modal").style.display = "none";
+			}
+			//Function to close the error modal
+			function closeReportModal() {
+			    document.getElementById("report-modal").style.display = "none";
+			}
+		</script>
 </body>
 </html>

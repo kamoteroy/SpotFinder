@@ -190,6 +190,7 @@
 	            <a th:if="${user.getRole() == 'user'}" href="/about">ABOUT US </a>
 	            <a th:if="${user.getRole() == 'user'}" href="/contact">CONTACT US</a>
 				<a th:if="${user.getRole() == 'admin'}" href="/history">HISTORY</a>
+				<a th:if="${user.getRole() == 'admin'}" href="/reports">REPORTS</a>
 				<a th:if="${user.getRole() == 'admin'}" href="/message">MESSAGES</a>
 				<a th:if="${user.getRole() == 'admin'}"href="/profile">PROFILE</a>
 				<a th:if="${user.getRole() == 'admin'}"href="/signout">SIGNOUT</a>
@@ -289,7 +290,6 @@
 	// Thymeleaf variables injected dynamically from the server
 	var PoccupiedCount = [[${PoccupiedCount}]];  // Thymeleaf will replace this with actual value
 	var PtotalSlots = [[${PSlots.size()}]];   // Thymeleaf will replace this with actual value
-	
 	// Dynamically calculate the stroke-dasharray for the donut chart
 	var PoccupiedDash = PoccupiedCount * 10;  // For example, 50
 	var PavailableDash = (PtotalSlots - PoccupiedCount) * 10;  // For example, 50

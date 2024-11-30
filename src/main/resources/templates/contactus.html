@@ -119,8 +119,7 @@
 			width: 100%;
 			font-size: 1rem;
 			padding: 15px;
-		    width: 100%;              /* Full width */
-		    height: 150px;            /* Fixed height for the textarea */
+		    height: 140px;            /* Fixed height for the textarea */
 		    border: none;             /* No border */
 		    outline: none;            /* No outline */
 		    font-size: 1rem;          /* Font size */
@@ -170,6 +169,14 @@
 		    padding: 5px; /* Add padding to make sure icons fit inside */
 		    color:white;
 		}
+		.success {
+			position:absolute;
+			top:81%;
+			left:59%;
+		}
+		button{
+			margin-top:15px;
+		}
 		</style>
 	</head>
 	<body>
@@ -184,6 +191,8 @@
 		            <a th:if="${user == null || user.getRole() == 'user'}" href="/about">ABOUT US </a>
 		            <a th:if="${user == null || user.getRole() == 'user'}" href="/contact">CONTACT US</a>
 					<a th:if="${user != null && user.getRole() == 'admin'}" href="/history">HISTORY</a>
+					<a th:if="${user != null && user.getRole() == 'admin'}" href="/reports">REPORTS</a>
+					<a th:if="${user != null && user.getRole() == 'admin'}" href="/message">MESSAGES</a>
 					<a th:if="${user != null && user.getRole() == 'admin'}" href="/profile" class="profile-button">PROFILE</a>
 					<a th:if="${user != null && user.getRole() == 'admin'}"href="/signout" class="signout-button">SIGNOUT</a>
 					<a th:if="${user == null}" href="/signin">SIGNIN</a>
@@ -267,6 +276,7 @@
 								required
 							></textarea>
 						</div>
+						<div class="success" th:if="${message}" th:text="${message}"></div>
 						<button id="submit" type="submit">Submit</button>
 			        </form>
 			    </div>

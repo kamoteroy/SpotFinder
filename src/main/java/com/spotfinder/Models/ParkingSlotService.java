@@ -24,4 +24,20 @@ public class ParkingSlotService {
         slot.setOccupy(!slot.isOccupy()); // toggle the occupy status
         parkingSlotRepository.save(slot); // save the updated slot
     }
+
+	public Optional<ParkingSlot> findBySlotName(String slotName) {
+		return parkingSlotRepository.findBySlotName(slotName);
+	}
+	
+	public boolean setReportedStatus(String slotName, boolean reported) {
+        Optional<ParkingSlot> slotOpt = parkingSlotRepository.findBySlotName(slotName);
+
+        if (slotOpt.isPresent()) {
+            ParkingSlot slot = slotOpt.get();
+            slot.setReported(reported); // Set the reported status
+            parkingSlotRepository.save(slot); // Save the updated slot
+            return true;
+        }
+        return false;
+    }
 }
