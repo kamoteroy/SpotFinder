@@ -35,8 +35,47 @@
 			height: 100%;
 			display: flex;
 		}
+		.containers {
+			width:100%;
+			height: 66%;
+		}
 		.containers .history{
 			color:white;
+			display: flex;
+		    justify-content: space-between;
+		    border-bottom: 1px solid #ddd;
+		    padding: 18px;
+		    width:98%;
+		}
+		.leftDetails, .rightDetails {
+		    display: flex;
+		    flex-direction: column;
+		    margin: 10px;
+		}
+		
+		.leftDetails {
+		    
+		    width: 40%;
+		}
+		
+		.rightDetails {
+		    width: 60%;
+		    
+		}
+		
+		.history-container{
+			height: 500px;
+			width: 600px;
+			background-color: transparent;
+			border: 2px solid rgba(255, 255, 255, 0.5);
+			border-radius: 20px;
+			backdrop-filter: blur(55px);
+			padding: 2rem 3rem;
+			transition: all 0.5s ease-in-out;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+			align-content: center;
 		}
 		</style>
 	</head>
@@ -67,40 +106,70 @@
 			</div>
 		</div>
 		<section>
-			<form class="sign" th:action="@{/searchHistory}" th:object="${details}" method="post">
+			<div class="history-container">
 				<h1>History</h1>
-				<div class="dialog-row">
-					<label
-						th:if="${param.error}"
-						th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}"
-						class="text-center redText"
-					></label>
-				</div>
 				<div class="inputbox">
 					<ion-icon name="search-outline"></ion-icon>
 					<input
-						name="username"
-						id="username"
+						name="search"
+						id="search"
 						type="text"
-						pattern="\d{2}-\d{4}-\d{3}"
-						th:field="*{username}"
+						oninput="filterHistories()"
 						required
 					/>
-					<label for="">Sticker ID:</label>
+					<label for="">Search Anything from History</label>
 				</div>
 				<div class="containers">
-					<div class="history">
-						<div>User: 18-2391-289<span style="padding-left: 30%;">Slot: 1B</span></div>
-						<div>TimeIn: 12:56<span style="padding-left: 30%;">TimeOut: 12:56</span></div>
-						<div>Date: 69-69-6969<span style="padding-left: 55px;">Duration: </span></div>
-					</div>
-					<div class="history">
-						<div>Date: 69-69-6969</div>
-						<div>Location: </div>
-						<div>Duration: </div>
-					</div>
+					<div th:each="history : ${histories}" class="history">
+						<div class="leftDetails">
+							<div>User: <span th:text="${history.user}"></span></div>
+			                <div>TimeIn: <span th:text="${history.timeIn}"></span></div>
+			                <div>Date: <span th:text="${history.date}"></span></div>
+						</div>
+		            	<div class="rightDetails">
+			            	<div>Slot: <span th:text="${history.slot}"></span></div>
+			            	<div>TimeOut: <span th:text="${history.timeOut}"></span></div>
+			            	<div>Duration: <span th:text="${history.duration}"></span></div>
+		            	</div>
+		            </div>
 				</div>
-			</form>
+			</div>
 		</section>
+	<script>
+	    function filterHistories() {
+	        // Get the search input value and convert it to lowercase for case-insensitive comparison
+	        const searchValue = document.getElementById("search").value.toLowerCase();
+	
+	        // Get all the history divs
+	        const historyItems = document.querySelectorAll(".history");
+	
+	        // Loop through each history item
+	        historyItems.forEach(function(item) {
+	            // Get the text content of the fields in the history item
+	            const user = item.querySelector(".leftDetails div:nth-child(1)").textContent.toLowerCase();
+	            const timeIn = item.querySelector(".leftDetails div:nth-child(2)").textContent.toLowerCase();
+	            const date = item.querySelector(".leftDetails div:nth-child(3)").textContent.toLowerCase();
+	            const slot = item.querySelector(".rightDetails div:nth-child(1)").textContent.toLowerCase();
+	            const timeOut = item.querySelector(".rightDetails div:nth-child(2)").textContent.toLowerCase();
+	            const duration = item.querySelector(".rightDetails div:nth-child(3)").textContent.toLowerCase();
+	
+	            // Check if the search value matches any of the fields
+	            if (
+	                user.includes(searchValue) ||
+	                timeIn.includes(searchValue) ||
+	                date.includes(searchValue) ||
+	                slot.includes(searchValue) ||
+	                timeOut.includes(searchValue) ||
+	                duration.includes(searchValue)
+	            ) {
+	                item.style.display = "flex"; // Show the item if any field matches
+	            } else {
+	                item.style.display = "none"; // Hide the item if no fields match
+	            }
+	        });
+	    }
+	</script>
+
+	
 	</body>
 </html>

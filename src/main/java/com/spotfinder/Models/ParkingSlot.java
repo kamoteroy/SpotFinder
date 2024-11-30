@@ -12,6 +12,7 @@ public class ParkingSlot {
     private String user;
     private String timeIn;
     private String date;
+    private boolean reported;
 
     public ParkingSlot() {}
     
@@ -27,15 +28,18 @@ public class ParkingSlot {
 		this.user = user;
 	}
 
-	public ParkingSlot(String slotName, boolean occupy, String user, String timeIn, String date) {
+	public ParkingSlot(String slotName, boolean occupy, String user, String timeIn, String date, boolean reported) {
 		super();
 		this.slotName = slotName;
 		this.occupy = occupy;
 		this.user = user;
 		this.timeIn = timeIn;
 		this.date = date;
+		this.reported = reported;
 	}
 
+	public boolean isReported() { return reported; }
+	public void setReported(boolean reported) { this.reported = reported; }
 	public String getSlotName() { return slotName; }
     public void setSlotName(String slotName) { this.slotName = slotName; }
     public boolean isOccupy() { return occupy; }

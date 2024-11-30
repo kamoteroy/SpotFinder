@@ -1,6 +1,7 @@
 package com.spotfinder.Controllers;
 
 import java.security.Principal;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,6 +15,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spotfinder.Models.CustomUserDetails;
 import com.spotfinder.Models.CustomUserDetailsService;
+import com.spotfinder.Models.History;
+import com.spotfinder.Models.HistoryRepository;
 import com.spotfinder.Models.ParkingSlot;
 import com.spotfinder.Models.ParkingSlotRepository;
 import com.spotfinder.Models.User;
@@ -34,12 +37,35 @@ public class UserController {
     public UserController(UserService userService) {
         this.userService = userService;
     }
-	
+
+	@Autowired
+    private HistoryRepository historyRepository; // Assuming you have a repository to fetch data from the database
+
 	@GetMapping("/history")
-	public String history(Model model, UserDto userDto, HttpSession session) {
-		model.addAttribute("user", session.getAttribute("user"));
-		model.addAttribute("details", userDto);
-		return "history";
+	public String showHistory(Model model, UserDto userDto, HttpSession session) {
+	    // Get the current logged-in user from the session
+	    CustomUserDetails currentUser = (CustomUserDetails) session.getAttribute("user");
+	    
+	    // Fetch all history records from the database
+	    List<History> histories;
+	    
+	    // Check if the user has role 'user'
+	    if (currentUser != null && "user".equals(currentUser.getRole())) {
+	        // Fetch only the histories for the logged-in user
+	        histories = historyRepository.findByUser(currentUser.getUsername()); // You need to create this method in the repository
+	    } else {
+	        // If the user is not 'user' or if the user has admin role, fetch all histories
+	        histories = historyRepository.findAll();
+	    }
+
+	    // Sort histories in descending order by ID
+	    histories.sort(Comparator.comparingLong(History::getId).reversed());
+	    
+	    // Add the history data to the model
+	    model.addAttribute("histories", histories);
+	    model.addAttribute("user", currentUser);
+	    
+	    return "history";  // Return the Thymeleaf template (history.html)
 	}
 	
 	@GetMapping("/map")
