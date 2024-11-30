@@ -17,4 +17,4 @@ public class Motorcycle {
 	public void setId(Long id) { this.id = id; }
 	public String getUser() { return user; }
 	public void setUser(String user) { this.user = user; }
-    }
+}

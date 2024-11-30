@@ -17,6 +17,8 @@ import com.spotfinder.Models.CustomUserDetails;
 import com.spotfinder.Models.CustomUserDetailsService;
 import com.spotfinder.Models.History;
 import com.spotfinder.Models.HistoryRepository;
+import com.spotfinder.Models.MotorRepository;
+import com.spotfinder.Models.Motorcycle;
 import com.spotfinder.Models.ParkingSlot;
 import com.spotfinder.Models.ParkingSlotRepository;
 import com.spotfinder.Models.User;
@@ -33,6 +35,8 @@ public class UserController {
 	private final UserService userService;
 	@Autowired
     private ParkingSlotRepository parkingSlotRepository;
+	@Autowired
+    private MotorRepository motorRepository;
 
     public UserController(UserService userService) {
         this.userService = userService;
@@ -72,6 +76,8 @@ public class UserController {
 	public String parking(Model model, Principal principal, HttpSession session) {
 		CustomUserDetails user = userDetailsService.loadUserByUsername(principal.getName());
 		List<ParkingSlot> parkingSlots = parkingSlotRepository.findAll();
+		List<Motorcycle> motorSlots = motorRepository.findAll();
+        model.addAttribute("motoroccupiedCount", motorSlots.size());
 
         // Filter and sort parking slots that start with 'P' (case-insensitive)
         List<ParkingSlot> PSortedSlots = parkingSlots.stream()

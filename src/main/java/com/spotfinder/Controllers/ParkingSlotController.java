@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.spotfinder.Models.History;
 import com.spotfinder.Models.HistoryRepository;
+import com.spotfinder.Models.MotorRepository;
+import com.spotfinder.Models.Motorcycle;
 import com.spotfinder.Models.ParkingSlot;
 import com.spotfinder.Models.ParkingSlotRepository;
 import com.spotfinder.Models.ParkingSlotService;
@@ -35,6 +37,8 @@ public class ParkingSlotController {
     private ParkingSlotRepository parkingSlotRepository;
     @Autowired
     private HistoryRepository historyRepository;
+    @Autowired
+    private MotorRepository motorRepository;
    
     private void slotoccupied(Model model) {
         List<ParkingSlot> parkingSlots = parkingSlotRepository.findAll();
@@ -42,6 +46,8 @@ public class ParkingSlotController {
         long occupiedCount = parkingSlots.stream()
             .filter(ParkingSlot::isOccupy)  // Filters parking slots where 'occupy' is true
             .count();  // Counts the number of elements after filtering
+        List<Motorcycle> motorSlots = motorRepository.findAll();
+        model.addAttribute("motoroccupiedCount", motorSlots.size());
         model.addAttribute("occupiedCount", occupiedCount);
         model.addAttribute("parkingSlots", parkingSlots);
     }
