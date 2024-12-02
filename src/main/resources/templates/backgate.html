@@ -255,6 +255,42 @@
 	    cursor: pointer;
 	    align-self:center;
 	}
+	.add-button {
+	    background-color: transparent; /* Green color */
+	    color: white;
+	    border: none;
+	    border-radius: 5px;
+	    cursor: pointer;
+	    font-size: 16px;
+	    text-align: center;
+	    display: inline-flex; /* Use flexbox for centering */
+	    justify-content: center; /* Horizontally center the icon */
+	    align-items: center; /* Vertically center the icon */
+	    margin-top: 10px;
+	    width: auto; /* Adjust button width to fit the icon */
+	}
+	
+	/* Icon styles */
+	.add-button i {
+	    font-size: 20px; /* Adjust the size of the icon */
+	    line-height: 1; /* Ensure the icon's height is properly aligned */
+	}
+	
+	/* Add button hover effect */
+	.add-button:hover {
+	    background-color: rgba(255, 255, 255, 0.5);
+	}
+	
+	/* Make it responsive */
+	@media (max-width: 600px) {
+	    .add-button {
+	        width: 100%;
+	        font-size: 14px;
+	    }
+	}
+	.hidden {
+	    display: none;
+	}
 	</style>
 </head>
 	<body>
@@ -294,11 +330,14 @@
 		            </div>
 	    		</div>
 	    		<div class="motor-counter">
-	    			<h1>Motorcycle Count :</h1>
-	    			<div class="counter-box">
-	    				<p id="availableCount"><span th:text="${motoroccupiedCount}"></span></p>
-	    			</div>
-	    		</div>
+				    <h1>Motorcycle Count :</h1>
+				    <div class="counter-box">
+				        <p id="motor-availableCount"><span th:text="${motoroccupiedCount}"></span></p>
+				    </div>
+				    <button th:classappend="${user.getRole() == 'admin' ? '' : 'hidden'}" id="add-motorcycle" class="add-button">
+					    <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+					</button>
+				</div>
 	    	</div>
 	    	<div class="map">
 	    		<img src='../design/parklandscape.png' alt="Image Description">
@@ -376,9 +415,20 @@
 		        <button onclick="closeErrorModal()">Close</button>
 		    </div>
 		</div>
+		<div id="motorcycle-modal" class="modal">
+		    <div class="modal-content">
+		        <span class="close-button" onclick="closeMotorcycleModal()">&times;</span>
+		        <h2>TAP ID:</h2>
+		        <input type="text" id="motorcycle-id-input" placeholder="Enter ID number" />
+		        <div class="modal-actions">
+		            <button id="add-motorcycle-btn" class="button">Add Motorcycle</button>
+		            <button id="cancel-motorcycle-btn">Cancel</button>
+		        </div>
+		    </div>
+		</div>
 		<script>
-			// Get references to the modal elements
 			const modal = document.getElementById('modal');
+			const modalTitle = document.getElementById('modal-title');
 			const closeButton = document.querySelector('.close-button');
 			const confirmButton = document.getElementById('confirm-btn');
 			const cancelButton = document.getElementById('cancel-btn');
@@ -387,7 +437,88 @@
 			const reportModal = document.getElementById('report-modal');
 			const reportMessage = document.getElementById('report-modal-message');
 			const reportButton = document.getElementById('report-btn');
+			const motorcycleModal = document.getElementById('motorcycle-modal');
+			const addMotorcycleButton = document.getElementById('add-motorcycle');
+			const closeMotorcycleButton = document.querySelector('.close-button');
+			const cancelMotorcycleButton = document.getElementById('cancel-motorcycle-btn');
+			const addMotorcycleBtn = document.getElementById('add-motorcycle-btn');
+			const motorcycleIdInput = document.getElementById('motorcycle-id-input');
+
+			addMotorcycleButton.onclick = function() {
+			    motorcycleModal.style.display = "block";
+			    cancelMotorcycleButton.style.display = "none";
+			};
+
+			addMotorcycleBtn.onclick = function() {
+			    const id = motorcycleIdInput.value.trim();
+			    if (id) {
+			        fetch(`/addOrRemoveMotorcycle`, {
+			            method: 'POST',
+			            headers: {
+			                'Content-Type': 'application/json'
+			            },
+			            body: JSON.stringify({ userId: id })
+			        })
+			        .then(response => response.json())
+			        .then(data => {
+			            if (data.success) {
+			                //alert(data.message);
+			                motorcycleModal.style.display = "none";
+			                modal.style.display = "block";
+			                modalMessage.style.display = data.message;
+			                document.getElementById('motor-availableCount').innerText = data.updatedMotorCount;
+			    			confirmButton.style.display = "none";
+			    			cancelButton.style.display = "none";
+			    			usernameInput.style.display = "none";
+			    			modalMessage.style.display = "none";
+			    			modalTitle.innerText = data.message;
+			            } else {
+			                alert(data.message);
+			            }
+			        })
+			        .catch(error => {
+			            console.error('Error:', error);
+			            alert('An error occurred while adding/removing the motorcycle.');
+			        });
+			    } else {
+			        alert("Please enter a valid ID.");
+			    }
+			 
+			 // Handle cancel button click
+			    cancelButton.onclick = function() {
+			        modal.style.display = "none"; // Close modal if cancel is clicked
+			    };
 			
+			    // Handle close button click (X)
+			    closeButton.onclick = function() {
+			        modal.style.display = "none"; // Close modal if X is clicked
+			    };
+			
+			    // Close modal if user clicks outside the modal content
+			    window.onclick = function(event) {
+			        if (event.target === modal) {
+			            modal.style.display = "none"; // Close modal if clicked outside
+			        }
+			    };
+			};
+
+			// Handle cancel button click
+			cancelMotorcycleButton.onclick = function() {
+			    motorcycleModal.style.display = "none"; // Close the modal if cancel is clicked
+			};
+
+			// Handle close button click (X)
+			closeMotorcycleButton.onclick = function() {
+			    motorcycleModal.style.display = "none"; // Close modal if X is clicked
+			};
+
+			// Close modal if the user clicks outside the modal content
+			window.onclick = function(event) {
+			    if (event.target === motorcycleModal) {
+			        motorcycleModal.style.display = "none";
+			    }
+			};
+
 			// Assume `currentUser` is set with actual values from the server-side template
 			var currentUser = {
 			    role: '[[${user.role}]]',  // Replace with actual role from server
@@ -490,6 +621,10 @@
 			    modal.style.display = "block"; // Show the modal
 			    document.getElementById("modal-title").innerText = `TAP ID`;
 			    modalMessage.innerText = ``;
+			    confirmButton.style.display = "block";
+    			cancelButton.style.display = "block";
+    			usernameInput.style.display = "block";
+    			modalMessage.style.display = "block";
 			
 			    // Handle confirm button click
 			    confirmButton.onclick = function() {

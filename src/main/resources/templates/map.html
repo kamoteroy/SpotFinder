@@ -14,7 +14,7 @@
 		margin: 0;
 		padding: 0;
 		box-sizing: border-box;
-		font-family: "Poppins";
+		font-family: "Poppins", sans-serif;
 	}
 	body {
 		background-image: url('../design/bg.jpg');
@@ -30,14 +30,73 @@
     	font-size:20px;
     }
     .view {
-    	width:100vw;
+    	left: 5vw;
+    	width:95vw;
 	    top: 15vh; /* Start from 15vh */
 	    height: 85vh; /* The height of the view container */
 	    display: flex;
 	    flex-direction: row; /* Arrange items vertically */
+	    box-sizing: border-box;
 	    position: relative;
+	}
+	.widgets {
+	    flex: 0 0 30%;
+	    display: flex;         /* To center its content */
 	    justify-content: center;
-	  	align-items: center; /* Centers content inside the map */
+	    align-items: center;
+	    flex-direction: column; /* Arrange items vertically */
+	    gap: 40px;
+	    padding: 40px;
+	}
+	.slot-counter {
+		height: 300px;
+		width: 300px;
+		background-color: transparent;
+		border: 2px solid rgba(255, 255, 255, 0.5);
+		border-radius: 20px;
+		backdrop-filter: blur(55px);
+		padding: 2rem 3rem;
+		transition: all 0.5s ease-in-out;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-around;
+		align-content: center;
+	}
+	h1 {
+		text-align: center; 
+	}
+	.motor-counter {
+		height: 300px;
+		width: 300px;
+		background-color: transparent;
+		border: 2px solid rgba(255, 255, 255, 0.5);
+		border-radius: 20px;
+		backdrop-filter: blur(55px);
+		padding: 2rem 3rem;
+		transition: all 0.5s ease-in-out;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-around;
+		align-content: center;
+		align-items: center;      /* Centers content vertically */
+	}
+	.counter-box { 
+		height: 100px;
+		width: 210px;
+		background-color: rgba(255, 255, 255, 1);
+		border: 2px solid rgba(255, 255, 255, 08.);
+		border-radius: 20px;
+		backdrop-filter: blur(55px);
+		transition: all 1 ease-in-out;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		overflow: hidden;
+		overflow-y: hidden;
+		overflow-y: auto;
+		padding: 5px;
+		font-size:55px;
+		font-weight: bold;
 	}
     .map {
 	  width: 1000px;
@@ -93,68 +152,6 @@
 	  	top: 55%; /* Adjust the position as needed */
 	  	left: 44%; /* Adjust the position as needed */
 	}
-	.widgets {
-	    flex: 0 0 30%;
-	    display: flex;         /* To center its content */
-	    justify-content: center;
-	    align-items: center;
-	    gap: 20px;
-	    flex-direction: column; /* Arrange items vertically */
-	    margin-left:70px;
-	}
-	.slot-counter {
-		height: 300px;
-		width: 300px;
-		background-color: transparent;
-		border: 2px solid rgba(255, 255, 255, 0.5);
-		border-radius: 20px;
-		backdrop-filter: blur(55px);
-		padding: 2rem 3rem;
-		transition: all 0.5s ease-in-out;
-		display: flex;
-		flex-direction: column;
-		justify-content: space-around;
-		align-content: center;
-	}
-	h1 {
-		text-align: center; 
-	}
-	.motor-counter {
-		height: 300px;
-		width: 300px;
-		background-color: transparent;
-		border: 2px solid rgba(255, 255, 255, 0.5);
-		border-radius: 20px;
-		backdrop-filter: blur(55px);
-		padding: 2rem 3rem;
-		transition: all 0.5s ease-in-out;
-		display: flex;
-		flex-direction: column;
-		justify-content: space-around;
-		align-content: center;
-		align-items: center;      /* Centers content vertically */
-	}
-	.counter-box { 
-		height: 100px;
-		width: 210px;
-		background-color: rgba(255, 255, 255, 1);
-		border: 2px solid rgba(255, 255, 255, 08.);
-		border-radius: 20px;
-		backdrop-filter: blur(55px);
-		transition: all 1 ease-in-out;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		overflow: hidden;
-		overflow-y: hidden;
-		overflow-y: auto;
-		padding: 5px;
-		font-size:55px;
-		font-weight: bold;
-	}
-	.counter-box p{
-		font-size:50px;
-	}
 	.navbar .leftSide {
 		margin-left:0px;
 		flex: 40%;
@@ -168,13 +165,110 @@
 		height: 100%;
 		display: flex;
 	}
-	.dropdown-button{
-		margin-left:-25px;
+	/* Modal styles */
+	.modal {
+	    display: none; /* Hidden by default */
+	    position: fixed; /* Fixed position */
+	    z-index: 100; /* Sit on top */
+	    left: 0;
+	    top: 0;
+	    width: 100%; /* Full width */
+	    height: 100%; /* Full height */
+	    background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
 	}
-	#user-image {
-	  width: 100%;
-	  height: 100%;
-	  object-fit: cover;  /* This will ensure the image covers the full area */
+	
+	.modal-content {
+	    background-color: white;
+	    margin: 15% auto;
+	    padding: 20px;
+	    border-radius: 8px;
+	    width: 300px;
+	    text-align: center;
+	}
+	
+	.close-button {
+	    color: #aaa;
+	    font-size: 28px;
+	    font-weight: bold;
+	    position: absolute;
+	    top: 5px;
+	    right: 10px;
+	}
+	
+	.close-button:hover,
+	.close-button:focus {
+	    color: black;
+	    text-decoration: none;
+	    cursor: pointer;
+	}
+	
+	.modal-actions {
+	    display: flex;
+	    justify-content: space-around;
+	    margin-top: 20px;
+	}
+	
+	button {
+	    padding: 10px 20px;
+	    border: none;
+	    background-color: #4CAF50;
+	    color: white;
+	    cursor: pointer;
+	    border-radius: 5px;
+	}
+	
+	input[type="text"] {
+	    padding: 8px;
+	    margin: 10px 0;
+	    border: 1px solid #ccc;
+	    border-radius: 4px;
+	    width: 100%;
+	}
+	/* Ensure that the close button is visible */
+	.report-button {
+	    background-color: #f44336; /* red */
+	    color: white;
+	    padding: 10px 15px;
+	    border-radius: 5px;
+	    text-align: center;
+	    cursor: pointer;
+	    align-self:center;
+	}
+	.add-button {
+	    background-color: transparent; /* Green color */
+	    color: white;
+	    border: none;
+	    border-radius: 5px;
+	    cursor: pointer;
+	    font-size: 16px;
+	    text-align: center;
+	    display: inline-flex; /* Use flexbox for centering */
+	    justify-content: center; /* Horizontally center the icon */
+	    align-items: center; /* Vertically center the icon */
+	    margin-top: 10px;
+	    width: auto; /* Adjust button width to fit the icon */
+	}
+	
+	/* Icon styles */
+	.add-button i {
+	    font-size: 20px; /* Adjust the size of the icon */
+	    line-height: 1; /* Ensure the icon's height is properly aligned */
+	}
+	
+	/* Add button hover effect */
+	.add-button:hover {
+	    background-color: rgba(255, 255, 255, 0.5);
+	}
+	
+	/* Make it responsive */
+	@media (max-width: 600px) {
+	    .add-button {
+	        width: 100%;
+	        font-size: 14px;
+	    }
+	}
+	.hidden {
+	    display: none;
 	}
 	</style>
 </head>
@@ -215,11 +309,14 @@
 	    			</div>
 	    		</div>
 	    		<div class="motor-counter">
-	    			<h1>Motorcycle Count :</h1>
-	    			<div class="counter-box">
-	    				<p id="availableCount"><span th:text="${motoroccupiedCount}"></span></p>
-	    			</div>
-	    		</div>
+				    <h1>Motorcycle Count :</h1>
+				    <div class="counter-box">
+				        <p id="motor-availableCount"><span th:text="${motoroccupiedCount}"></span></p>
+				    </div>
+				    <button th:classappend="${user.getRole() == 'admin' ? '' : 'hidden'}" id="add-motorcycle" class="add-button">
+					    <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+					</button>
+				</div>
 	    	</div>
 	    	<div class="map">
 	    		<img src='../design/map.png' alt="Image Description">
@@ -285,6 +382,29 @@
 				</div>
 			</div>
 		</div>
+		<div id="modal" class="modal">
+		    <div class="modal-content">
+		        <span class="close-button">&times;</span>
+		        <h2 id="modal-title">Parking Slot Details</h2>
+		        <p id="modal-message">TAD</p>
+		        <input type="text" id="username-input" placeholder="ID number" />
+		        <div class="modal-actions">
+		            <button id="confirm-btn">Confirm</button>
+		            <button id="cancel-btn">Cancel</button>
+		        </div>
+		    </div>
+		</div>
+		<div id="motorcycle-modal" class="modal">
+		    <div class="modal-content">
+		        <span class="close-button" onclick="closeMotorcycleModal()">&times;</span>
+		        <h2>TAP ID:</h2>
+		        <input type="text" id="motorcycle-id-input" placeholder="Enter ID number" />
+		        <div class="modal-actions">
+		            <button id="add-motorcycle-btn" class="button">Add Motorcycle</button>
+		            <button id="cancel-motorcycle-btn">Cancel</button>
+		        </div>
+		    </div>
+		</div>
 </body>
 <script>
 	// Thymeleaf variables injected dynamically from the server
@@ -333,5 +453,94 @@
 	// Update the donut chart with the calculated stroke-dasharray values
 	var donutSegment = document.getElementById("backgate");
 	donutSegment.setAttribute("stroke-dasharray", BoccupiedDash + " " + BavailableDash);
+	
+	const modal = document.getElementById('modal');
+	const modalTitle = document.getElementById('modal-title');
+	const closeButton = document.querySelector('.close-button');
+	const confirmButton = document.getElementById('confirm-btn');
+	const cancelButton = document.getElementById('cancel-btn');
+	const usernameInput = document.getElementById('username-input');
+	const modalMessage = document.getElementById('modal-message');
+	const motorcycleModal = document.getElementById('motorcycle-modal');
+	const addMotorcycleButton = document.getElementById('add-motorcycle');
+	const closeMotorcycleButton = document.querySelector('.close-button');
+	const cancelMotorcycleButton = document.getElementById('cancel-motorcycle-btn');
+	const addMotorcycleBtn = document.getElementById('add-motorcycle-btn');
+	const motorcycleIdInput = document.getElementById('motorcycle-id-input');
+
+	addMotorcycleButton.onclick = function() {
+	    motorcycleModal.style.display = "block";
+	    cancelMotorcycleButton.style.display = "none";
+	};
+
+	addMotorcycleBtn.onclick = function() {
+	    const id = motorcycleIdInput.value.trim();
+	    if (id) {
+	        fetch(`/addOrRemoveMotorcycle`, {
+	            method: 'POST',
+	            headers: {
+	                'Content-Type': 'application/json'
+	            },
+	            body: JSON.stringify({ userId: id })
+	        })
+	        .then(response => response.json())
+	        .then(data => {
+	            if (data.success) {
+	                //alert(data.message);
+	                motorcycleModal.style.display = "none";
+	                modal.style.display = "block";
+	                modalMessage.style.display = data.message;
+	                document.getElementById('motor-availableCount').innerText = data.updatedMotorCount;
+	    			confirmButton.style.display = "none";
+	    			cancelButton.style.display = "none";
+	    			usernameInput.style.display = "none";
+	    			modalMessage.style.display = "none";
+	    			modalTitle.innerText = data.message;
+	            } else {
+	                alert(data.message);
+	            }
+	        })
+	        .catch(error => {
+	            console.error('Error:', error);
+	            alert('An error occurred while adding/removing the motorcycle.');
+	        });
+	    } else {
+	        alert("Please enter a valid ID.");
+	    }
+	 
+	 // Handle cancel button click
+	    cancelButton.onclick = function() {
+	        modal.style.display = "none"; // Close modal if cancel is clicked
+	    };
+	
+	    // Handle close button click (X)
+	    closeButton.onclick = function() {
+	        modal.style.display = "none"; // Close modal if X is clicked
+	    };
+	
+	    // Close modal if user clicks outside the modal content
+	    window.onclick = function(event) {
+	        if (event.target === modal) {
+	            modal.style.display = "none"; // Close modal if clicked outside
+	        }
+	    };
+	};
+
+	// Handle cancel button click
+	cancelMotorcycleButton.onclick = function() {
+	    motorcycleModal.style.display = "none"; // Close the modal if cancel is clicked
+	};
+
+	// Handle close button click (X)
+	closeMotorcycleButton.onclick = function() {
+	    motorcycleModal.style.display = "none"; // Close modal if X is clicked
+	};
+
+	// Close modal if the user clicks outside the modal content
+	window.onclick = function(event) {
+	    if (event.target === motorcycleModal) {
+	        motorcycleModal.style.display = "none";
+	    }
+	};
 </script>
 </html>
