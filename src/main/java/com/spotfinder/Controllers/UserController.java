@@ -209,6 +209,11 @@ public class UserController {
         List<ContactUs> messages = contactRepository.findAll();
         CustomUserDetails currentUser = (CustomUserDetails) session.getAttribute("user");
 	    model.addAttribute("user", currentUser);
+	    
+	    if (currentUser == null || !currentUser.getRole().equals("admin")) {
+	        // If the user is not an admin, redirect to another page (e.g., profile, home, or show an error)
+	        return "redirect:/map"; // Or you can return an error page
+	    }
         System.out.println(messages);
         // Add the messages to the model to be accessed in the view
         model.addAttribute("messages", messages);

@@ -68,8 +68,9 @@ public class PublicController {
     }
     
     @PostMapping("/contact")
-    public String submitContactForm(@ModelAttribute ContactUs contact, Model model) {
-    	System.out.println("bobobobo");
+    public String submitContactForm(@ModelAttribute ContactUs contact, Model model, HttpSession session) {
+    	CustomUserDetails user = (CustomUserDetails) session.getAttribute("user");
+		model.addAttribute("user", user);
         // Save the contact details to the database
         contactUsRepository.save(contact);
         model.addAttribute("message", "Thank you for your message!");

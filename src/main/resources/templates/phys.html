@@ -436,6 +436,13 @@
 			addMotorcycleButton.onclick = function() {
 			    motorcycleModal.style.display = "block";
 			    cancelMotorcycleButton.style.display = "none";
+			    
+			 // Close modal if the user clicks outside the modal content
+				window.onclick = function(event) {
+				    if (event.target === motorcycleModal) {
+				        motorcycleModal.style.display = "none";
+				    }
+				};
 			};
 
 			addMotorcycleBtn.onclick = function() {
@@ -472,6 +479,7 @@
 			    } else {
 			        alert("Please enter a valid ID.");
 			    }
+			 
 			 // Handle cancel button click
 			    cancelButton.onclick = function() {
 			        modal.style.display = "none"; // Close modal if cancel is clicked
@@ -506,13 +514,13 @@
 			        motorcycleModal.style.display = "none";
 			    }
 			};
-			
+
 			// Assume `currentUser` is set with actual values from the server-side template
 			var currentUser = {
 			    role: '[[${user.role}]]',  // Replace with actual role from server
 			    username: '[[${user.username}]]'  // Replace with actual username from server
 			};
-			console.log(currentUser.role);
+			
 			// Function to open the modal
 			function openModal(slotName) {
 			    if (currentUser.role === 'user') {
@@ -609,6 +617,10 @@
 			    modal.style.display = "block"; // Show the modal
 			    document.getElementById("modal-title").innerText = `TAP ID`;
 			    modalMessage.innerText = ``;
+			    confirmButton.style.display = "block";
+    			cancelButton.style.display = "block";
+    			usernameInput.style.display = "block";
+    			modalMessage.style.display = "block";
 			
 			    // Handle confirm button click
 			    confirmButton.onclick = function() {
