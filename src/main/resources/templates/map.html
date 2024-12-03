@@ -270,6 +270,9 @@
 	.hidden {
 	    display: none;
 	}
+	.dropdown-button{
+		margin-left:-30px;
+	}
 	</style>
 </head>
 	<body>
@@ -285,7 +288,7 @@
 	            <a th:if="${user.getRole() == 'user'}" href="/contact">CONTACT US</a>
 				<a th:if="${user.getRole() == 'admin'}" href="/history">HISTORY</a>
 				<a th:if="${user.getRole() == 'admin'}" href="/reports">REPORTS</a>
-				<a th:if="${user.getRole() == 'admin'}" href="/message">MESSAGES</a>
+				<a th:if="${user.getRole() == 'admin'}" href="/messages">MESSAGES</a>
 				<a th:if="${user.getRole() == 'admin'}"href="/profile">PROFILE</a>
 				<a th:if="${user.getRole() == 'admin'}"href="/signout">SIGNOUT</a>
 	        </div>
@@ -472,6 +475,23 @@
 	    motorcycleModal.style.display = "block";
 	    cancelMotorcycleButton.style.display = "none";
 	};
+	
+	// Handle cancel button click
+	cancelMotorcycleButton.onclick = function() {
+	    motorcycleModal.style.display = "none"; // Close the modal if cancel is clicked
+	};
+
+	// Handle close button click (X)
+	closeMotorcycleButton.onclick = function() {
+	    motorcycleModal.style.display = "none"; // Close modal if X is clicked
+	};
+
+	// Close modal if the user clicks outside the modal content
+	window.onclick = function(event) {
+	    if (event.target === motorcycleModal) {
+	        motorcycleModal.style.display = "none";
+	    }
+	};
 
 	addMotorcycleBtn.onclick = function() {
 	    const id = motorcycleIdInput.value.trim();
@@ -526,21 +546,6 @@
 	    };
 	};
 
-	// Handle cancel button click
-	cancelMotorcycleButton.onclick = function() {
-	    motorcycleModal.style.display = "none"; // Close the modal if cancel is clicked
-	};
-
-	// Handle close button click (X)
-	closeMotorcycleButton.onclick = function() {
-	    motorcycleModal.style.display = "none"; // Close modal if X is clicked
-	};
-
-	// Close modal if the user clicks outside the modal content
-	window.onclick = function(event) {
-	    if (event.target === motorcycleModal) {
-	        motorcycleModal.style.display = "none";
-	    }
-	};
+	
 </script>
 </html>

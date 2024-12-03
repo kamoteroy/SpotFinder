@@ -197,6 +197,19 @@ public class UserController {
 	    return "redirect:/profile";
 	}
 	
+	@GetMapping("/messages")
+	public String messages(HttpSession session, Model model) {
+		CustomUserDetails user = (CustomUserDetails) session.getAttribute("user");
+	    if (user == null) {
+	        model.addAttribute("error", "User not found in session. Please log in.");
+	        return "signin";
+	    }
+
+	    // Add the user to the model to be used in the profile page
+	    model.addAttribute("user", session.getAttribute("user"));
+	    return "messages";
+	}
+	
 	@GetMapping("/signout")
     public String signout() {
         return "redirect:/signin?signout";

@@ -63,9 +63,9 @@
 		    
 		}
 		
-		.history-container{
+		.messages-container{
 			height: 500px;
-			width: 600px;
+			width: 800px;
 			background-color: transparent;
 			border: 2px solid rgba(255, 255, 255, 0.5);
 			border-radius: 20px;
@@ -87,14 +87,11 @@
 		        </div>
 		        <div class="rightSide">
 		        	<a href="/">MAP</a>
-		        	<a th:if="${user.getRole() == 'user'}" href="/socials">SOCIALS</a>
-		            <a th:if="${user.getRole() == 'user'}" href="/about">ABOUT US </a>
-		            <a th:if="${user.getRole() == 'user'}" href="/contact">CONTACT US</a>
-					<a th:if="${user.getRole() == 'admin'}" href="/history">HISTORY</a>
-					<a th:if="${user.getRole() == 'admin'}" href="/reports">REPORTS</a>
-					<a th:if="${user.getRole() == 'admin'}" href="/messages">MESSAGES</a>
-					<a th:if="${user.getRole() == 'admin'}"href="/profile">PROFILE</a>
-					<a th:if="${user.getRole() == 'admin'}"href="/signout">SIGNOUT</a>
+					<a href="/history">HISTORY</a>
+					<a href="/reports">REPORTS</a>
+					<a href="/messages">MESSAGES</a>
+					<a href="/profile">PROFILE</a>
+					<a href="/signout">SIGNOUT</a>
 		        </div>
 		</div>
 		<div th:if="${user.getRole() == 'user'}" class="dropdown">
@@ -107,8 +104,8 @@
 			</div>
 		</div>
 		<section>
-			<div class="history-container">
-				<h1>History</h1>
+			<div class="messages-container">
+				<h1>Messages</h1>
 				<div class="inputbox">
 					<ion-icon name="search-outline"></ion-icon>
 					<input
@@ -136,41 +133,5 @@
 				</div>
 			</div>
 		</section>
-	<script>
-	    function filterHistories() {
-	        // Get the search input value and convert it to lowercase for case-insensitive comparison
-	        const searchValue = document.getElementById("search").value.toLowerCase();
-	
-	        // Get all the history divs
-	        const historyItems = document.querySelectorAll(".history");
-	
-	        // Loop through each history item
-	        historyItems.forEach(function(item) {
-	            // Get the text content of the fields in the history item
-	            const user = item.querySelector(".leftDetails div:nth-child(1)").textContent.toLowerCase();
-	            const timeIn = item.querySelector(".leftDetails div:nth-child(2)").textContent.toLowerCase();
-	            const date = item.querySelector(".leftDetails div:nth-child(3)").textContent.toLowerCase();
-	            const slot = item.querySelector(".rightDetails div:nth-child(1)").textContent.toLowerCase();
-	            const timeOut = item.querySelector(".rightDetails div:nth-child(2)").textContent.toLowerCase();
-	            const duration = item.querySelector(".rightDetails div:nth-child(3)").textContent.toLowerCase();
-	
-	            // Check if the search value matches any of the fields
-	            if (
-	                user.includes(searchValue) ||
-	                timeIn.includes(searchValue) ||
-	                date.includes(searchValue) ||
-	                slot.includes(searchValue) ||
-	                timeOut.includes(searchValue) ||
-	                duration.includes(searchValue)
-	            ) {
-	                item.style.display = "flex"; // Show the item if any field matches
-	            } else {
-	                item.style.display = "none"; // Hide the item if no fields match
-	            }
-	        });
-	    }
-	</script>
-
-	
 	</body>
 </html>
