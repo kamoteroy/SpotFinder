@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.spotfinder.Models.ContactRepository;
+import com.spotfinder.Models.ContactUs;
 import com.spotfinder.Models.CustomUserDetails;
 import com.spotfinder.Models.CustomUserDetailsService;
 import com.spotfinder.Models.History;
@@ -37,6 +39,8 @@ public class UserController {
     private ParkingSlotRepository parkingSlotRepository;
 	@Autowired
     private MotorRepository motorRepository;
+	@Autowired
+    private ContactRepository contactRepository;
 
     public UserController(UserService userService) {
         this.userService = userService;
@@ -197,18 +201,21 @@ public class UserController {
 	    return "redirect:/profile";
 	}
 	
-	@GetMapping("/messages")
-	public String messages(HttpSession session, Model model) {
-		CustomUserDetails user = (CustomUserDetails) session.getAttribute("user");
-	    if (user == null) {
-	        model.addAttribute("error", "User not found in session. Please log in.");
-	        return "signin";
-	    }
 
-	    // Add the user to the model to be used in the profile page
-	    model.addAttribute("user", session.getAttribute("user"));
-	    return "messages";
-	}
+	// Mapping for the /messages URL to show the messages
+    @GetMapping("/messages")
+    public String showMessages(Model model, HttpSession session) {
+        // Fetch all messages from the database
+        List<ContactUs> messages = contactRepository.findAll();
+        CustomUserDetails currentUser = (CustomUserDetails) session.getAttribute("user");
+	    model.addAttribute("user", currentUser);
+        System.out.println(messages);
+        // Add the messages to the model to be accessed in the view
+        model.addAttribute("messages", messages);
+
+        // Return the view name (assuming Thymeleaf template 'messages.html')
+        return "messages"; // Ensure this matches the name of your template
+    }
 	
 	@GetMapping("/signout")
     public String signout() {

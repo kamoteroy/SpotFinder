@@ -38,28 +38,37 @@
 		.containers {
 			width:100%;
 			height: 66%;
+			gap:5px;
 		}
-		.containers .history{
+		.containers .messages{
 			color:white;
 			display: flex;
 		    justify-content: space-between;
 		    border-bottom: 1px solid #ddd;
 		    padding: 18px;
 		    width:98%;
+		    flex-direction:column;
+		    border: 2px solid rgba(255, 255, 255, 0.5);
+			border-radius: 20px;
+			backdrop-filter: blur(55px);
+			padding: 5px;
+			transition: all 0.5s ease-in-out;
+			margin:5px;
 		}
-		.leftDetails, .rightDetails {
+		.userDetails, .messageDetails {
 		    display: flex;
-		    flex-direction: column;
+		    flex-direction: row;
 		    margin: 10px;
+		    justify-content: space-between;
 		}
 		
-		.leftDetails {
+		.userDetails {
 		    
-		    width: 40%;
+		    height: 20%;
 		}
 		
 		.rightDetails {
-		    width: 60%;
+		    height: 80%;
 		    
 		}
 		
@@ -115,19 +124,20 @@
 						oninput="filterHistories()"
 						required
 					/>
-					<label for="">Search Anything from History</label>
+					<label for="">Search Anything from Messages</label>
 				</div>
 				<div class="containers">
-					<div th:each="history : ${histories}" class="history">
-						<div class="leftDetails">
-							<div>User: <span th:text="${history.user}"></span></div>
-			                <div>TimeIn: <span th:text="${history.timeIn}"></span></div>
-			                <div>Date: <span th:text="${history.date}"></span></div>
+					<div th:each="message : ${messages}" class="messages">
+						<div class="userDetails">
+							<div>Name: <span th:text="${message.name}"></span></div>
+			                <div>Email: <span th:text="${message.email}"></span></div>
+			                <div>Contact: <span th:text="${message.phone}"></span></div>
 						</div>
-		            	<div class="rightDetails">
-			            	<div>Slot: <span th:text="${history.slot}"></span></div>
-			            	<div>TimeOut: <span th:text="${history.timeOut}"></span></div>
-			            	<div>Duration: <span th:text="${history.duration}"></span></div>
+		            	<div class="messageDetails">
+			            	<div>Message: <span th:text="${message.message}"></span></div>
+		            	</div>
+		            	<div class="deleteMessage">
+			            	<i class="fa fa-trash-o" aria-hidden="true"></i>
 		            	</div>
 		            </div>
 				</div>
